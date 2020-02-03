@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:57:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/01/30 12:57:45 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:53:14 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	assembler(char **input)
 {
 	t_asm	info;
 
-	init_struct(&info, input);
+	init_asm(&info, input);
 	read_file(&info);
 	//parse_data(&info);
 }

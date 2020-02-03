@@ -6,13 +6,13 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:37:13 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/02 19:59:15 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:11:51 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	init_struct(t_asm *info, char **input)
+void	init_asm(t_asm *info, char **input)
 {
 	ft_bzero(info, sizeof(*info));
 	while (*++input)

@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminate.c                                        :+:      :+:    :+:   */
+/*   skip.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/22 21:54:00 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/03 17:51:03 by aromny-w         ###   ########.fr       */
+/*   Created: 2020/02/03 19:01:06 by aromny-w          #+#    #+#             */
+/*   Updated: 2020/02/03 19:02:31 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	terminate(int status, t_asm *info)
+void	skip_space(t_asm *info)
 {
-	destroy_asm(info);
-	if (status == -1)
-		ft_printf("Can't read source file %s\n", info->path);
-	if (status == 0)
-		ft_printf("Error\n");
-	exit(EXIT_FAILURE);
+	while (ft_isspace(info->line[info->index]))
+		info->index++;
 }

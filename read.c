@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 20:45:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/01/31 15:05:30 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:53:33 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	parse_line(t_asm *info)
 	ft_strlen(COMMENT_CMD_STRING)))
 		parse_comment(info);
 	else
-		parse_instruction(info);
+		parse_operation(info);
 }
 
 void		read_file(t_asm *info)
