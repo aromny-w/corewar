@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:49:05 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/03 13:55:31 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 14:22:42 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void	check_string_tail(t_asm *info)
 		info->index++;
 	if (info->line[info->index] && info->line[info->index] != COMMENT_CHAR &&
 	info->line[info->index] != ';')
-		terminate(0, info); //invalid instr 
+		terminate(0, info); //invalid instr
 	return ;
 }
 
 static int	check_next_line(t_asm *info)
-{	
+{
 	char	*buf;
 	int		ret;
 
@@ -39,8 +39,7 @@ static int	check_next_line(t_asm *info)
 	return (1);
 }
 
-
-static void set_name(t_asm *info)
+static void	set_name(t_asm *info)
 {
 	size_t	i;
 
