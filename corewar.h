@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/02 22:51:47 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:50:14 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 # include "libft.h"
 # include "op.h"
 
+typedef struct	s_cmd
+{
+	char			*label;
+	char			opcode;
+	char			type[MAX_ARGS_NUMBER];
+	void			*content;
+	char			size;
+}				t_oplst;
+
 typedef struct	s_asm
 {
 	char		*path;
@@ -27,8 +36,6 @@ typedef struct	s_asm
 	size_t		index;
 	size_t		lines;
 	t_header	header;
-	bool		name;
-	bool		comment;
 }				t_asm;
 
 void			assembler(char **input);

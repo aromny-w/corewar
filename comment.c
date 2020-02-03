@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/01/30 21:08:18 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:55:36 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	check_next_line(t_asm *info)
 		terminate(0, info); // read error
 	free(info->line);
 	info->line = buf;
+	info->lines++;
 	info->index = 0;
 	return (1);
 }
@@ -54,12 +55,12 @@ static void set_comment(t_asm *info)
 			info->header.comment[i++] = '\n';
 	}
 	check_string_tail(info);
-	ft_printf("%s\n", info->header.comment);
+	ft_printf("%s\n", info->header.comment); //debug
 }
 
 void		parse_comment(t_asm *info)
 {
-	if (info->comment++)
+	if (info->header.comment_mark++)
 		terminate(0, info);
 	info->index += ft_strlen(COMMENT_CMD_STRING);
 	while (ft_isspace(info->line[info->index]))

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/02 19:58:55 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/03 13:49:55 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ typedef struct		s_header
 {
 	unsigned int	magic;
 	char			prog_name[PROG_NAME_LENGTH + 1];
+	bool			name_mark;
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
+	bool			comment_mark;
 }					t_header;
 
 #endif
