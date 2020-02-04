@@ -6,13 +6,13 @@
 #    By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/03 19:02:56 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/04 15:14:46 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME1 = asm
 NAME2 = corewar
-LIBFT = libft.a
+LIB = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
@@ -32,11 +32,11 @@ all: $(NAME1) $(NAME2)
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC)
 
-$(NAME1): $(LIBFT) $(OBJS1)
+$(NAME1): $(LIB) $(OBJS1)
 	@$(CC) $(CFLAGS) $(OBJS1) -o $(NAME1) -L $(INC) -lft
-$(NAME2): $(LIBFT) $(OBJS2)
+$(NAME2): $(LIB) $(OBJS2)
 	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(INC) -lft -lmlx $(FWS)
-$(LIBFT):
+$(LIB):
 	@make -C libft
 
 clean:
