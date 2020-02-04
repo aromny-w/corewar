@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/22 16:57:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 16:51:32 by aromny-w         ###   ########.fr       */
+/*   Created: 2020/02/04 16:48:33 by aromny-w          #+#    #+#             */
+/*   Updated: 2020/02/04 18:39:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	assembler(char **input)
+void	print_status(t_asm *info)
 {
-	t_asm	info;
+	size_t	i;
 
-	init_struct(&info, input);
-	read_file(&info);
-	print_status(&info); // debug
-}
-
-int		main(int argc, char **argv)
-{
-	if (argc > 1)
-		assembler(argv);
-	else
-		ft_printf("Usage: ./asm [-a] <sourcefile.s>\n");
-	exit(EXIT_SUCCESS);
+	i = -1;
+	ft_printf("%s\n", info->header.prog_name);
+	ft_printf("%s\n", info->header.comment);
+	while (++i < info->count)
+		ft_printf("%s %d\n", info->ops[i].label, info->ops[i].opcode);
 }

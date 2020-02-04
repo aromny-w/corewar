@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:49:05 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 15:10:00 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:50:38 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ static void	check_string_tail(t_asm *info)
 
 static int	check_next_line(t_asm *info)
 {
-	char	*buf;
 	int		ret;
+	char	*buf;
 
 	if (!(ret = get_next_line(info->fd, &buf)))
 		terminate(0, info);  // end (null)
 	if (ret == -1)
-		terminate(0, info); // read error
+		terminate(-1, info); // read error
 	free(info->line);
 	info->line = buf;
 	info->index = 0;
@@ -54,7 +54,6 @@ static void	set_name(t_asm *info)
 	}
 	info->index++;
 	check_string_tail(info);
-	ft_printf("%s\n", info->header.prog_name); //debug
 }
 
 void		parse_name(t_asm *info)
