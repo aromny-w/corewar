@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/03 19:03:14 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:11:46 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#ifndef ASM_H
+# define ASM_H
 
 # include <fcntl.h>
 # include <stdio.h>
@@ -42,14 +42,14 @@ typedef struct	s_asm
 }				t_asm;
 
 void			assembler(char **input);
-void			init_asm(t_asm *info, char **input);
+void			init_struct(t_asm *info, char **input);
+void			destroy_struct(t_asm *info);
 void			read_file(t_asm *info);
 void			parse_name(t_asm *info);
 void			parse_comment(t_asm *info);
 void			parse_operation(t_asm *info);
 void			skip_space(t_asm *info);
 void			terminate(int status, t_asm *info);
-void			destroy_asm(t_asm *info);
 
 void			corewar(char *input);
 

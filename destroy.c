@@ -6,13 +6,13 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:07:56 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/03 16:11:23 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:12:41 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
-void	destroy_asm(t_asm *info)
+void	destroy_struct(t_asm *info)
 {
 	(void)info;
 }

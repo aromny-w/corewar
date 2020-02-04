@@ -6,11 +6,11 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 21:06:12 by aromny-w          #+#    #+#             */
-/*   Updated: 2019/12/22 21:12:08 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:09:47 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 void	corewar(char *input)
 {

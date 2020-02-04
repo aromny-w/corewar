@@ -6,11 +6,11 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:52:14 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/03 19:31:01 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:10:08 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 static void	parse_arguments(t_asm *info)
 {

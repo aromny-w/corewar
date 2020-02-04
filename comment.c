@@ -6,11 +6,11 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/03 19:08:31 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:09:39 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 static void	check_string_tail(t_asm *info)
 {
