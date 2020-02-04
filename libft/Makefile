@@ -6,7 +6,7 @@
 #    By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/02 02:41:38 by aromny-w          #+#    #+#              #
-#    Updated: 2019/12/16 18:41:26 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/04 14:39:30 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,16 +33,16 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_putnstr_fd.c ft_putnwcstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 	   ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c \
 	   ft_lstmap.c ft_lstrev.c ft_lstsize.c
+SRCS += $(addprefix get_next_line/, $(GNL))
+SRCS += $(addprefix ft_printf/, $(PRINTF))
 
 GNL = get_next_line.c
-SRCS += $(addprefix get_next_line/, $(GNL))
 
 PRINTF = ft_printf.c pf_initstruct.c pf_set_flags.c pf_set_width.c \
 		 pf_set_prec.c pf_set_mod.c pf_set_spec.c pf_form_unknown.c \
 		 pf_form_percent.c pf_form_integer.c pf_form_unsigned.c \
 		 pf_form_octal.c pf_form_hexa.c pf_form_float.c pf_form_character.c \
 		 pf_form_string.c pf_form_pointer.c pf_form_wcharacter.c
-SRCS += $(addprefix ft_printf/, $(PRINTF))
 
 OBJS = $(SRCS:.c=.o)
 
