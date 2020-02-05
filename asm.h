@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 19:44:14 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:15:47 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ typedef struct	s_cmd
 	char	*label;
 	char	opcode;
 	char	type[MAX_ARGS_NUMBER];
-	char	value[MAX_ARGS_NUMBER];
-	char	*marks[MAX_ARGS_NUMBER];
+	char	*value[MAX_ARGS_NUMBER];
 	char	size;
 }				t_cmd;
 

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:44:22 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 18:27:31 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:15:46 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void		parse_label(t_asm *info)
 {
 	size_t	i;
 
-	if (!(info->ops = realloc(info->ops, sizeof(t_cmd) * ++info->count)))
+	if (!(info->ops = realloc(info->ops, sizeof(t_cmd) * ++info->n)))
 		terminate(0, info); //memory error;
-	ft_bzero(&info->ops[info->count - 1], sizeof(t_cmd));
+	ft_bzero(&info->ops[info->n - 1], sizeof(t_cmd));
 	if (!(i = is_label(info)))
 		return ;
-	info->ops[info->count - 1].label = ft_strndup(&info->line[info->index], i);
+	info->ops[info->n - 1].label = ft_strndup(&info->line[info->index], i);
 	info->index += i + 1;
 	skip_space(info);
 	while (!info->line[info->index])
