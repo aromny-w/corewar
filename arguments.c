@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:18:55 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/05 20:05:37 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/05 22:23:25 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	parse_inderect(t_asm *info, size_t i)
 		while (ft_isdigit(info->line[info->index + j]))
 			j++;
 	else if (info->line[info->index + j++] == LABEL_CHAR)
-		while (ft_strchr(LABEL_CHARS, info->line[info->index + j]))
+		while (info->line[info->index + j] &&
+		ft_strchr(LABEL_CHARS, info->line[info->index + j]))
 			j++;
 	else
 		terminate(0, info); // syntax error
@@ -47,7 +48,8 @@ static void	parse_direct(t_asm *info, size_t i)
 		while (ft_isdigit(info->line[info->index + j]))
 			j++;
 	else if (info->line[info->index + j++] == LABEL_CHAR)
-		while (ft_strchr(LABEL_CHARS, info->line[info->index + j]))
+		while (info->line[info->index + j] &&
+		ft_strchr(LABEL_CHARS, info->line[info->index + j]))
 			j++;
 	else
 		terminate(0, info); // syntax error
@@ -78,7 +80,7 @@ static void	parse_register(t_asm *info, size_t i)
 
 void		parse_arguments(t_asm *info)
 {
-	char	i;
+	int	i;
 
 	i = -1;
 	while (++i < g_op_tab[info->ops[info->n - 1].opcode - 1].args)
@@ -100,4 +102,7 @@ void		parse_arguments(t_asm *info)
 			terminate(0, info); // invalid instr
 		skip_space(info);
 	}
+	if (!(!info->line[info->index] || info->line[info->index] != COMMENT_CHAR ||
+	info->line[info->index] == ';'))
+		terminate(0, info); // invalid instr
 }

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:52:14 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/05 19:26:21 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/05 22:16:21 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ void		parse_operation(t_asm *info)
 		return ;
 	parse_instruction(info);
 	parse_arguments(info);
+	set_size(info);
 }
