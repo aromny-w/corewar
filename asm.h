@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/05 16:15:47 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/05 19:25:46 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void			read_file(t_asm *info);
 void			parse_name(t_asm *info);
 void			parse_comment(t_asm *info);
 void			parse_operation(t_asm *info);
-void			parse_label(t_asm *info);
 void			parse_arguments(t_asm *info);
 void			skip_space(t_asm *info);
 void			terminate(int status, t_asm *info);
