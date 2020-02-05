@@ -6,7 +6,7 @@
 #    By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/04 16:51:43 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/05 17:14:24 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 FWS = -framework OpenGL -framework AppKit
 
 SRCS1 = asm.c op.c init.c destroy.c read.c name.c comment.c operation.c \
-		label.c skip.c terminate.c print.c
+		label.c arguments.c skip.c terminate.c print.c
 SRCS2 = corewar.c
 
 OBJS1 = $(SRCS1:.c=.o)
