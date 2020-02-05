@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:18:55 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/05 17:27:31 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/05 18:42:50 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,17 @@ static void	parse_inderect(t_asm *info, size_t i)
 
 	info->ops[info->n - 1].type[i] = T_IND;
 	j = 0;
-	while (ft_isdigit(info->line[info->index + j]))
+	if (info->line[info->index + j] == '-' ||
+		info->line[info->index + j] == '+')
 		j++;
+	if (ft_isdigit(info->line[info->index + j]))
+		while (ft_isdigit(info->line[info->index + j]))
+			j++;
+	else if (info->line[info->index + j++] == LABEL_CHAR)
+		while (ft_strchr(LABEL_CHARS, info->line[info->index + j]))
+			j++;
+	else
+		terminate(0, info); // syntax error
 	info->ops[info->n - 1].value[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
@@ -31,7 +40,8 @@ static void	parse_direct(t_asm *info, size_t i)
 
 	info->ops[info->n - 1].type[i] = T_DIR;
 	j = 1;
-	if (info->line[info->index + j] == '-')
+	if (info->line[info->index + j] == '-' ||
+		info->line[info->index + j] == '+')
 		j++;
 	if (ft_isdigit(info->line[info->index + j]))
 		while (ft_isdigit(info->line[info->index + j]))
@@ -78,7 +88,9 @@ void		parse_arguments(t_asm *info)
 			parse_register(info, i);
 		else if (info->line[info->index] == DIRECT_CHAR)
 			parse_direct(info, i);
-		else if (ft_isdigit(info->line[info->index]))
+		else if (ft_isdigit(info->line[info->index]) ||
+		info->line[info->index] == '-' || info->line[info->index] == '+' ||
+		info->line[info->index] == LABEL_CHAR)
 			parse_inderect(info, i);
 		else
 			terminate(0, info); // invalid instr
