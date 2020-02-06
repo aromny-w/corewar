@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 16:50:43 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:50:21 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_string_tail(t_asm *info)
 {
 	skip_space(info);
 	if (info->line[info->index] && info->line[info->index] != COMMENT_CHAR &&
-	info->line[info->index] != ';')
+	info->line[info->index] != COMMENT_CHAR_2)
 		terminate(0, info); //invalid instr
 	return ;
 }
@@ -63,7 +63,7 @@ void		parse_comment(t_asm *info)
 	info->index += ft_strlen(COMMENT_CMD_STRING);
 	skip_space(info);
 	if (!info->line[info->index] || info->line[info->index] == COMMENT_CHAR ||
-	info->line[info->index] == ';')
+	info->line[info->index] == COMMENT_CHAR_2)
 		terminate(0, info); // ENDLINE
 	if (info->line[info->index] != '"')
 		terminate(0, info); // invalid instr
