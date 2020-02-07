@@ -6,11 +6,29 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 20:45:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/06 16:48:19 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/07 13:17:14 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static void	reverse_commands(t_asm *info)
+{
+	t_cmd	*prev;
+	t_cmd	*curr;
+	t_cmd	*next;
+
+	prev = NULL;
+	curr = info->op;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	info->op = prev;;
+}
 
 static void	parse_line(t_asm *info)
 {
@@ -30,13 +48,18 @@ static void	parse_line(t_asm *info)
 
 void		read_file(t_asm *info)
 {
+	int	ret;
+
 	if (read(info->fd, 0, 0) == -1)
 		terminate(-1, info);
-	while (get_next_line(info->fd, &info->line) == 1)
+	while ((ret = get_next_line(info->fd, &info->line)) == 1)
 	{
 		info->index = 0;
 		info->lines++;
 		parse_line(info);
 		free(info->line);
 	}
+	if (ret == -1)
+		terminate(0, info); // memmory erorr
+	reverse_commands(info);
 }

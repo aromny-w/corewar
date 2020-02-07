@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:18:55 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/06 17:48:21 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/07 15:39:31 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	parse_inderect(t_asm *info, size_t i)
 {
 	size_t	j;
 
-	info->ops[info->n - 1].type[i] = T_IND;
+	info->op->type[i] = T_IND;
 	j = 0;
 	if (info->line[info->index + j] == '-' ||
 		info->line[info->index + j] == '+')
@@ -30,7 +30,7 @@ static void	parse_inderect(t_asm *info, size_t i)
 			j++;
 	else
 		terminate(0, info); // syntax error
-	info->ops[info->n - 1].value[i] = ft_strndup(&info->line[info->index], j);
+	info->op->value[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
 }
@@ -39,7 +39,7 @@ static void	parse_direct(t_asm *info, size_t i)
 {
 	size_t	j;
 
-	info->ops[info->n - 1].type[i] = T_DIR;
+	info->op->type[i] = T_DIR;
 	j = 1;
 	if (info->line[info->index + j] == '-' ||
 		info->line[info->index + j] == '+')
@@ -53,27 +53,26 @@ static void	parse_direct(t_asm *info, size_t i)
 			j++;
 	else
 		terminate(0, info); // syntax error
-	info->ops[info->n - 1].value[i] = ft_strndup(&info->line[info->index], j);
+	info->op->value[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
 }
 
 static void	parse_register(t_asm *info, size_t i)
 {
-	char	reg;
+	int		reg;
 	size_t	j;
 
-	info->ops[info->n - 1].type[i] = T_REG;
+	info->op->type[i] = T_REG;
 	j = 1;
 	if (!ft_isdigit(info->line[info->index + j]))
 		terminate(0, info); // invalid instr
 	reg = 0;
-	while (ft_isdigit(info->line[info->index + j]) &&
-	(reg >= 0 && reg <= REG_NUMBER))
+	while (ft_isdigit(info->line[info->index + j]) && reg <= REG_NUMBER)
 		reg = 10 * reg + info->line[info->index + j++] - '0';
 	if (!(reg >= 1 && reg <= REG_NUMBER))
 		terminate(0, info); // invalid instr
-	info->ops[info->n - 1].value[i] = ft_strndup(&info->line[info->index], j);
+	info->op->value[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
 }
@@ -83,7 +82,7 @@ void		parse_arguments(t_asm *info)
 	int	i;
 
 	i = -1;
-	while (++i < g_op_tab[info->ops[info->n - 1].opcode - 1].args)
+	while (++i < g_op_tab[info->op->opcode - 1].args)
 	{
 		if (!info->line[info->index])
 			terminate(0, info); // endline
@@ -97,7 +96,7 @@ void		parse_arguments(t_asm *info)
 			parse_inderect(info, i);
 		else
 			terminate(0, info); // invalid instr
-		if (i + 1 < g_op_tab[info->ops[info->n - 1].opcode - 1].args &&
+		if (i + 1 < g_op_tab[info->op->opcode - 1].args &&
 		info->line[info->index++] != SEPARATOR_CHAR)
 			terminate(0, info); // invalid instr
 		skip_space(info);
