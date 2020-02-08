@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 21:59:30 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/07 14:49:46 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/08 19:58:48 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	set_size(t_asm *info)
 		else if (info->op->type[i] == T_IND)
 			info->op->size += 2;
 	}
+	info->header.prog_size += info->op->size;
 }

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/07 14:51:51 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/08 21:42:46 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,21 @@
 # include "libft.h"
 # include "op.h"
 
+typedef union	u_byte
+{
+	int				nbr;
+	unsigned char	byte[8];
+}				t_byte;
+
 typedef struct	s_cmd
 {
 	char			*label;
 	int				opcode;
 	int				type[MAX_ARGS_NUMBER];
 	char			*value[MAX_ARGS_NUMBER];
-	char			size;
+	int				pos;
+	int				size;
+	unsigned char	*code;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -50,6 +58,7 @@ void			parse_operation(t_asm *info);
 void			parse_opcode(t_asm *info);
 void			parse_arguments(t_asm *info);
 void			set_size(t_asm *info);
+void			write_file(t_asm *info);
 void			skip_space(t_asm *info);
 void			terminate(int status, t_asm *info);
 void			print_status(t_asm *info); // debug
