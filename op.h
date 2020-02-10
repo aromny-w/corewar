@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/08 19:33:22 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/09 22:38:31 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ typedef char	t_arg_type;
 
 typedef struct		s_op
 {
-	char	*name;
-	int		args;
-	int		type[MAX_ARGS_NUMBER];
-	int		opcode;
-	int		cycle;
-	bool	carry;
-	bool	dir_size;
+	char			*op;
+	char			args;
+	char			type[MAX_ARGS_NUMBER];
+	unsigned char	opcode;
+	short			cycle;
+	bool			carry;
+	bool			dir_size;
 }					t_op;
 
 extern t_op	g_op_tab[];

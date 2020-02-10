@@ -6,13 +6,13 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:52:14 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/07 14:31:48 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:29:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	check_next_line(t_asm *info)
+static int		check_next_line(t_asm *info)
 {
 	int		ret;
 	char	*buf;
@@ -29,7 +29,7 @@ static int	check_next_line(t_asm *info)
 	return (1);
 }
 
-static int	is_label(t_asm *info)
+static int		is_label(t_asm *info)
 {
 	size_t	i;
 
@@ -41,7 +41,7 @@ static int	is_label(t_asm *info)
 	return (i);
 }
 
-static int	check_label(t_asm *info)
+static int		check_label(t_asm *info)
 {
 	size_t	i;
 
@@ -69,7 +69,7 @@ static t_cmd	*add_new_operation(t_asm *info)
 	return (new);
 }
 
-void		parse_operation(t_asm *info)
+void			parse_operation(t_asm *info)
 {
 	if (!(info->op = add_new_operation(info)))
 		terminate(0, info); // memory error

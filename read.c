@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 20:45:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/08 21:21:30 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:29:35 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	reverse_commands(t_asm *info)
 		prev = curr;
 		curr = next;
 	}
-	info->op = prev;;
+	info->op = prev;
 }
 
 static void	parse_line(t_asm *info)

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:48:33 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/08 19:59:47 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/09 22:43:47 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	print_status(t_asm *info)
 	{
 		ft_printf("%3d: [%-11s] %-4s [%-21s] [%-21s] [%-21s] [%-21s]\n", ++i,
 		info->op->label ? info->op->label : "",
-		info->op->opcode ? g_op_tab[info->op->opcode - 1].name : "",
-		info->op->value[0] ? info->op->value[0] : "",
-		info->op->value[1] ? info->op->value[1] : "",
-		info->op->value[2] ? info->op->value[2] : "",
-		info->op->value[3] ? info->op->value[3] : "");
+		info->op->opcode ? g_op_tab[info->op->opcode - 1].op : "",
+		info->op->arg[0] ? info->op->arg[0] : "",
+		info->op->arg[1] ? info->op->arg[1] : "",
+		info->op->arg[2] ? info->op->arg[2] : "",
+		info->op->arg[3] ? info->op->arg[3] : "");
 		info->op = info->op->next;
 	}
 	ft_printf("%d\n", info->header.prog_size);

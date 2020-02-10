@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/08 21:42:46 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 13:33:37 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,20 @@
 typedef union	u_byte
 {
 	int				nbr;
-	unsigned char	byte[8];
+	unsigned char	byte[4];
 }				t_byte;
 
 typedef struct	s_cmd
 {
 	char			*label;
-	int				opcode;
-	int				type[MAX_ARGS_NUMBER];
-	char			*value[MAX_ARGS_NUMBER];
-	int				pos;
-	int				size;
-	unsigned char	*code;
+	char			*name;
+	unsigned char	opcode;
+	char			type[MAX_ARGS_NUMBER];
+	unsigned char	typecode;
+	char			*arg[MAX_ARGS_NUMBER];
+	unsigned char	*argcode[MAX_ARGS_NUMBER];
+	short			pos;
+	char			size;
 	struct s_cmd	*next;
 }				t_cmd;
 

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:18:55 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/07 15:39:31 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 13:57:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	parse_inderect(t_asm *info, size_t i)
 	size_t	j;
 
 	info->op->type[i] = T_IND;
+	info->op->typecode += IND_CODE << (8 - (i + 1) * 2);
 	j = 0;
 	if (info->line[info->index + j] == '-' ||
 		info->line[info->index + j] == '+')
@@ -30,7 +31,7 @@ static void	parse_inderect(t_asm *info, size_t i)
 			j++;
 	else
 		terminate(0, info); // syntax error
-	info->op->value[i] = ft_strndup(&info->line[info->index], j);
+	info->op->arg[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
 }
@@ -40,6 +41,7 @@ static void	parse_direct(t_asm *info, size_t i)
 	size_t	j;
 
 	info->op->type[i] = T_DIR;
+	info->op->typecode += DIR_CODE << (8 - (i + 1) * 2);
 	j = 1;
 	if (info->line[info->index + j] == '-' ||
 		info->line[info->index + j] == '+')
@@ -53,7 +55,7 @@ static void	parse_direct(t_asm *info, size_t i)
 			j++;
 	else
 		terminate(0, info); // syntax error
-	info->op->value[i] = ft_strndup(&info->line[info->index], j);
+	info->op->arg[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
 }
@@ -64,6 +66,7 @@ static void	parse_register(t_asm *info, size_t i)
 	size_t	j;
 
 	info->op->type[i] = T_REG;
+	info->op->typecode += REG_CODE << (8 - (i + 1) * 2);
 	j = 1;
 	if (!ft_isdigit(info->line[info->index + j]))
 		terminate(0, info); // invalid instr
@@ -72,7 +75,7 @@ static void	parse_register(t_asm *info, size_t i)
 		reg = 10 * reg + info->line[info->index + j++] - '0';
 	if (!(reg >= 1 && reg <= REG_NUMBER))
 		terminate(0, info); // invalid instr
-	info->op->value[i] = ft_strndup(&info->line[info->index], j);
+	info->op->arg[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);
 }
