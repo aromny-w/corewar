@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:18:55 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 13:57:57 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 14:47:28 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	parse_register(t_asm *info, size_t i)
 
 void		parse_arguments(t_asm *info)
 {
-	int	i;
+	char	i;
 
 	i = -1;
 	while (++i < g_op_tab[info->op->opcode - 1].args)
