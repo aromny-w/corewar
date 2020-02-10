@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:49:05 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/06 17:47:41 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:55:27 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	set_name(t_asm *info)
 
 void		parse_name(t_asm *info)
 {
-	if (info->header.name_mark++)
+	if (info->name_mark++)
 		terminate(0, info);
 	info->index += ft_strlen(NAME_CMD_STRING);
 	skip_space(info);

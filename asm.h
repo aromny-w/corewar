@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 17:37:13 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:57:17 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,30 @@ typedef struct	s_cmd
 	char			*name;
 	unsigned char	opcode;
 	unsigned char	opsize;
-	char			type[MAX_ARGS_NUMBER];
+	unsigned char	type[MAX_ARGS_NUMBER];
 	unsigned char	typecode;
 	char			*arg[MAX_ARGS_NUMBER];
 	unsigned char	*argcode[MAX_ARGS_NUMBER];
 	unsigned char	argsize[MAX_ARGS_NUMBER];
-	short			pos;
+	unsigned short	pos;
 	struct s_cmd	*next;
 }				t_cmd;
 
 typedef struct	s_asm
 {
-	char		*path;
-	bool		flag;
-	int			fd;
-	char		*line;
-	size_t		index;
-	size_t		lines;
-	t_header	header;
-	t_cmd		*op;
+	char			*path;
+	char			*filename;
+	bool			flag;
+	int				fd;
+	char			*line;
+	size_t			index;
+	size_t			lines;
+	t_header		header;
+	unsigned char	*magic;
+	unsigned char	*prog_size;
+	bool			name_mark;
+	bool			comment_mark;
+	t_cmd			*op;
 }				t_asm;
 
 void			assembler(char **input);

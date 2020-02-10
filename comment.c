@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/06 17:50:21 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:55:21 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	set_comment(t_asm *info)
 
 void		parse_comment(t_asm *info)
 {
-	if (info->header.comment_mark++)
+	if (info->comment_mark++)
 		terminate(0, info);
 	info->index += ft_strlen(COMMENT_CMD_STRING);
 	skip_space(info);

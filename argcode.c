@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:41:03 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 21:54:54 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:52:32 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static unsigned char	*get_label_value(t_asm *info, t_cmd *op, size_t n)
 		terminate(0, info); // memory error;
 	value.nbr = get_label_pos(info, op->arg[n]) - op->pos;
 	i = 0;
-	j = 4;
+	j = sizeof(value.nbr);
 	while (i < op[n].argsize[n])
-		code[i++] = value.byte[j--];
+		code[i++] = value.byte[--j];
 	return (code);
 }
 
@@ -63,9 +63,9 @@ static unsigned char	*get_nbr_value(t_asm *info, char *str, char size)
 		terminate(0, info); // memory error
 	value.nbr = ft_atoi(str);
 	i = 0;
-	j = 4;
+	j = sizeof(value.nbr);
 	while (i < size)
-		code[i++] = value.byte[j--];
+		code[i++] = value.byte[--j];
 	return (code);
 }
 
