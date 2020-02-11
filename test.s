@@ -1,7 +1,9 @@
 .name "Test"
 .comment "This is a test"
 
-test:	sti r1, %:live, %1
+shhhhhhhhhhesh:
+test:	aff r1	
+		#sti r1, %:live, %1
 		#sti r1, %:live, %1
 		#ld %-19, r1
 		#live %9223372036854775808
@@ -11,3 +13,4 @@ test:	sti r1, %:live, %1
 		#zjmp %:test
 
 live:	live %0
+

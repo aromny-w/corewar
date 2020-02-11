@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:57:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 17:18:48 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:34:42 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	assembler(char **input)
 	read_file(&info);
 	if (!info.flag)
 		write_file(&info);
-	//else
-	//	write_stdout(&info);
+	else
+		print_stdout(&info);
 	//print_status(&info); // debug
 }
 
