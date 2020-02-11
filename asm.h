@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 23:57:17 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/11 14:21:36 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ typedef struct	s_asm
 	size_t			index;
 	size_t			lines;
 	t_header		header;
-	unsigned char	*magic;
-	unsigned char	*prog_size;
 	bool			name_mark;
 	bool			comment_mark;
 	t_cmd			*op;

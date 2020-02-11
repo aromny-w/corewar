@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:57:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 23:26:47 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:18:48 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	assembler(char **input)
 
 	init_struct(&info, input);
 	read_file(&info);
-	write_file(&info);
+	if (!info.flag)
+		write_file(&info);
+	//else
+	//	write_stdout(&info);
 	//print_status(&info); // debug
 }
 

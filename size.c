@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 21:59:30 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 17:32:06 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:18:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,4 @@ void	set_size(t_asm *info)
 			info->op->opsize += (info->op->argsize[i] = 2);
 	}
 	info->header.prog_size += info->op->opsize;
-	if (info->op->next)
-		info->op->pos = info->op->next->pos + info->op->next->opsize;
 }

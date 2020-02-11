@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:18:55 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 14:47:28 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:08:40 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ static void	parse_register(t_asm *info, size_t i)
 	if (!ft_isdigit(info->line[info->index + j]))
 		terminate(0, info); // invalid instr
 	reg = 0;
-	while (ft_isdigit(info->line[info->index + j]) && reg <= REG_NUMBER)
+	while (ft_isdigit(info->line[info->index + j])) //&& reg <= REG_NUMBER)
 		reg = 10 * reg + info->line[info->index + j++] - '0';
-	if (!(reg >= 1 && reg <= REG_NUMBER))
-		terminate(0, info); // invalid instr
+	//if (!(reg >= 1 && reg <= REG_NUMBER))
+	//	terminate(0, info); // invalid instr
 	info->op->arg[i] = ft_strndup(&info->line[info->index], j);
 	info->index += j;
 	skip_space(info);

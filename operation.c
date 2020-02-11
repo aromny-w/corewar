@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:52:14 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 14:29:57 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:04:38 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ static int		check_label(t_asm *info)
 	info->op->label = ft_strndup(&info->line[info->index], i);
 	info->index += i + 1;
 	skip_space(info);
-	while (!info->line[info->index])
+	while (!info->line[info->index] ||
+	info->line[info->index] == COMMENT_CHAR ||
+	info->line[info->index] == COMMENT_CHAR_2)
 		if (!check_next_line(info))
 			return (1);
 	if (is_label(info))
@@ -73,6 +75,8 @@ void			parse_operation(t_asm *info)
 {
 	if (!(info->op = add_new_operation(info)))
 		terminate(0, info); // memory error
+	if (info->op->next)
+		info->op->pos = info->op->next->pos + info->op->next->opsize;
 	if (!check_label(info))
 		return (parse_operation(info));
 	if (!info->line[info->index])
