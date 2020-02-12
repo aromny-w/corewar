@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_initstruct.c                                    :+:      :+:    :+:   */
+/*   dpf_set_prec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/26 20:49:27 by aromny-w          #+#    #+#             */
-/*   Updated: 2019/05/26 20:49:28 by aromny-w         ###   ########.fr       */
+/*   Created: 2019/05/24 21:09:12 by aromny-w          #+#    #+#             */
+/*   Updated: 2020/02/12 22:28:56 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-void	pf_initstruct(t_pf *info)
+void	dpf_set_prec(const char **format, va_list arg, t_dpf *info)
 {
-	info->flags.hash = 0;
-	info->flags.zero = 0;
-	info->flags.minus = 0;
-	info->flags.space = 0;
-	info->flags.plus = 0;
-	info->width = 0;
-	info->prec = -1;
-	info->mods.hh = 0;
-	info->mods.h = 0;
-	info->mods.l = 0;
-	info->mods.ll = 0;
-	info->mods.j = 0;
-	info->mods.t = 0;
-	info->mods.z = 0;
-	info->mods.q = 0;
-	info->spec = '\0';
+	if (**format == '.')
+	{
+		info->prec = 0;
+		(*format)++;
+		if (**format != '*')
+			while (ft_isdigit(**format))
+				info->prec = 10 * info->prec + (*(*format)++ - '0');
+		else
+		{
+			if ((info->prec = va_arg(arg, int)) < 0)
+				info->prec = -1;
+			(*format)++;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:08:54 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:21:29 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	set_comment(t_asm *info)
 	while (info->line[info->index] != '"')
 	{
 		if (i == COMMENT_LENGTH)
-			terminate(info, 0); // too long
+			terminate(info, 2); // too long
 		else if (info->line[info->index])
 			info->header.comment[i++] = info->line[info->index++];
 		else if (check_next_line(info))

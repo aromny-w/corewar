@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 16:55:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2019/02/13 16:55:40 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 22:21:53 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,30 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <stdbool.h>
 # include <stddef.h>
 # include <sys/types.h>
 # include "libft.h"
 
 typedef struct	s_mods
 {
-	int				hh;
-	int				h;
-	int				l;
-	int				ll;
-	int				j;
-	int				t;
-	int				z;
-	int				q;
+	bool	hh;
+	bool	h;
+	bool	l;
+	bool	ll;
+	bool	j;
+	bool	t;
+	bool	z;
+	bool	q;
 }				t_mods;
 
 typedef struct	s_flags
 {
-	int				hash;
-	int				zero;
-	int				minus;
-	int				space;
-	int				plus;
+	bool	hash;
+	bool	zero;
+	bool	minus;
+	bool	space;
+	bool	plus;
 }				t_flags;
 
 typedef struct	s_pf
@@ -50,7 +51,6 @@ typedef struct	s_pf
 }				t_pf;
 
 int				ft_printf(const char *format, ...);
-void			pf_initstruct(t_pf *info);
 void			pf_set_flags(const char **format, t_flags *flags);
 void			pf_set_width(const char **format, va_list arg, t_pf *info);
 void			pf_set_prec(const char **format, va_list arg, t_pf *info);

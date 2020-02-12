@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:05:23 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 22:44:05 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include <fcntl.h>
 # include <stdio.h>
-# include "libft.h"
 # include "op.h"
+# include "libft.h"
+# include "get_next_line.h"
+# include "ft_dprintf.h"
 
 typedef union	u_byte
 {

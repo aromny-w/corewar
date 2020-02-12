@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:49:05 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:09:15 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:19:35 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	set_name(t_asm *info)
 	while (info->line[info->index] != '"')
 	{
 		if (i == PROG_NAME_LENGTH)
-			terminate(info, 0); // too long
+			terminate(info, 1); // too long
 		else if (info->line[info->index])
 			info->header.prog_name[i++] = info->line[info->index++];
 		else if (check_next_line(info))

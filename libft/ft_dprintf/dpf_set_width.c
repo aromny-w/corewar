@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_set_prec.c                                      :+:      :+:    :+:   */
+/*   dpf_set_width.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 21:09:12 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 21:49:57 by aromny-w         ###   ########.fr       */
+/*   Created: 2019/05/22 20:28:10 by aromny-w          #+#    #+#             */
+/*   Updated: 2020/02/12 22:29:04 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
-void	pf_set_prec(const char **format, va_list arg, t_pf *info)
+void	dpf_set_width(const char **format, va_list arg, t_dpf *info)
 {
-	if (**format == '.')
+	while (ft_isdigit(**format) || **format == '*')
 	{
-		info->prec = 0;
-		(*format)++;
+		info->width = 0;
 		if (**format != '*')
 			while (ft_isdigit(**format))
-				info->prec = 10 * info->prec + (*(*format)++ - '0');
+				info->width = 10 * info->width + (*(*format)++ - '0');
 		else
 		{
-			if ((info->prec = va_arg(arg, int)) < 0)
-				info->prec = -1;
+			if ((info->width = va_arg(arg, int)) < 0)
+			{
+				info->width *= -1;
+				info->flags.minus = 1;
+			}
 			(*format)++;
 		}
 	}

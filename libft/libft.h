@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 23:59:40 by aromny-w          #+#    #+#             */
-/*   Updated: 2019/12/16 17:24:40 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 22:38:00 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "get_next_line.h"
-# include "ft_printf.h"
 
 typedef struct	s_list
 {
