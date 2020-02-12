@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 21:59:30 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 16:18:57 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:11:13 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_size(t_asm *info)
 	while (++i < g_op_tab[info->op->opcode - 1].args)
 	{
 		if (!(info->op->type[i] & g_op_tab[info->op->opcode - 1].type[i]))
-			terminate(0, info); // invalid argtype
+			terminate(info, 0); // invalid argtype
 		else if (info->op->type[i] == T_REG)
 			info->op->opsize += (info->op->argsize[i] = 1);
 		else if (info->op->type[i] == T_DIR &&

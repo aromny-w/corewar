@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 23:55:21 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:08:54 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_string_tail(t_asm *info)
 	skip_space(info);
 	if (info->line[info->index] && info->line[info->index] != COMMENT_CHAR &&
 	info->line[info->index] != COMMENT_CHAR_2)
-		terminate(0, info); //invalid instr
+		terminate(info, 0); //invalid instr
 	return ;
 }
 
@@ -27,9 +27,9 @@ static int	check_next_line(t_asm *info)
 	char	*buf;
 
 	if (!(ret = get_next_line(info->fd, &buf)))
-		terminate(0, info);  // end (null)
+		terminate(info, 0);  // end (null)
 	if (ret == -1)
-		terminate(-1, info); // read error
+		terminate(info, -1); // read error
 	free(info->line);
 	info->line = buf;
 	info->index = 0;
@@ -46,7 +46,7 @@ static void	set_comment(t_asm *info)
 	while (info->line[info->index] != '"')
 	{
 		if (i == COMMENT_LENGTH)
-			terminate(0, info); // too long
+			terminate(info, 0); // too long
 		else if (info->line[info->index])
 			info->header.comment[i++] = info->line[info->index++];
 		else if (check_next_line(info))
@@ -59,13 +59,13 @@ static void	set_comment(t_asm *info)
 void		parse_comment(t_asm *info)
 {
 	if (info->comment_mark++)
-		terminate(0, info);
+		terminate(info, 0);
 	info->index += ft_strlen(COMMENT_CMD_STRING);
 	skip_space(info);
 	if (!info->line[info->index] || info->line[info->index] == COMMENT_CHAR ||
 	info->line[info->index] == COMMENT_CHAR_2)
-		terminate(0, info); // ENDLINE
+		terminate(info, 0); // ENDLINE
 	if (info->line[info->index] != '"')
-		terminate(0, info); // invalid instr
+		terminate(info, 0); // invalid instr
 	set_comment(info);
 }

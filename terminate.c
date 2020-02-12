@@ -6,13 +6,13 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 21:54:00 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 15:11:02 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:05:15 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	terminate(int status, t_asm *info)
+void	terminate(t_asm *info, int status)
 {
 	destroy_struct(info);
 	if (status == -1)

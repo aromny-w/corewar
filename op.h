@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/12 17:10:40 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:02:45 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define NAME_CMD_STRING ".name"
 # define COMMENT_CMD_STRING ".comment"
 
-# define REG_NUMBER 99
+# define REG_NUMBER 16
 
 # define CYCLE_TO_DIE 1536
 # define CYCLE_DELTA 50

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 20:45:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 17:00:27 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:07:16 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,17 @@ void		read_file(t_asm *info)
 
 	info->fd = open(info->path, O_RDONLY);
 	if (read(info->fd, 0, 0) == -1)
-		terminate(-1, info);
+		terminate(info, -1);
 	while ((ret = get_next_line(info->fd, &info->line)) == 1)
 	{
 		info->index = 0;
 		info->lines++;
 		parse_line(info);
 		free(info->line);
+		info->line = NULL;
 	}
 	if (ret == -1)
-		terminate(0, info); // memmory erorr
+		terminate(info, 0); // memmory erorr
 	reverse_commands(info);
 	parse_argcode(info);
 	close(info->fd);

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:52:14 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 17:04:38 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:10:03 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int		check_next_line(t_asm *info)
 	if (!(ret = get_next_line(info->fd, &buf)))
 		return (0);
 	if (ret == -1)
-		terminate(-1, info); // read error
+		terminate(info, -1); // read error
 	free(info->line);
 	info->line = buf;
 	info->index = 0;
@@ -74,7 +74,7 @@ static t_cmd	*add_new_operation(t_asm *info)
 void			parse_operation(t_asm *info)
 {
 	if (!(info->op = add_new_operation(info)))
-		terminate(0, info); // memory error
+		terminate(info, 0); // memory error
 	if (info->op->next)
 		info->op->pos = info->op->next->pos + info->op->next->opsize;
 	if (!check_label(info))

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:41:03 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 17:13:44 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:10:55 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static short	get_label_pos(t_asm *info, char *str)
 		op_ptr = op_ptr->next;
 	}
 	if (!op_ptr)
-		terminate(0, info); // label not found
+		terminate(info, 0); // label not found
 	return (op_ptr->pos);
 }
 

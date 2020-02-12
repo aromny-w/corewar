@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:30:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/10 13:33:43 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:10:25 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	parse_opcode(t_asm *info)
 	g_op_tab[j].op, i))
 		j++;
 	if (!g_op_tab[j].op)
-		terminate(0, info);
+		terminate(info, 0);
 	info->op->name = g_op_tab[j].op;
 	info->op->opcode = g_op_tab[j].opcode;
 	info->index += i;

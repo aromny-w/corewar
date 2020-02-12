@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 14:44:15 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:05:23 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			set_size(t_asm *info);
 void			write_file(t_asm *info);
 void			print_stdout(t_asm *info);
 void			skip_space(t_asm *info);
-void			terminate(int status, t_asm *info);
+void			terminate(t_asm *info, int status);
 void			print_status(t_asm *info); // debug
 
 void			corewar(char *input);

@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 20:00:35 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 17:08:53 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:07:25 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		write_file(t_asm *info)
 
 	info->fd = open(info->filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (write(info->fd, "", 0) == -1)
-		terminate(0, info); // write error
+		terminate(info, -2); // write error
 	ft_printf("Writing output program to %s\n", info->filename);
 	write_header(info);
 	op_ptr = info->op;

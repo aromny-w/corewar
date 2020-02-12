@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:37:13 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 14:21:51 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:06:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static char				*get_filename(t_asm *info)
 
 	len = ft_strlen(info->path);
 	if (ft_strcmp(info->path + len - 2, ".s"))
-		terminate(0, info);  //invalid extension
+		terminate(info, 0);  //invalid extension
 	if (!(str = ft_strnew(len + 2)))
-		terminate(0, info); // memory error
+		terminate(info, 0); // memory error
 	ft_strncpy(str, info->path, len - 2);
 	ft_strcat(str, ".cor");
 	return (str);
