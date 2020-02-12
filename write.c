@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 20:00:35 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 15:55:59 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:08:53 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	write_header(t_asm *info)
 void		write_file(t_asm *info)
 {
 	t_cmd	*op_ptr;
-	
+
 	info->fd = open(info->filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (write(info->fd, "", 0) == -1)
 		terminate(0, info); // write error

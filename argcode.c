@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 14:41:03 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 15:10:24 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:13:44 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static short	get_label_pos(t_asm *info, char *str)
 	return (op_ptr->pos);
 }
 
-static int	get_argcode(t_asm *info, t_cmd *op, size_t i)
+static int		get_argcode(t_asm *info, t_cmd *op, size_t i)
 {
 	if (op->type[i] == T_REG)
 		return (ft_atoi(op->argbuf[i] + 1));
@@ -47,7 +47,7 @@ static int	get_argcode(t_asm *info, t_cmd *op, size_t i)
 	return (0);
 }
 
-void		parse_argcode(t_asm *info)
+void			parse_argcode(t_asm *info)
 {
 	unsigned char	i;
 	t_cmd			*op_ptr;

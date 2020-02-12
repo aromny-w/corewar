@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:57:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 17:34:42 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 17:13:15 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	assembler(char **input)
 		write_file(&info);
 	else
 		print_stdout(&info);
-	//print_status(&info); // debug
 }
 
 int		main(int argc, char **argv)
