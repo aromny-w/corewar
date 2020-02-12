@@ -1,4 +1,4 @@
-.name "TestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTest"
+.name "Test"
 .comment "This is a test"
 
 shhhhhhhhhhesh:

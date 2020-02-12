@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 12:52:14 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:10:03 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 23:40:33 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static t_cmd	*add_new_operation(t_asm *info)
 
 void			parse_operation(t_asm *info)
 {
+	if (!info->name_mark || !info->comment_mark)
+		terminate(info, 0);
 	if (!(info->op = add_new_operation(info)))
 		terminate(info, 0); // memory error
 	if (info->op->next)

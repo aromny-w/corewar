@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 20:45:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:07:16 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 23:36:09 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void		read_file(t_asm *info)
 	}
 	if (ret == -1)
 		terminate(info, 0); // memmory erorr
+	if (!info->op)
+		terminate(info, 0);
 	reverse_commands(info);
 	parse_argcode(info);
 	close(info->fd);
