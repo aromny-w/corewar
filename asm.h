@@ -6,7 +6,7 @@
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 17:38:29 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 14:44:15 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct	s_cmd
 	unsigned char	opsize;
 	unsigned char	type[MAX_ARGS_NUMBER];
 	unsigned char	typecode;
-	char			*arg[MAX_ARGS_NUMBER];
-	unsigned char	*argcode[MAX_ARGS_NUMBER];
+	char			*argbuf[MAX_ARGS_NUMBER];
+	t_byte			arg[MAX_ARGS_NUMBER];
 	unsigned char	argsize[MAX_ARGS_NUMBER];
 	unsigned short	pos;
 	struct s_cmd	*next;

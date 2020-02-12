@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:48:33 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/11 15:50:26 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/12 15:40:09 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	print_status(t_asm *info)
 		info->op->opcode ? g_op_tab[info->op->opcode - 1].op : "",
 		info->op->opsize,
 		info->op->pos,
-		info->op->arg[0] ? info->op->arg[0] : "",
-		info->op->arg[1] ? info->op->arg[1] : "",
-		info->op->arg[2] ? info->op->arg[2] : "",
-		info->op->arg[3] ? info->op->arg[3] : "");
+		info->op->argbuf[0] ? info->op->argbuf[0] : "",
+		info->op->argbuf[1] ? info->op->argbuf[1] : "",
+		info->op->argbuf[2] ? info->op->argbuf[2] : "",
+		info->op->argbuf[3] ? info->op->argbuf[3] : "");
 		info->op = info->op->next;
 	}
 	ft_printf("%d\n", info->header.prog_size);
