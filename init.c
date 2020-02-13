@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:37:13 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:06:57 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/13 16:42:24 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static char				*get_filename(t_asm *info)
+static char	*get_filename(t_asm *info)
 {
 	char	*str;
 	size_t	len;
@@ -27,7 +27,7 @@ static char				*get_filename(t_asm *info)
 	return (str);
 }
 
-void					init_struct(t_asm *info, char **input)
+void		init_struct(t_asm *info, char **input)
 {
 	ft_bzero(info, sizeof(*info));
 	while (*++input)

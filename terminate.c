@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 21:54:00 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/13 16:38:37 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/13 16:42:50 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	syntax_error(t_asm *info, int status)
 		info->lines, info->index + 1, "COMMAND_NAME", NAME_CMD_STRING);
 	if (status == 13)
 		ft_dprintf(2, "Syntax error at token [TOKEN][%.3d:%.3d] %s \"%.*s\"\n",
-		info->lines, info->index + 1, "INSTRUCTION", i, 
+		info->lines, info->index + 1, "INSTRUCTION", i,
 		&info->line[info->index]);
 }
 
@@ -56,7 +56,7 @@ static void	read_error(t_asm *info, int status)
 		ft_dprintf(2, "Can't read source file %s\n", info->path);
 }
 
-void	terminate(t_asm *info, int status)
+void		terminate(t_asm *info, int status)
 {
 	if (status == -1)
 		read_error(info, status);
