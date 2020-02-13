@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 20:11:19 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/13 15:34:44 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/13 22:48:33 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ static void	check_string_tail(t_asm *info)
 	skip_space(info);
 	if (info->line[info->index] && info->line[info->index] != COMMENT_CHAR &&
 	info->line[info->index] != COMMENT_CHAR_2)
-		terminate(info, 13); //invalid instr
+	{
+		if (!info->name_mark || !info->comment_mark)
+			terminate(info, 21);
+		else
+			terminate(info, 13); //invalid instr
+	}
 	return ;
 }
 
