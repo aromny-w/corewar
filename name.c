@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 14:49:05 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:19:35 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/13 16:37:41 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ static void	check_string_tail(t_asm *info)
 	skip_space(info);
 	if (info->line[info->index] && info->line[info->index] != COMMENT_CHAR &&
 	info->line[info->index] != COMMENT_CHAR_2)
-		terminate(info, 0); //invalid instr
+	{
+		if (!info->name_mark || !info->comment_mark)
+			terminate(info, 21);
+		else
+			terminate(info, 13); //invalid instr
+	}
 	return ;
 }
 
@@ -59,7 +64,7 @@ static void	set_name(t_asm *info)
 void		parse_name(t_asm *info)
 {
 	if (info->name_mark++)
-		terminate(info, 0);
+		terminate(info, 11);
 	info->index += ft_strlen(NAME_CMD_STRING);
 	skip_space(info);
 	if (!info->line[info->index] || info->line[info->index] == COMMENT_CHAR ||
