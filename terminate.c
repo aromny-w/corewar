@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 21:54:00 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/13 16:42:50 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/15 21:21:05 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,10 @@ static void	header_error(t_asm *info, int status)
 		COMMENT_LENGTH);
 }
 
-static void	read_error(t_asm *info, int status)
-{
-	if (status == -1)
-		ft_dprintf(2, "Can't read source file %s\n", info->path);
-}
-
 void		terminate(t_asm *info, int status)
 {
 	if (status == -1)
-		read_error(info, status);
+		ft_dprintf(2, "Can't read source file %s\n", info->path);
 	if (status == 0)
 		ft_dprintf(2, "Error\n");
 	if (status >= 1 && status <= 10)
