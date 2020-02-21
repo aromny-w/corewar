@@ -6,7 +6,7 @@
 #    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/21 16:40:00 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/21 16:52:08 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,17 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 FWS = -framework OpenGL -framework AppKit
 
-SRCS1 = asm.c op.c init.c destroy.c read.c name.c comment.c operation.c \
-		opcode.c arguments.c argcode.c size.c write.c print.c skip.c \
-		terminate.c status.c
-SRCS2 = corewar.c
-SRCS1 := $(addprefix srcs/asm/, $(SRCS1))
-SRCS2 := $(addprefix srcs/corewar/, $(SRCS2))
-
+SRCS1 = asm.c init.c destroy.c read.c name.c comment.c operation.c opcode.c \
+		arguments.c argcode.c size.c write.c print.c skip.c terminate.c status.c
+SRCS1 := $(addprefix asm/, $(SRCS1))
+SRCS1 += op.c
+SRCS1 := $(addprefix srcs/, $(SRCS1))
 OBJS1 = $(SRCS1:.c=.o)
+
+SRCS2 = corewar.c
+SRCS2 := $(addprefix corewar/, $(SRCS2))
+SRCS2 += op.c
+SRCS2 := $(addprefix srcs/, $(SRCS2))
 OBJS2 = $(SRCS2:.c=.o)
 
 INC = includes
