@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.c                                          :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/22 21:06:12 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/04 15:09:47 by aromny-w         ###   ########.fr       */
+/*   Created: 2020/02/21 16:03:19 by aromny-w          #+#    #+#             */
+/*   Updated: 2020/02/21 16:34:14 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#ifndef COREWAR_H
+# define COREWAR_H
 
-void	corewar(char *input)
-{
-	(void)input;
-}
+# include <fcntl.h>
+# include "op.h"
+# include "libft.h"
+# include "ft_dprintf.h"
 
-int		main(int argc, char **argv)
-{
-	if (argc == 2)
-		corewar(argv[1]);
-	else
-		ft_printf("Usage: ./corewar <champion1.cor> <...>\n");
-	return (0);
-}
+void	corewar(char *input);
+
+#endif
