@@ -6,7 +6,7 @@
 #    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/21 16:58:23 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/21 22:50:28 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ LIB = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-FWS = -framework OpenGL -framework AppKit
 
 SRCS1 = asm.c init.c destroy.c read.c name.c comment.c operation.c opcode.c \
 		arguments.c argcode.c size.c write.c print.c skip.c terminate.c status.c
@@ -42,9 +41,9 @@ all: $(NAME1) $(NAME2)
 $(NAME1): $(LIB) $(OBJS1)
 	@$(CC) $(CFLAGS) $(OBJS1) -o $(NAME1) -L $(LIBDIR) -lft
 $(NAME2): $(LIB) $(OBJS2)
-	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft -lmlx $(FWS)
+	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft
 $(LIB):
-	make -C libft
+	@make -C libft
 
 clean:
 	@make clean -C libft
