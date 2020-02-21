@@ -6,7 +6,7 @@
 #    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/21 16:52:08 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/21 16:58:23 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,12 +37,12 @@ LIBDIR = libft
 all: $(NAME1) $(NAME2)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC) -I $(LIBDIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC) -I $(LIBDIR)
 
 $(NAME1): $(LIB) $(OBJS1)
-	$(CC) $(CFLAGS) $(OBJS1) -o $(NAME1) -L $(LIBDIR) -lft
+	@$(CC) $(CFLAGS) $(OBJS1) -o $(NAME1) -L $(LIBDIR) -lft
 $(NAME2): $(LIB) $(OBJS2)
-	$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft -lmlx $(FWS)
+	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft -lmlx $(FWS)
 $(LIB):
 	make -C libft
 
