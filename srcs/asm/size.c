@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 21:59:30 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/23 21:22:48 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 23:29:58 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	set_size(t_asm *info)
 	int	i;
 
 	info->op->opsize += 1;
-	if (g_op_tab[info->op->opcode - 1].type[0] != 2)
+	if (g_op_tab[info->op->opcode - 1].argbyte)
 		info->op->opsize += 1;
 	i = -1;
 	while (++i < g_op_tab[info->op->opcode - 1].args)

@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 20:00:35 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/23 21:28:09 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 23:30:14 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	write_instruction(t_asm *info, t_cmd *op)
 	if (!op->opcode)
 		return ;
 	write(info->fd, &op->opcode, sizeof(op->opcode));
-	if (g_op_tab[op->opcode - 1].type[0] != 2)
+	if (g_op_tab[op->opcode - 1].argbyte)
 		write(info->fd, &op->typecode, sizeof(op->typecode));
 	n = -1;
 	while (++n < g_op_tab[op->opcode - 1].args)

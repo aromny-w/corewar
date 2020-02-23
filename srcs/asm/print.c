@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 17:24:29 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 16:01:28 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 23:30:41 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_instruction_3(t_cmd *op)
 {
 	unsigned char	i;
 
-	if (g_op_tab[op->opcode - 1].type[0] != 2)
+	if (g_op_tab[op->opcode - 1].argbyte)
 		ft_printf("%20s%-4hu%-6hu", "", op->opcode, op->typecode);
 	else
 		ft_printf("%20s%-10hu", "", op->opcode);
@@ -30,7 +30,7 @@ static void	print_instruction_2(t_cmd *op)
 {
 	unsigned char	i;
 
-	if (g_op_tab[op->opcode - 1].type[0] != 2)
+	if (g_op_tab[op->opcode - 1].argbyte)
 		ft_printf("%20s%-4hu%-6hu", "", op->opcode, op->typecode);
 	else
 		ft_printf("%20s%-10hu", "", op->opcode);
