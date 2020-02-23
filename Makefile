@@ -6,7 +6,7 @@
 #    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/22 00:06:59 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/02/23 22:03:19 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS1 = asm.c init.c destroy.c read.c name.c comment.c operation.c opcode.c \
-		arguments.c argcode.c size.c write.c print.c skip.c terminate.c status.c
+		arguments.c argcode.c size.c write.c print.c skip.c terminate.c
 SRCS1 := $(addprefix asm/, $(SRCS1))
 SRCS1 += op.c
 SRCS1 := $(addprefix srcs/, $(SRCS1))
