@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/12 18:02:45 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 21:21:50 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 /*
 ** Toutes les tailles sont en octets.
-** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
+** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous?
 */
 
 # define IND_SIZE 2
@@ -71,7 +71,8 @@ typedef struct		s_op
 	unsigned char	opcode;
 	unsigned short	cycle;
 	bool			carry;
-	bool			dir_size;
+	bool			argbyte;
+	bool			index;
 }					t_op;
 
 extern t_op	g_op_tab[];

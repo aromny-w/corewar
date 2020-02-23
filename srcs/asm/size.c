@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   size.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 21:59:30 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 18:11:13 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 21:22:48 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_size(t_asm *info)
 		else if (info->op->type[i] == T_REG)
 			info->op->opsize += (info->op->argsize[i] = 1);
 		else if (info->op->type[i] == T_DIR &&
-		g_op_tab[info->op->opcode - 1].dir_size)
+		g_op_tab[info->op->opcode - 1].index)
 			info->op->opsize += (info->op->argsize[i] = 2);
 		else if (info->op->type[i] == T_DIR)
 			info->op->opsize += (info->op->argsize[i] = 4);
