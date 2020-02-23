@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 20:00:35 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 20:19:37 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 21:28:09 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,30 @@ static void	write_instruction(t_asm *info, t_cmd *op)
 static void	write_prog_size(t_asm *info)
 {
 	unsigned char	buf[4];
-	t_byte			value;
+	t_value			tmp;
 	unsigned char	i;
 	unsigned char	j;
 
-	value.nbr = info->header.prog_size;
+	tmp.nbr = info->header.prog_size;
 	i = 0;
 	j = 4;
 	while (i < 4)
-		buf[i++] = value.byte[--j];
+		buf[i++] = tmp.byte[--j];
 	write(info->fd, buf, 4);
 }
 
 static void	write_magic(t_asm *info)
 {
 	unsigned char	buf[4];
-	t_byte			value;
+	t_value			tmp;
 	unsigned char	i;
 	unsigned char	j;
 
-	value.nbr = info->header.magic;
+	tmp.nbr = info->header.magic;
 	i = 0;
 	j = 4;
 	while (i < 4)
-		buf[i++] = value.byte[--j];
+		buf[i++] = tmp.byte[--j];
 	write(info->fd, buf, 4);
 }
 

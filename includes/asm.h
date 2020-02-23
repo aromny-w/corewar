@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/21 16:21:20 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/02/23 21:26:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include "get_next_line.h"
 # include "ft_dprintf.h"
 
-typedef union	u_byte
+typedef union	u_value
 {
 	int				nbr;
 	unsigned char	byte[4];
-}				t_byte;
+}				t_value;
 
 typedef struct	s_cmd
 {
@@ -35,7 +35,7 @@ typedef struct	s_cmd
 	unsigned char	type[MAX_ARGS_NUMBER];
 	unsigned char	typecode;
 	char			*argbuf[MAX_ARGS_NUMBER];
-	t_byte			arg[MAX_ARGS_NUMBER];
+	t_value			arg[MAX_ARGS_NUMBER];
 	unsigned char	argsize[MAX_ARGS_NUMBER];
 	unsigned short	pos;
 	struct s_cmd	*next;
