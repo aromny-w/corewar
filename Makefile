@@ -6,53 +6,42 @@
 #    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/23 22:03:19 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/03/13 20:16:43 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1 = asm
-NAME2 = corewar
+NAME = asm
 LIB = libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
-SRCS1 = asm.c init.c destroy.c read.c name.c comment.c operation.c opcode.c \
+SRCS = asm.c init.c destroy.c read.c name.c comment.c operation.c opcode.c \
 		arguments.c argcode.c size.c write.c print.c skip.c terminate.c
-SRCS1 := $(addprefix asm/, $(SRCS1))
-SRCS1 += op.c
-SRCS1 := $(addprefix srcs/, $(SRCS1))
-OBJS1 = $(SRCS1:.c=.o)
-
-SRCS2 = corewar.c
-SRCS2 := $(addprefix corewar/, $(SRCS2))
-SRCS2 += op.c
-SRCS2 := $(addprefix srcs/, $(SRCS2))
-OBJS2 = $(SRCS2:.c=.o)
+SRCS := $(addprefix asm/, $(SRCS))
+SRCS += op.c
+SRCS := $(addprefix srcs/, $(SRCS))
+OBJS = $(SRCS:.c=.o)
 
 INC = includes
 LIBDIR = libft
 
-all: $(NAME1) $(NAME2)
+all: $(NAME)
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC) -I $(LIBDIR)
 
-$(NAME1): $(LIB) $(OBJS1)
-	@$(CC) $(CFLAGS) $(OBJS1) -o $(NAME1) -L $(LIBDIR) -lft
-$(NAME2): $(LIB) $(OBJS2)
-	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft
+$(NAME): $(LIB) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
 $(LIB):
 	@make -C libft
 
 clean:
 	@make clean -C libft
-	@/bin/rm -f $(OBJS1)
-	@/bin/rm -f $(OBJS2)
+	@/bin/rm -f $(OBJS)
 
 fclean: clean
 	@make fclean -C libft
-	@/bin/rm -f $(NAME1)
-	@/bin/rm -f $(NAME2)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
