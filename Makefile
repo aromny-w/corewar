@@ -6,7 +6,7 @@
 #    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/03/17 12:29:15 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/03/17 13:55:59 by aromny-w         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB = libft.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRCS = asm.c init.c destroy.c read.c token.c terminate.c
+SRCS = asm.c init.c destroy.c read.c token.c lexeme.c terminate.c
 SRCS := $(addprefix asm/, $(SRCS))
 SRCS += op.c
 SRCS := $(addprefix srcs/, $(SRCS))

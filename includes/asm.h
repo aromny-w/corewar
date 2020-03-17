@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/17 13:00:21 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/17 16:35:24 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			init_struct(t_asm *info, char **input);
 void			destroy_struct(t_asm *info);
 void			read_file(t_asm *info);
 void			tokenize_data(t_asm *info);
+void			lexeme_check(t_asm *info, t_token token);
 void			terminate(t_asm *info, int status);
 
 #endif

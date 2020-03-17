@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:22:33 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/17 13:23:35 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/17 16:36:47 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,14 @@ static void		add_new_token(t_asm *info, size_t *n, size_t *i, size_t *j)
 	if (!(info->token = (t_token *)realloc(info->token, sizeof(t_token) *
 		(++*n + 1))))
 		terminate(info, 0);
-	ft_bzero(&info->token[*n - 1], sizeof(info->token[*n - 1]));
+	ft_bzero(&info->token[*n], sizeof(info->token[*n]));
 	info->token[*n].type = END;
 	info->token[*n - 1].column = *i;
 	info->token[*n - 1].row = *j;
 	info->token[*n - 1].content = get_content(info, info->token[*n - 1], i, j);
 	info->token[*n - 1].type = get_type(info, info->token[*n - 1].content,
 		info->token[*n - 1].column, info->token[*n - 1].row);
+	lexeme_check(info, info->token[*n - 1]);
 }
 
 /*static void		print_tokens(t_asm *info)
