@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/23 23:11:38 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:57:49 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@
 # define COMMENT_CHAR '#'
 # define COMMENT_CHAR_2 ';'
 # define COMMAND_CHAR '.'
+# define STRING_CHAR '"'
 # define LABEL_CHAR ':'
+# define REG_CHAR 'r'
 # define DIRECT_CHAR '%'
 # define SEPARATOR_CHAR ','
 

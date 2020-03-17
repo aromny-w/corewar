@@ -3,69 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 20:45:38 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 23:36:09 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/17 12:05:20 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	reverse_commands(t_asm *info)
+static char	**get_data(t_asm *info)
 {
-	t_cmd	*prev;
-	t_cmd	*curr;
-	t_cmd	*next;
+	char	**data;
+	int		ret;
+	size_t	i;
 
-	prev = NULL;
-	curr = info->op;
-	while (curr)
+	i = 0;
+	if (!(data = (char **)malloc(sizeof(char *) * (i + 1))))
+		terminate(info, -1);
+	data[i] = NULL;
+	while ((ret = get_next_line(info->fd, &data[i])) == 1)
 	{
-		next = curr->next;
-		curr->next = prev;
-		prev = curr;
-		curr = next;
+		if (!(data = (char **)realloc(data, sizeof(char *) * (++i + 1))))
+			terminate(info, -1);
+		data[i] = NULL;
 	}
-	info->op = prev;
-}
-
-static void	parse_line(t_asm *info)
-{
-	skip_space(info);
-	if (!info->line[info->index] || info->line[info->index] == COMMENT_CHAR ||
-	info->line[info->index] == COMMENT_CHAR_2)
-		return ;
-	else if (!ft_strncmp(info->line + info->index, NAME_CMD_STRING,
-	ft_strlen(NAME_CMD_STRING)))
-		parse_name(info);
-	else if (!ft_strncmp(info->line + info->index, COMMENT_CMD_STRING,
-	ft_strlen(COMMENT_CMD_STRING)))
-		parse_comment(info);
-	else
-		parse_operation(info);
+	if (ret == -1)
+		terminate(info, -1);
+	return (data);
 }
 
 void		read_file(t_asm *info)
 {
-	int	ret;
-
 	info->fd = open(info->path, O_RDONLY);
 	if (read(info->fd, 0, 0) == -1)
 		terminate(info, -1);
-	while ((ret = get_next_line(info->fd, &info->line)) == 1)
-	{
-		info->index = 0;
-		info->lines++;
-		parse_line(info);
-		free(info->line);
-		info->line = NULL;
-	}
-	if (ret == -1)
-		terminate(info, 0); // memmory erorr
-	if (!info->op)
-		terminate(info, 0);
-	reverse_commands(info);
-	parse_argcode(info);
-	close(info->fd);
+	info->data = get_data(info);
 }
