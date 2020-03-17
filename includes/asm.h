@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/17 12:14:21 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/17 13:00:21 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef union	u_value
 
 typedef enum
 {
+	UNKNOWN,
 	COMMAND_NAME,
 	COMMAND_COMMENT,
 	STRING,
