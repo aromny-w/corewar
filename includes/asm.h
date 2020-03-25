@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: student <student@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/17 16:35:24 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/25 05:10:19 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef union	u_value
 
 typedef enum
 {
-	UNKNOWN,
+	UNDEFINED,
 	COMMAND_NAME,
 	COMMAND_COMMENT,
 	STRING,
@@ -48,7 +48,7 @@ typedef struct	s_token
 {
 	char	*content;
 	size_t	row;
-	size_t	column;
+	size_t	col;
 	t_type	type;
 }				t_token;
 
@@ -82,10 +82,11 @@ typedef struct	s_asm
 
 void			assembler(char **input);
 void			init_struct(t_asm *info, char **input);
-void			destroy_struct(t_asm *info);
 void			read_file(t_asm *info);
 void			tokenize_data(t_asm *info);
-void			lexeme_check(t_asm *info, t_token token);
+void			lexical_check(t_asm *info, t_token token);
+void			syntax_check(t_asm *info);
+void			destroy_struct(t_asm *info);
 void			terminate(t_asm *info, int status);
 
 #endif
