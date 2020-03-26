@@ -6,7 +6,7 @@
 /*   By: student <student@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/25 05:10:19 by student          ###   ########.fr       */
+/*   Updated: 2020/03/26 21:29:28 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,19 @@ typedef union	u_value
 
 typedef enum
 {
-	UNDEFINED,
+	END,
+	ENDLINE,
 	COMMAND_NAME,
 	COMMAND_COMMENT,
 	STRING,
-	INSTRUCTION,
 	LABEL,
+	INSTRUCTION,
 	REGISTER,
 	DIRECT,
 	DIRECT_LABEL,
 	INDIRECT,
 	INDIRECT_LABEL,
-	SEPARATOR,
-	ENDLINE,
-	END
+	SEPARATOR
 }				t_type;
 
 typedef struct	s_token

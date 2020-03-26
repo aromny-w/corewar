@@ -6,7 +6,7 @@
 /*   By: student <student@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 17:22:33 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/25 21:27:06 by student          ###   ########.fr       */
+/*   Updated: 2020/03/26 17:39:04 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ static t_type	get_type(char *content)
 		return (COMMAND_NAME);
 	if (!ft_strcmp(content, COMMENT_CMD_STRING))
 		return (COMMAND_COMMENT);
-	if (*content == SEPARATOR_CHAR)
-		return (SEPARATOR);
 	if (*content == STRING_CHAR)
 		return (STRING);
-	if (content[ft_strlen(content) - 1] == LABEL_CHAR)
+	if (content[ft_strlen(content) - 1] == LABEL_CHAR && *content != LABEL_CHAR)
 		return (LABEL);
 	if (*content == REG_CHAR)
 		return (REGISTER);
@@ -55,6 +53,8 @@ static t_type	get_type(char *content)
 		return (INDIRECT_LABEL);
 	if (ft_isdigit(*content))
 		return (INDIRECT);
+	if (*content == SEPARATOR_CHAR)
+		return (SEPARATOR);
 	return (INSTRUCTION);
 }
 
@@ -96,8 +96,8 @@ static char		*get_content(t_asm *info, t_token token, size_t *i, size_t *j)
 		return (NULL);
 	if (info->data[*j][*i] == STRING_CHAR)
 		return (get_string(info, i, j));
-	if (info->data[*j][*i] == DIRECT_CHAR &&
-		info->data[*j][*i + 1] == LABEL_CHAR)
+	if (info->data[*j][*i + 1] == COMMAND_CHAR ||
+	(info->data[*j][*i] == DIRECT_CHAR && info->data[*j][*i + 1] == LABEL_CHAR))
 		(*i)++;
 	if (info->data[*j][*i] != SEPARATOR_CHAR)
 		while (info->data[*j][*i + 1] && !ft_isspace(info->data[*j][*i + 1]) &&
@@ -105,7 +105,8 @@ static char		*get_content(t_asm *info, t_token token, size_t *i, size_t *j)
 		info->data[*j][*i + 1] != COMMENT_CHAR_2 &&
 		info->data[*j][*i + 1] != SEPARATOR_CHAR &&
 		info->data[*j][*i + 1] != DIRECT_CHAR &&
-		info->data[*j][*i + 1] != STRING_CHAR)
+		info->data[*j][*i + 1] != STRING_CHAR &&
+		info->data[*j][*i + 1] != COMMAND_CHAR)
 			if (info->data[*j][(*i)++ + 1] == LABEL_CHAR)
 				break ;
 	if (!(str = ft_strndup(&info->data[token.row][token.col],
@@ -120,7 +121,6 @@ static void		add_new_token(t_asm *info, size_t n, size_t *i, size_t *j)
 	(n + 1))))
 		terminate(info, 0);
 	ft_bzero(&info->token[n], sizeof(t_token));
-	info->token[n].type = END;
 	info->token[n - 1].col = *i;
 	info->token[n - 1].row = *j;
 	info->token[n - 1].content = get_content(info, info->token[n - 1], i, j);
@@ -138,7 +138,6 @@ void			tokenize_data(t_asm *info)
 	if (!(info->token = (t_token *)malloc(sizeof(t_token) * (n + 1))))
 		terminate(info, 0);
 	ft_bzero(&info->token[n], sizeof(t_token));
-	info->token[n].type = END;
 	j = -1;
 	while (info->data[++j])
 	{
