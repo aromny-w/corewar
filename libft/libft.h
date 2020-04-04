@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 23:59:40 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/02/12 22:38:00 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/31 19:24:49 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int				ft_isspace(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
 void			*ft_memalloc(size_t size);
+void			*ft_reallocf(void *ptr, size_t size);
 void			ft_memdel(void **ap);
 char			*ft_strnew(size_t size);
 void			ft_strdel(char **as);

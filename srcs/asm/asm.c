@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:57:41 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/17 12:14:41 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/04/05 01:03:16 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	assembler(char **input)
 	init_struct(&info, input);
 	read_file(&info);
 	tokenize_data(&info);
+	debug(&info);
 	destroy_struct(&info);
 }
 

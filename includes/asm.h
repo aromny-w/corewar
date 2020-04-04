@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <student@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:03:06 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/03/26 21:29:28 by student          ###   ########.fr       */
+/*   Updated: 2020/04/01 22:12:17 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ typedef union	u_value
 	unsigned char	byte[4];
 }				t_value;
 
+extern char	*g_type[];
+
 typedef enum
 {
-	END,
-	ENDLINE,
-	COMMAND_NAME,
-	COMMAND_COMMENT,
+	COMMAND,
 	STRING,
 	LABEL,
 	INSTRUCTION,
@@ -40,7 +39,9 @@ typedef enum
 	DIRECT_LABEL,
 	INDIRECT,
 	INDIRECT_LABEL,
-	SEPARATOR
+	SEPARATOR,
+	ENDLINE,
+	END
 }				t_type;
 
 typedef struct	s_token
@@ -70,9 +71,9 @@ typedef struct	s_asm
 	char		*path;
 	char		*filename;
 	bool		flag;
-	int			fd;
 	char		**data;
 	t_token		*token;
+	size_t		tokens;
 	t_header	header;
 	bool		name_mark;
 	bool		comment_mark;
@@ -86,6 +87,8 @@ void			tokenize_data(t_asm *info);
 void			lexical_check(t_asm *info, t_token token);
 void			syntax_check(t_asm *info);
 void			destroy_struct(t_asm *info);
-void			terminate(t_asm *info, int status);
+void			terminate(t_asm *info, int status, t_token *token);
+
+void			debug(t_asm *info);
 
 #endif

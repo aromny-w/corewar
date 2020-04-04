@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminate.c                                        :+:      :+:    :+:   */
+/*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/22 21:54:00 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/04/01 20:22:07 by aromny-w         ###   ########.fr       */
+/*   Created: 2020/03/26 22:18:58 by student           #+#    #+#             */
+/*   Updated: 2020/04/01 22:12:34 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void		terminate(t_asm *info, int status, t_token *token)
+char	*g_type[12] =
 {
-	(void)info;
-	(void)status;
-	(void)token;
-	destroy_struct(info);
-	exit(EXIT_FAILURE);
-}
+	"COMMAND",
+	"STRING",
+	"LABEL",
+	"INSTRUCTION",
+	"REGISTER",
+	"DIRECT",
+	"DIRECT_LABEL",
+	"INDIRECT",
+	"INDIRECT_LABEL",
+	"SEPARATOR",
+	"ENDLINE",
+	"END"
+};
