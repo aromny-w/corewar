@@ -16,11 +16,14 @@ static t_type	get_type(char **data, char *content, size_t i, size_t j)
 {
 	if (!data[j])
 		return (END);
-	if (!data[j][i] || data[j][i] == COMMENT_CHAR ||
-	data[j][i] == COMMENT_CHAR_2)
+	if (!data[j][i])
 		return (ENDLINE);
-	if (*content == COMMAND_CHAR)
-		return (COMMAND);
+	if (!ft_strcmp(content, NAME_CMD_STRING))
+		return (COMMAND_NAME);
+	if (!ft_strcmp(content, COMMENT_CMD_STRING))
+		return (COMMAND_COMMENT);
+	//if (*content == COMMAND_CHAR)
+	//	return (COMMAND);
 	if (*content == SEPARATOR_CHAR)
 		return (SEPARATOR);
 	if (*content == STRING_CHAR)
@@ -31,10 +34,10 @@ static t_type	get_type(char **data, char *content, size_t i, size_t j)
 		return (*(content + 1) == LABEL_CHAR ? DIRECT_LABEL : DIRECT);
 	if (content[ft_strlen(content) - 1] == LABEL_CHAR)
 		return (LABEL);
+	if (ft_isdigit(*content) || *content == '+' || *content == '-')
+		return (INDIRECT);
 	if (*content == REG_CHAR)
 		return (REGISTER);
-	if (ft_isdigit(*content))
-		return (INDIRECT);
 	return (INSTRUCTION);
 }
 
@@ -72,8 +75,7 @@ static char		*get_content(t_asm *info, char **data, size_t *i, size_t *j)
 	char	*str;
 	size_t	start;
 
-	if (!data[*j] || !data[*j][*i] || data[*j][*i] == COMMENT_CHAR ||
-	data[*j][*i] == COMMENT_CHAR_2)
+	if (!data[*j] || !data[*j][*i])
 		return (NULL);
 	if (data[*j][*i] == STRING_CHAR)
 		return (get_string(info, data, i, j));
@@ -81,8 +83,7 @@ static char		*get_content(t_asm *info, char **data, size_t *i, size_t *j)
 	if (data[*j][*i] == DIRECT_CHAR && data[*j][*i + 1] == LABEL_CHAR)
 		(*i)++;
 	if (data[*j][*i] != SEPARATOR_CHAR)
-		while (data[*j][*i + 1] && data[*j][*i + 1] != COMMENT_CHAR &&
-		data[*j][*i + 1] != COMMENT_CHAR_2 && !ft_isspace(data[*j][*i + 1]) &&
+		while (data[*j][*i + 1] && !ft_isspace(data[*j][*i + 1]) &&
 		data[*j][*i + 1] != COMMAND_CHAR && data[*j][*i + 1] != STRING_CHAR &&
 		data[*j][*i + 1] != DIRECT_CHAR && data[*j][*i + 1] != SEPARATOR_CHAR)
 			if (data[*j][(*i)++ + 1] == LABEL_CHAR)
@@ -92,18 +93,19 @@ static char		*get_content(t_asm *info, char **data, size_t *i, size_t *j)
 	return (str);
 }
 
-static void		add_new_token(t_asm *info, size_t n, size_t *i, size_t *j)
+static void		add_new_token(t_asm *info, size_t *i, size_t *j)
 {
-	if (!(info->token = (t_token *)ft_reallocf(info->token, sizeof(t_token) *
-	(n + 1))))
+	t_token	*new;
+
+	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
 		terminate(info, 0, NULL);
-	info->tokens++;
-	info->token[n].col = *i;
-	info->token[n].row = *j;
-	info->token[n].content = get_content(info, info->data, i, j);
-	info->token[n].type = get_type(info->data, info->token[n].content,
-	info->token[n].col, info->token[n].row);
-	lexical_check(info, info->token[n]);
+	new->next = info->token;
+	info->token = new;
+	new->col = *i;
+	new->row = *j;
+	new->content = get_content(info, info->data, i, j);
+	new->type = get_type(info->data, new->content, new->col, new->row);
+	//lexical_check(info);
 }
 
 void			tokenize_data(t_asm *info)
@@ -119,13 +121,10 @@ void			tokenize_data(t_asm *info)
 		{
 			if (ft_isspace(info->data[j][i]))
 				continue ;
-			if (info->data[j][i] == COMMENT_CHAR ||
-			info->data[j][i] == COMMENT_CHAR_2)
-				break ;
-			add_new_token(info, info->tokens, &i, &j);
+			add_new_token(info, &i, &j);
 		}
-		add_new_token(info, info->tokens, &i, &j);
+		add_new_token(info, &i, &j);
 	}
-	add_new_token(info, info->tokens, &i, &j);
+	add_new_token(info, &i, &j);
 	syntax_check(info);
 }

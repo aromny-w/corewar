@@ -12,22 +12,34 @@
 
 #include "asm.h"
 
-static void	destroy_instructions(t_asm *info)
+static void	destroy_instr(t_asm *info)
 {
-	if (!info->inst)
-		return ;
+	t_instr	*tmp;
+	t_instr	*next;
+
+	tmp = info->instr;
+	while (tmp)
+	{
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
+	}
 }
 
 static void	destroy_tokens(t_asm *info)
 {
-	size_t	i;
+	t_token	*tmp;
+	t_token	*next;
 
-	if (!info->token)
-		return ;
-	i = -1;
-	while (++i < info->tokens)
-		free(info->token[i].content);
-	free(info->token);
+	tmp = info->token;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->content)
+			free(tmp->content);
+		free(tmp);
+		tmp = next;
+	}
 }
 
 static void	destroy_data(t_asm *info)
@@ -38,7 +50,10 @@ static void	destroy_data(t_asm *info)
 		return ;
 	i = -1;
 	while (info->data[++i])
+	{
+		printf("%s\n", info->data[i]);
 		free(info->data[i]);
+	}
 	free(info->data);
 }
 
@@ -47,5 +62,5 @@ void		destroy_struct(t_asm *info)
 	free(info->filename);
 	destroy_data(info);
 	destroy_tokens(info);
-	destroy_instructions(info);
+	destroy_instr(info);
 }

@@ -14,7 +14,8 @@
 
 void		terminate(t_asm *info, int status, t_token *token)
 {
-	(void)info;
+	if (status == 0)
+		ft_printf(strerror(errno));
 	(void)status;
 	(void)token;
 	destroy_struct(info);

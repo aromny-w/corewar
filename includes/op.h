@@ -68,9 +68,9 @@ typedef char	t_arg_type;
 
 typedef struct		s_op
 {
-	char			*op;
-	unsigned char	args;
-	unsigned char	type[MAX_ARGS_NUMBER];
+	char			*name;
+	int				args;
+	t_arg_type		type[MAX_ARGS_NUMBER];
 	unsigned char	opcode;
 	unsigned short	cycle;
 	bool			carry;

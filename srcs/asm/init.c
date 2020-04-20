@@ -38,5 +38,4 @@ void		init_struct(t_asm *info, char **input)
 			info->path = *input;
 	}
 	info->filename = get_filename(info);
-	info->header.magic = COREWAR_EXEC_MAGIC;
 }

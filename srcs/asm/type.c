@@ -12,9 +12,10 @@
 
 #include "asm.h"
 
-char	*g_type[12] =
+char	*g_type[15] =
 {
-	"COMMAND",
+	"COMMAND_NAME",
+	"COMMAND_COMMENT",
 	"STRING",
 	"LABEL",
 	"INSTRUCTION",
@@ -23,7 +24,9 @@ char	*g_type[12] =
 	"DIRECT_LABEL",
 	"INDIRECT",
 	"INDIRECT_LABEL",
-	"SEPARATOR",
 	"ENDLINE",
-	"END"
+	"SEPARATOR",
+	"END",
+	"COMMENT",
+	"WHITESPACE"
 };

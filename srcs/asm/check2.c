@@ -12,55 +12,86 @@
 
 #include "asm.h"
 
-static void	instruction_check(t_asm *info, size_t *i)
+static bool	is_argument(char type)
 {
-	if (info->token[*i].type == ENDLINE || (info->token[*i].type == LABEL &&
-	info->token[++(*i)].type == ENDLINE))
+	if (type == REGISTER || type == DIRECT || type == DIRECT_LABEL ||
+	type == INDIRECT || type == INDIRECT_LABEL)
+		return (true);
+	return (false);
+}
+
+static void	instr_check(t_asm *info, t_token **token)
+{
+	int	i;
+
+	if ((*token)->type == ENDLINE || ((*token)->type == LABEL &&
+	(*token = (*token)->next)->type == ENDLINE))
 		return ;
-	if (info->token[*i].type != INSTRUCTION)
-		terminate(info, 0, &info->token[*i]);
-	(*i)++;
-	if (!(info->token[*i].type > 3 && info->token[*i].type < 9))
-		terminate(info, 0, &info->token[*i]);
-	while (info->token[++(*i)].type != ENDLINE)
+	if ((*token)->type != INSTRUCTION)
+		terminate(info, 0, *token);
+	if (!is_argument(((*token) = (*token)->next)->type))
+		terminate(info, 0, *token);
+	i = -1;
+	while (++i < MAX_ARGS_NUMBER && (*token = (*token)->next)->type != ENDLINE)
 	{
-		if (info->token[*i].type != SEPARATOR)
-			terminate(info, 0, &info->token[*i]);
-		(*i)++;
-		if (!(info->token[*i].type > 3 && info->token[*i].type < 9))
-			terminate(info, 0, &info->token[*i]);
+		if ((*token)->type != SEPARATOR)
+			terminate(info, 0, *token);
+		if (!is_argument((*token = (*token)->next)->type))
+			terminate(info, 0, *token);
 	}
 }
 
-static void	header_check(t_asm *info, bool *prog_name, bool *comment, size_t *i)
+static void	header_check(t_asm *info, t_token **token)
 {
-	if (info->token[++(*i)].type == ENDLINE)
-		return ;
-	else if (!ft_strcmp(info->token[*i].content, NAME_CMD_STRING) &&
-	!*prog_name)
-		*prog_name = true;
-	else if (!ft_strcmp(info->token[*i].content, COMMENT_CMD_STRING) &&
-	!*comment)
-		*comment = true;
-	else
-		terminate(info, 0, &info->token[*i]);
-	if (info->token[++(*i)].type != STRING)
-		terminate(info, 0, &info->token[*i]);
-	if (info->token[++(*i)].type != ENDLINE)
-		terminate(info, 0, &info->token[*i]);
+	bool	prog_name;
+	bool	comment;
+
+	prog_name = false;
+	comment = false;
+	while (!(prog_name && comment))
+	{
+		while ((*token)->type == ENDLINE)
+			*token = (*token)->next;
+		if ((*token)->type == COMMAND_NAME && !prog_name)
+			prog_name = true;
+		else if ((*token)->type == COMMAND_COMMENT && !comment)
+			comment = true;
+		//else if ((*token)->type == COMMAND)
+		//	terminate(info, 0, *token); // invalid command
+		else
+			terminate(info, 0, *token);
+		if ((*token = (*token)->next)->type != STRING)
+			terminate(info, 0, *token);
+		if ((*token = (*token)->next)->type != ENDLINE)
+			terminate(info, 0, *token);
+	}
+}
+
+static void	reverse_tokens(t_token **token)
+{
+	t_token *prev;
+	t_token *curr;
+	t_token *next;
+
+	prev = NULL;
+	curr = *token;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	*token = prev;
 }
 
 void		syntax_check(t_asm *info)
 {
-	bool	prog_name;
-	bool	comment;
-	size_t	i;
+	t_token	*token_ptr;
 
-	i = -1;
-	prog_name = false;
-	comment = false;
-	while (!(prog_name && comment))
-		header_check(info, &prog_name, &comment, &i);
-	while (info->token[++i].type != END)
-		instruction_check(info, &i);
+	reverse_tokens(&info->token);
+	token_ptr = info->token;
+	header_check(info, &token_ptr);
+	while ((token_ptr = token_ptr->next)->type != END)
+		instr_check(info, &token_ptr);
 }

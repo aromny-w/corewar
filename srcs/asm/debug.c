@@ -14,28 +14,28 @@
 
 static void	print_types(t_asm *info)
 {
-	size_t	i;
+	t_token	*tptr;
 
-	i = -1;
-	while (++i < info->tokens)
-		ft_printf("%s\n", g_type[info->token[i].type]);
+	tptr = info->token;
+	while (tptr)
+	{
+		ft_printf("%s\n", g_type[tptr->type]);
+		tptr = tptr->next;
+	}
 }
 
 static void	print_tokens(t_asm *info)
 {
-	size_t	i;
+	t_token	*tptr;
 
-	i = -1;
-	while (++i < info->tokens)
+	tptr = info->token;
+	while (tptr->type != END)
 	{
-		if (info->token[i].type == ENDLINE || info->token[i].type == END)
-			ft_printf("\n");
-		else
-			ft_printf("%s", info->token[i].content);
-		if (info->token[i].type != ENDLINE && info->token[i].type != END &&
-		info->token[i + 1].type != ENDLINE && info->token[i + 1].type != END &&
-		info->token[i + 1].type != SEPARATOR)
+		ft_printf("%s", tptr->content ? tptr->content : "\n");
+		if (tptr->type != ENDLINE && tptr->next->type != ENDLINE &&
+		tptr->next->type != END && tptr->next->type != SEPARATOR)
 			ft_printf(" ");
+		tptr = tptr->next;
 	}
 }
 
@@ -51,8 +51,11 @@ static void	print_data(t_asm *info)
 
 void		debug(t_asm *info)
 {
-	bool	flag[3] = { 1, 0, 0 };
+	bool	flag[3];
 
+	flag[0] = false;
+	flag[1] = true;
+	flag[2] = false;
 	if (flag[0] == true)
 		print_data(info);
 	if (flag[1] == true)

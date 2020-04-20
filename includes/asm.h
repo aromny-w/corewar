@@ -19,18 +19,20 @@
 # include "libft.h"
 # include "get_next_line.h"
 # include "ft_dprintf.h"
+# include <errno.h>
 
-typedef union	u_value
+typedef union	u_int
 {
-	int				nbr;
+	int				n;
 	unsigned char	byte[4];
-}				t_value;
+}				t_int;
 
 extern char	*g_type[];
 
 typedef enum
 {
-	COMMAND,
+	COMMAND_NAME,
+	COMMAND_COMMENT,
 	STRING,
 	LABEL,
 	INSTRUCTION,
@@ -39,53 +41,61 @@ typedef enum
 	DIRECT_LABEL,
 	INDIRECT,
 	INDIRECT_LABEL,
-	SEPARATOR,
 	ENDLINE,
-	END
+	SEPARATOR,
+	END,
+	COMMENT,
+	WHITESPACE
 }				t_type;
 
 typedef struct	s_token
 {
-	char	*content;
-	size_t	row;
-	size_t	col;
-	t_type	type;
+	char			*content;
+	size_t			row;
+	size_t			col;
+	t_type			type;
+	struct s_token	*next;
 }				t_token;
 
-typedef struct	s_inst
+typedef struct	s_arg
+{
+	t_token			*token;
+	int				value;
+	t_arg_type		type;
+	unsigned int	size;
+}				t_arg;
+
+typedef struct	s_instr
 {
 	char			*label;
-	char			*op;
-	unsigned char	opcode;
-	unsigned char	type[MAX_ARGS_NUMBER];
-	unsigned char	typecode;
-	int				arg[MAX_ARGS_NUMBER];
-	unsigned char	argcode[MAX_ARGS_NUMBER];
-	unsigned char	size;
-	unsigned short	pos;
-	struct s_inst	*next;
-}				t_inst;
+	t_op			op;
+	t_arg			arg[MAX_ARGS_NUMBER];
+	unsigned int	size;
+	unsigned int	pos;
+	struct s_instr	*next;
+}				t_instr;
 
 typedef struct	s_asm
 {
 	char		*path;
 	char		*filename;
 	bool		flag;
+	char		*buf;
 	char		**data;
 	t_token		*token;
-	size_t		tokens;
 	t_header	header;
-	bool		name_mark;
-	bool		comment_mark;
-	t_inst		*inst;
+	t_instr		*instr;
 }				t_asm;
 
 void			assembler(char **input);
 void			init_struct(t_asm *info, char **input);
 void			read_file(t_asm *info);
 void			tokenize_data(t_asm *info);
-void			lexical_check(t_asm *info, t_token token);
+void			lexical_check(t_asm *info);
 void			syntax_check(t_asm *info);
+void			parse_tokens(t_asm *info);
+void			dereference_tokens(t_asm *info);
+void			write_to_file(t_asm *info);
 void			destroy_struct(t_asm *info);
 void			terminate(t_asm *info, int status, t_token *token);
 

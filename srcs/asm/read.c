@@ -12,6 +12,28 @@
 
 #include "asm.h"
 
+static void		strip_comments(t_asm *info)
+{
+	bool	str;
+	size_t	i;
+	size_t	j;
+
+	str = false;
+	j = -1;
+	while (info->data[++j])
+	{
+		i = -1;
+		while (info->data[j][++i])
+		{
+			if ((info->data[j][i] == COMMENT_CHAR ||
+			info->data[j][i] == COMMENT_CHAR_2) && !str)
+				info->data[j][i] = '\0';
+			if (info->data[j][i] == STRING_CHAR)
+				str = !str;
+		}
+	}
+}
+
 static void		split_buffer(t_asm *info, char *buf, size_t size)
 {
 	size_t	start;
@@ -31,46 +53,53 @@ static void		split_buffer(t_asm *info, char *buf, size_t size)
 			terminate(info, 0, NULL); // memory error
 	}
 	info->data[++j] = NULL;
+	i = -1;
+	while (info->data[++i])
+		printf("%s\n", info->data[i]);
 }
 
-static size_t	count_lines(char *str)
+static size_t	count_lines(char *buf)
 {
 	size_t	lines;
 
 	lines = 0;
-	while (*str)
-		if (*str++ == '\n')
+	while (*buf)
+		if (*buf++ == '\n')
 			lines++;
 	return (lines);
 }
 
 static void		read_data(t_asm *info, int fd)
 {
-	char	*buf;
 	ssize_t	ret;
 	size_t	i;
 
 	i = 0;
-	if (!(buf = (char *)malloc(sizeof(char) * (i + 1))))
+	if (!(info->buf = (char *)malloc(sizeof(char) * (i + 1))))
 		terminate(info, 0, NULL);
-	while ((ret = read(fd, &buf[i], 1)) == 1)
-		if (!(buf = (char *)ft_reallocf(buf, sizeof(char) * (++i + 1))))
+	while ((ret = read(fd, &info->buf[i], 1)) == 1)
+		if (!(info->buf = (char *)ft_reallocf(info->buf, sizeof(char) *
+		(++i + 1))))
 			terminate(info, 0, NULL);
 	if (ret == -1)
 		terminate(info, 0, NULL); // read error
-	if (!*buf || buf[i - 1] != '\n')
+	if (!*info->buf || info->buf[i - 1] != '\n')
 		terminate(info, 0, NULL); // syntax error
-	split_buffer(info, buf, count_lines(buf));
-	free(buf);
 }
 
 void			read_file(t_asm *info)
 {
 	int	fd;
+	int	i;
 
 	fd = open(info->path, O_RDONLY);
 	if (read(fd, 0, 0) == -1)
 		terminate(info, -1, NULL); // read error
 	read_data(info, fd);
+	split_buffer(info, info->buf, count_lines(info->buf));
+	strip_comments(info);
+	i = -1;
+	while (info->data[++i])
+		printf("%s\n", info->data[i]);
 	close(fd);
 }
