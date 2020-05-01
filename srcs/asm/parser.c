@@ -12,25 +12,7 @@
 
 #include "asm.h"
 
-static void	reverse_instr(t_instr **token)
-{
-	t_instr *prev;
-	t_instr *curr;
-	t_instr *next;
-
-	prev = NULL;
-	curr = *token;
-	while (curr)
-	{
-		next = curr->next;
-		curr->next = prev;
-		prev = curr;
-		curr = next;
-	}
-	*token = prev;
-}
-
-static t_op	get_operation(t_asm *info, t_token *token)
+static t_op	get_operation(t_prog *info, t_token *token)
 {
 	int	i;
 
@@ -43,7 +25,7 @@ static t_op	get_operation(t_asm *info, t_token *token)
 	return (g_op_tab[i]);
 }
 
-static void	add_new_instruction(t_asm *info, t_token **token)
+static void	add_new_instr(t_prog *info, t_token *label, t_token **token)
 {
 	t_instr	*new;
 	int		i;
@@ -52,21 +34,22 @@ static void	add_new_instruction(t_asm *info, t_token **token)
 		terminate(info, 0, NULL); // memory error;
 	new->next = info->instr;
 	info->instr = new;
-	if ((*token)->type == LABEL && (new->label = (*token)->content))
-		*token = (*token)->next;
+	if ((new->arg[3].token = label) && (*token = (*token)->next) &&
+	(!(new->label = ft_strndup(label->content, ft_strlen(label->content) - 1))))
+		terminate(info, 0, NULL);
 	if ((*token)->type == INSTRUCTION)
 		new->op = get_operation(info, *token);
 	i = -1;
-	while (++i < new->op.args && (*token = (*token)->next)->type != ENDLINE)
+	while (++i < new->op.params && (*token = (*token)->next)->type != ENDLINE)
 	{
 		new->arg[i].token = *token;
 		*token = (*token)->next;
 	}
-	if (i < new->op.args || (*token)->type != ENDLINE)
+	if (i < new->op.params || (*token)->type != ENDLINE)
 		terminate(info, 0, *token); // invalid arguments
 }
 
-static void	set_header(t_asm *info, t_token **token)
+static void	set_header(t_prog *info, t_token **token)
 {
 	char	*s1;
 	char	*s2;
@@ -93,7 +76,7 @@ static void	set_header(t_asm *info, t_token **token)
 	ft_strncpy(info->header.comment, s2, len2);
 }
 
-void		parse_tokens(t_asm *info)
+void		parse_tokens(t_prog *info)
 {
 	t_token	*token_ptr;
 
@@ -101,8 +84,14 @@ void		parse_tokens(t_asm *info)
 	info->header.magic = COREWAR_EXEC_MAGIC;
 	set_header(info, &token_ptr);
 	while ((token_ptr = token_ptr->next)->type != END)
-		if (token_ptr->type != ENDLINE)
-			add_new_instruction(info, &token_ptr);
+	{
+		if (token_ptr->type == ENDLINE)
+			continue ;
+		if (token_ptr->type == INSTRUCTION)
+			add_new_instr(info, NULL, &token_ptr);
+		if (token_ptr->type == LABEL)
+			add_new_instr(info, token_ptr, &token_ptr);
+	}
 	reverse_instr(&info->instr);
 	dereference_tokens(info);
 }

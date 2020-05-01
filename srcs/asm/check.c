@@ -1,89 +1,107 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/23 16:44:15 by student           #+#    #+#             */
-/*   Updated: 2020/04/03 17:35:55 by aromny-w         ###   ########.fr       */
+/*   Created: 2020/03/25 05:08:45 by student           #+#    #+#             */
+/*   Updated: 2020/04/05 01:16:48 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	number_check(t_asm *info)
+static bool	is_parameter(char type)
 {
-	size_t i;
-
-	i = -1;
-	if (info->token->type == REGISTER || info->token->type == DIRECT)
-		i += 1;
-	if (info->token->type != REGISTER)
-		if (info->token->content[i + 1] == '+' ||
-		info->token->content[i + 1] == '-')
-			i += 1;
-	if (ft_isdigit(info->token->content[i + 1]))
-	{
-		while (ft_isdigit(info->token->content[++i]))
-			continue ;
-		if (!info->token->content[i])
-			return ;
-	}
-	info->token->col += i;
-	terminate(info, 0, NULL); // lexical error
+	if (type == REGISTER || type == DIRECT || type == DIRECT_LABEL ||
+	type == INDIRECT || type == INDIRECT_LABEL)
+		return (true);
+	return (false);
 }
 
-static void	string_check(t_asm *info)
+static void	instr_check(t_prog *info, t_token **token)
+{
+	int	i;
+
+	if ((*token)->type != INSTRUCTION)
+		terminate(info, 0, *token);
+	if (!is_parameter(((*token) = (*token)->next)->type))
+		terminate(info, 0, *token);
+	i = -1;
+	while (++i < MAX_ARGS_NUMBER && (*token = (*token)->next)->type != ENDLINE)
+	{
+		if ((*token)->type != SEPARATOR)
+			terminate(info, 0, *token);
+		if (!is_parameter((*token = (*token)->next)->type))
+			terminate(info, 0, *token);
+	}
+}
+
+static void	header_check(t_prog *info, t_token **token)
+{
+	bool	prog_name;
+	bool	comment;
+
+	prog_name = false;
+	comment = false;
+	while (!(prog_name && comment))
+	{
+		while ((*token)->type == ENDLINE)
+			*token = (*token)->next;
+		if ((*token)->type == COMMAND_NAME && !prog_name)
+			prog_name = true;
+		else if ((*token)->type == COMMAND_COMMENT && !comment)
+			comment = true;
+		else
+			terminate(info, 0, *token);
+		if ((*token = (*token)->next)->type != STRING)
+			terminate(info, 0, *token);
+		if ((*token = (*token)->next)->type != ENDLINE)
+			terminate(info, 0, *token);
+	}
+}
+
+void		syntax_check(t_prog *info)
+{
+	t_token	*token_ptr;
+
+	token_ptr = info->token;
+	header_check(info, &token_ptr);
+	while ((token_ptr = token_ptr->next)->type != END)
+	{
+		if (token_ptr->type == ENDLINE || (token_ptr->type == LABEL &&
+		(token_ptr = token_ptr->next)->type == ENDLINE))
+			continue ;
+		instr_check(info, &token_ptr);
+	}
+}
+
+void		lexical_check(t_prog *info)
 {
 	char	*str;
-	size_t	i;
 
-	i = ft_strlen(info->token->content) - 1;
-	if (info->token->content[i] == STRING_CHAR)
+	str = &info->data[info->token->row][info->token->col];
+	if (!ft_strncmp(str, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		return ;
-	str = info->token->content;
-	while (*str++)
-	{
-		info->token->col++;
-		if (*str != '\n')
-			continue ;
-		info->token->col = 0;
-		info->token->row++;
-	}
-	terminate(info, 0, NULL); // lexical error
-}
-
-static void	general_check(t_asm *info, char c)
-{
-	size_t	i;
-
-	i = -1;
-	if (info->token->type == DIRECT_LABEL)
-		i += 1;
-	if (info->token->type == INDIRECT_LABEL)
-		i += 2;
-	if (info->token->content[i + 1])
-	{
-		while (ft_strchr(LABEL_CHARS, info->token->content[++i]))
-			continue ;
-		if (info->token->content[i] == c)
-			return ;
-	}
-	info->token->col += i;
-	terminate(info, 0, NULL); // lexical error
-}
-
-void		lexical_check(t_asm *info)
-{
-	if (info->token->type == INSTRUCTION || info->token->type == DIRECT_LABEL ||
-	info->token->type == INDIRECT_LABEL)
-		general_check(info, '\0');
-	if (info->token->type == LABEL)
-		general_check(info, LABEL_CHAR);
-	if (info->token->type == STRING)
-		string_check(info);
-	if (info->token->type == REGISTER || info->token->type == DIRECT ||
-	info->token->type == INDIRECT)
-		number_check(info);
+	if (!ft_strncmp(str, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		return ;
+	if (*str == STRING_CHAR || *str == SEPARATOR_CHAR)
+		return ;
+	if (ft_strchr(LABEL_CHARS, *str))
+		return ;
+	if ((*str == '-' || *str == DIRECT_CHAR) && ft_isdigit(*(str + 1)))
+		return ;
+	if (*str == DIRECT_CHAR && *(str + 1) == '-' && ft_isdigit(*(str + 2)))
+		return ;
+	if (*str == LABEL_CHAR && ft_strchr(LABEL_CHARS, *(str + 1)))
+		return ;
+	if ((*str == DIRECT_CHAR && *(str + 1) == LABEL_CHAR &&
+	ft_strchr(LABEL_CHARS, *(str + 2))))
+		return ;
+	if (*str == COMMENT_CHAR || *str == COMMENT_CHAR_2)
+		return ;
+	if (ft_isspace(*str))
+		return ;
+	terminate(info, 0, info->token);
 }

@@ -12,54 +12,43 @@
 
 #include "asm.h"
 
-static void	print_types(t_asm *info)
+static void	print_instr(t_instr *instr)
 {
-	t_token	*tptr;
+	if (!instr)
+		return ;
+	//
+}
 
-	tptr = info->token;
-	while (tptr)
+static void	print_tokens(t_token *token)
+{
+	if (!token)
+		return ;
+	while (token->type != END)
 	{
-		ft_printf("%s\n", g_type[tptr->type]);
-		tptr = tptr->next;
+		ft_printf("[TOKEN] %-15s \"%-14s\", [%.3d:%.3d]\n", g_type[token->type],
+		token->content, token->row, token->col);
+		token = token->next;
 	}
 }
 
-static void	print_tokens(t_asm *info)
-{
-	t_token	*tptr;
-
-	tptr = info->token;
-	while (tptr->type != END)
-	{
-		ft_printf("%s", tptr->content ? tptr->content : "\n");
-		if (tptr->type != ENDLINE && tptr->next->type != ENDLINE &&
-		tptr->next->type != END && tptr->next->type != SEPARATOR)
-			ft_printf(" ");
-		tptr = tptr->next;
-	}
-}
-
-static void	print_data(t_asm *info)
+static void	print_data(char **data)
 {
 	size_t	i;
 
+	if (!data)
+		return ;
 	i = -1;
-	while (info->data[++i])
-		ft_printf("%s\n", info->data[i]);
-	ft_printf("%s\n", info->data[i]);
+	while (data[++i])
+		ft_printf("%s\n", data[i]);
+	ft_printf("%s\n", data[i]);
 }
 
-void		debug(t_asm *info)
+void		debug(t_prog *info, bool data, bool token, bool instr)
 {
-	bool	flag[3];
-
-	flag[0] = false;
-	flag[1] = true;
-	flag[2] = false;
-	if (flag[0] == true)
-		print_data(info);
-	if (flag[1] == true)
-		print_tokens(info);
-	if (flag[2] == true)
-		print_types(info);
+	if (data == true)
+		print_data(info->data);
+	if (token == true)
+		print_tokens(info->token);
+	if (instr == true)
+		print_instr(info->instr);
 }

@@ -36,7 +36,6 @@
 
 # define COMMENT_CHAR '#'
 # define COMMENT_CHAR_2 ';'
-# define COMMAND_CHAR '.'
 # define STRING_CHAR '"'
 # define LABEL_CHAR ':'
 # define REG_CHAR 'r'
@@ -68,14 +67,14 @@ typedef char	t_arg_type;
 
 typedef struct		s_op
 {
-	char			*name;
-	int				args;
-	t_arg_type		type[MAX_ARGS_NUMBER];
-	unsigned char	opcode;
-	unsigned short	cycle;
-	bool			carry;
-	bool			argbyte;
-	bool			index;
+	char		*name;
+	int			params;
+	t_arg_type	type[MAX_ARGS_NUMBER];
+	int			opcode;
+	int			cycle;
+	char		*desc;
+	bool		pcode;
+	bool		idx;
 }					t_op;
 
 extern t_op	g_op_tab[];

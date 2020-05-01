@@ -14,8 +14,20 @@
 
 static void	write_number(int fd, int n, size_t size)
 {
-	while (size--)
-		ft_dprintf(fd, "%c", n >> (size * 8));
+	char	byte[4];
+
+	byte[0] = n >> 0;
+	byte[1] = n >> 8;
+	byte[2] = n >> 16;
+	byte[3] = n >> 24;
+	if (size >= 4)
+		write(fd, &byte[3], 1);
+	if (size >= 3)
+		write(fd, &byte[2], 1);
+	if (size >= 2)
+		write(fd, &byte[1], 1);
+	if (size >= 1)
+		write(fd, &byte[0], 1);
 }
 
 static void	write_instr(int fd, t_instr *instr, t_arg *arg)
@@ -24,14 +36,13 @@ static void	write_instr(int fd, t_instr *instr, t_arg *arg)
 
 	if (instr->op.opcode)
 		write_number(fd, instr->op.opcode, sizeof(char));
-	if (instr->op.argbyte)
-		write_number(fd, (arg[0].type << 6) + (arg[1].type << 4) +
-		(arg[2].type << 2) + (arg[3].type << 0), sizeof(char));
+	if (instr->op.pcode)
+		write_number(fd, instr->acb, sizeof(char));
 	i = -1;
-	while (arg[++i].size)
+	while (++i < instr->op.params)
 		write_number(fd, arg[i].value, arg[i].size);
 	if (instr->next)
-		write_instr(fd, instr->next, instr->arg);
+		write_instr(fd, instr->next, instr->next->arg);
 }
 
 static void	write_header(t_header header, int fd)
@@ -42,10 +53,9 @@ static void	write_header(t_header header, int fd)
 	write_number(fd, header.prog_size, sizeof(int));
 	write(fd, header.comment, COMMENT_LENGTH);
 	write_number(fd, 0, sizeof(int));
-
 }
 
-void		write_to_file(t_asm *info)
+void		write_bytecode(t_prog *info)
 {
 	int		fd;
 
@@ -55,4 +65,5 @@ void		write_to_file(t_asm *info)
 	ft_printf("Writing output program to %s\n", info->filename);
 	write_header(info->header, fd);
 	write_instr(fd, info->instr, info->instr->arg);
+	close(fd);
 }

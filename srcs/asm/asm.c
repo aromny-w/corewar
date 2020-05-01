@@ -21,14 +21,18 @@ annotated version of the code to the standard output");
 
 void		assembler(char **input)
 {
-	t_asm	info;
+	t_prog	info;
 
 	init_struct(&info, input);
 	read_file(&info);
 	tokenize_data(&info);
 	parse_tokens(&info);
-	write_to_file(&info);
-	//debug(&info);
+	if (info.flag.s)
+		;
+	else if (info.flag.a)
+		print_annotation(&info);
+	else
+		write_bytecode(&info);
 	destroy_struct(&info);
 }
 

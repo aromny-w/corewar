@@ -22,8 +22,6 @@ static t_type	get_type(char **data, char *content, size_t i, size_t j)
 		return (COMMAND_NAME);
 	if (!ft_strcmp(content, COMMENT_CMD_STRING))
 		return (COMMAND_COMMENT);
-	//if (*content == COMMAND_CHAR)
-	//	return (COMMAND);
 	if (*content == SEPARATOR_CHAR)
 		return (SEPARATOR);
 	if (*content == STRING_CHAR)
@@ -34,14 +32,14 @@ static t_type	get_type(char **data, char *content, size_t i, size_t j)
 		return (*(content + 1) == LABEL_CHAR ? DIRECT_LABEL : DIRECT);
 	if (content[ft_strlen(content) - 1] == LABEL_CHAR)
 		return (LABEL);
-	if (ft_isdigit(*content) || *content == '+' || *content == '-')
+	if (ft_isdigit(*content) || *content == '-')
 		return (INDIRECT);
-	if (*content == REG_CHAR)
+	if (*content == REG_CHAR && ft_isdigit(*(content + 1)))
 		return (REGISTER);
 	return (INSTRUCTION);
 }
 
-static char		*get_string(t_asm *info, char **data, size_t *i, size_t *j)
+static char		*get_string(t_prog *info, char **data, size_t *i, size_t *j)
 {
 	char	*str;
 	size_t	len;
@@ -70,22 +68,25 @@ static char		*get_string(t_asm *info, char **data, size_t *i, size_t *j)
 	return (str);
 }
 
-static char		*get_content(t_asm *info, char **data, size_t *i, size_t *j)
+static char		*get_content(t_prog *info, char **data, size_t *i, size_t *j)
 {
 	char	*str;
 	size_t	start;
 
-	if (!data[*j] || !data[*j][*i])
-		return (NULL);
+	start = *i;
+	lexical_check(info);
 	if (data[*j][*i] == STRING_CHAR)
 		return (get_string(info, data, i, j));
-	start = *i;
-	if (data[*j][*i] == DIRECT_CHAR && data[*j][*i + 1] == LABEL_CHAR)
+	else if (!ft_strncmp(&data[*j][*i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		*i += ft_strlen(NAME_CMD_STRING) - 1;
+	else if (!ft_strncmp(&data[*j][*i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		*i += ft_strlen(COMMENT_CMD_STRING) - 1;
+	if (data[*j][*i] == DIRECT_CHAR &&
+	(data[*j][*i + 1] == LABEL_CHAR || data[*j][*i + 1] == '-'))
 		(*i)++;
 	if (data[*j][*i] != SEPARATOR_CHAR)
-		while (data[*j][*i + 1] && !ft_isspace(data[*j][*i + 1]) &&
-		data[*j][*i + 1] != COMMAND_CHAR && data[*j][*i + 1] != STRING_CHAR &&
-		data[*j][*i + 1] != DIRECT_CHAR && data[*j][*i + 1] != SEPARATOR_CHAR)
+		while (data[*j][*i + 1] && (ft_strchr(LABEL_CHARS, data[*j][*i + 1]) ||
+		data[*j][*i + 1] == LABEL_CHAR))
 			if (data[*j][(*i)++ + 1] == LABEL_CHAR)
 				break ;
 	if (!(str = ft_strsub(data[*j], start, *i - start + 1)))
@@ -93,22 +94,22 @@ static char		*get_content(t_asm *info, char **data, size_t *i, size_t *j)
 	return (str);
 }
 
-static void		add_new_token(t_asm *info, size_t *i, size_t *j)
+static void		add_new_token(t_prog *info, size_t *i, size_t *j)
 {
 	t_token	*new;
 
 	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
 		terminate(info, 0, NULL);
-	new->next = info->token;
-	info->token = new;
 	new->col = *i;
 	new->row = *j;
-	new->content = get_content(info, info->data, i, j);
+	new->next = info->token;
+	info->token = new;
+	if (info->data[*j] && info->data[*j][*i])
+		new->content = get_content(info, info->data, i, j);
 	new->type = get_type(info->data, new->content, new->col, new->row);
-	//lexical_check(info);
 }
 
-void			tokenize_data(t_asm *info)
+void			tokenize_data(t_prog *info)
 {
 	size_t	i;
 	size_t	j;
@@ -126,5 +127,6 @@ void			tokenize_data(t_asm *info)
 		add_new_token(info, &i, &j);
 	}
 	add_new_token(info, &i, &j);
+	reverse_tokens(&info->token);
 	syntax_check(info);
 }

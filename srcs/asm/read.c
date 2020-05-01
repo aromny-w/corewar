@@ -12,52 +12,6 @@
 
 #include "asm.h"
 
-static void		strip_comments(t_asm *info)
-{
-	bool	str;
-	size_t	i;
-	size_t	j;
-
-	str = false;
-	j = -1;
-	while (info->data[++j])
-	{
-		i = -1;
-		while (info->data[j][++i])
-		{
-			if ((info->data[j][i] == COMMENT_CHAR ||
-			info->data[j][i] == COMMENT_CHAR_2) && !str)
-				info->data[j][i] = '\0';
-			if (info->data[j][i] == STRING_CHAR)
-				str = !str;
-		}
-	}
-}
-
-static void		split_buffer(t_asm *info, char *buf, size_t size)
-{
-	size_t	start;
-	size_t	i;
-	size_t	j;
-
-	if (!(info->data = (char **)malloc(sizeof(char *) * (size + 1))))
-		terminate(info, 0, NULL);
-	i = -1;
-	j = -1;
-	while (buf[++i])
-	{
-		start = i;
-		while (buf[i] != '\n' && buf[i + 1])
-			i++;
-		if (!(info->data[++j] = ft_strsub(buf, start, i - start)))
-			terminate(info, 0, NULL); // memory error
-	}
-	info->data[++j] = NULL;
-	i = -1;
-	while (info->data[++i])
-		printf("%s\n", info->data[i]);
-}
-
 static size_t	count_lines(char *buf)
 {
 	size_t	lines;
@@ -69,7 +23,56 @@ static size_t	count_lines(char *buf)
 	return (lines);
 }
 
-static void		read_data(t_asm *info, int fd)
+static void		split_buffer(t_prog *info)
+{
+	size_t	start;
+	size_t	size;
+	size_t	i;
+	size_t	j;
+
+	size = count_lines(info->buf);
+	if (!(info->data = (char **)malloc(sizeof(char *) * (size + 1))))
+		terminate(info, 0, NULL);
+	i = -1;
+	j = -1;
+	while (++j < size)
+	{
+		start = ++i;
+		while (info->buf[i] != '\n' && info->buf[i + 1])
+			i++;
+		if (!(info->data[j] = ft_strsub(info->buf, start, i - start)))
+			terminate(info, 0, NULL); // memory error
+	}
+	info->data[j] = NULL;
+}
+
+static void		strip_comments(t_prog *info)
+{
+	bool	comment;
+	bool	string;
+	size_t	i;
+	size_t	j;
+
+	comment = false;
+	string = false;
+	i = -1;
+	j = -1;
+	while (info->buf[++i])
+	{
+		if ((info->buf[i] == COMMENT_CHAR || info->buf[i] == COMMENT_CHAR_2) &&
+		string == false)
+			comment = true;
+		else if (info->buf[i] == '\n' && string == false)
+			comment = false;
+		else if (info->buf[i] == STRING_CHAR)
+			string = !string;
+		if (comment == false)
+			info->buf[++j] = info->buf[i];
+	}
+	info->buf[++j] = info->buf[i];
+}
+
+static void		read_data(t_prog *info, int fd)
 {
 	ssize_t	ret;
 	size_t	i;
@@ -81,25 +84,20 @@ static void		read_data(t_asm *info, int fd)
 		if (!(info->buf = (char *)ft_reallocf(info->buf, sizeof(char) *
 		(++i + 1))))
 			terminate(info, 0, NULL);
+	info->buf[i] = '\0';
 	if (ret == -1)
 		terminate(info, 0, NULL); // read error
-	if (!*info->buf || info->buf[i - 1] != '\n')
-		terminate(info, 0, NULL); // syntax error
 }
 
-void			read_file(t_asm *info)
+void			read_file(t_prog *info)
 {
 	int	fd;
-	int	i;
 
 	fd = open(info->path, O_RDONLY);
-	if (read(fd, 0, 0) == -1)
-		terminate(info, -1, NULL); // read error
+	if (read(fd, NULL, 0) == -1)
+		terminate(info, 1, NULL); // read error
 	read_data(info, fd);
-	split_buffer(info, info->buf, count_lines(info->buf));
 	strip_comments(info);
-	i = -1;
-	while (info->data[++i])
-		printf("%s\n", info->data[i]);
+	split_buffer(info);
 	close(fd);
 }

@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	destroy_instr(t_asm *info)
+static void	destroy_instr(t_prog *info)
 {
 	t_instr	*tmp;
 	t_instr	*next;
@@ -26,7 +26,7 @@ static void	destroy_instr(t_asm *info)
 	}
 }
 
-static void	destroy_tokens(t_asm *info)
+static void	destroy_tokens(t_prog *info)
 {
 	t_token	*tmp;
 	t_token	*next;
@@ -42,7 +42,7 @@ static void	destroy_tokens(t_asm *info)
 	}
 }
 
-static void	destroy_data(t_asm *info)
+static void	destroy_data(t_prog *info)
 {
 	size_t	i;
 
@@ -50,14 +50,11 @@ static void	destroy_data(t_asm *info)
 		return ;
 	i = -1;
 	while (info->data[++i])
-	{
-		printf("%s\n", info->data[i]);
 		free(info->data[i]);
-	}
 	free(info->data);
 }
 
-void		destroy_struct(t_asm *info)
+void		destroy_struct(t_prog *info)
 {
 	free(info->filename);
 	destroy_data(info);

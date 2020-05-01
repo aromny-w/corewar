@@ -12,31 +12,12 @@
 
 #include "asm.h"
 
-static int	dereference_label(t_asm *info, t_token *token, unsigned int pos)
-{
-	t_instr	*instr;
-	char	*label;
-
-	instr = info->instr;
-	label = token->content + (token->type == DIRECT_LABEL ? 2 : 1);
-	while (instr)
-	{
-		if (instr->label)
-			if (!ft_strncmp(label, instr->label, ft_strlen(instr->label) - 1))
-				break ;
-		instr = instr->next;
-	}
-	if (!instr)
-		terminate(info, 0, token); // failed to dereference
-	return (instr->pos - pos);
-}
-
-static void	set_arg_value(t_asm *info, t_instr **instr, t_arg *arg)
+static void	set_arg_value(t_prog *info, t_instr **instr, t_arg *arg)
 {
 	int	i;
 
 	i = -1;
-	while (++i < (*instr)->op.args)
+	while (++i < (*instr)->op.params)
 	{
 		if (arg[i].token->type == INDIRECT)
 			arg[i].value = ft_atoi(arg[i].token->content);
@@ -44,43 +25,63 @@ static void	set_arg_value(t_asm *info, t_instr **instr, t_arg *arg)
 			arg[i].value = ft_atoi(arg[i].token->content + 1);
 		if (arg[i].token->type == DIRECT_LABEL ||
 		arg[i].token->type == INDIRECT_LABEL)
-			arg[i].value = dereference_label(info, arg[i].token, (*instr)->pos);
+			arg[i].value = get_label_pos(info, arg[i].token) - (*instr)->pos;
 	}
 	if ((*instr)->next)
 		set_arg_value(info, &(*instr)->next, (*instr)->next->arg);
 }
 
-static void	set_size_and_pos(t_asm *info, t_instr **instr, unsigned int pos)
+static void	set_size_and_pos(t_prog *info, t_instr **instr, unsigned int pos)
 {
 	int	i;
 
 	if ((*instr)->op.name)
 		(*instr)->size += 1;
-	if ((*instr)->op.argbyte)
+	if ((*instr)->op.pcode)
 		(*instr)->size += 1;
 	i = -1;
-	while (++i < (*instr)->op.args)
+	while (++i < (*instr)->op.params)
 	{
 		if ((*instr)->arg[i].type == T_REG)
-			(*instr)->arg[i].size += 1;
-		if ((*instr)->arg[i].type == T_IND)
-			(*instr)->arg[i].size += 2;
-		if ((*instr)->arg[i].type == T_DIR)
-			(*instr)->arg[i].size += (*instr)->op.index ? 2 : 4;
+			(*instr)->arg[i].size = sizeof(char);
+		else if ((*instr)->arg[i].type == T_IND)
+			(*instr)->arg[i].size = sizeof(short);
+		else if ((*instr)->arg[i].type == T_DIR && !(*instr)->op.idx)
+			(*instr)->arg[i].size = sizeof(int);
+		else if ((*instr)->arg[i].type == T_DIR)
+			(*instr)->arg[i].size = sizeof(short);
 		(*instr)->size += (*instr)->arg[i].size;
 	}
-	(*instr)->pos += pos;
+	(*instr)->pos = pos;
 	info->header.prog_size += (*instr)->size;
 	if ((*instr)->next)
 		set_size_and_pos(info, &(*instr)->next, (*instr)->pos + (*instr)->size);
 }
 
-static void	set_arg_type(t_asm *info, t_instr **instr, t_arg *arg)
+static void	set_acb(t_prog *info, t_instr **instr, t_arg *arg)
 {
 	int	i;
 
 	i = -1;
-	while (++i < (*instr)->op.args)
+	while (++i < (*instr)->op.params)
+	{
+		if (arg[i].type == T_REG)
+			(*instr)->acb += REG_CODE << (8 - (i + 1) * 2);
+		if (arg[i].type == T_DIR)
+			(*instr)->acb += DIR_CODE << (8 - (i + 1) * 2);
+		if (arg[i].type == T_IND)
+			(*instr)->acb += IND_CODE << (8 - (i + 1) * 2);
+	}
+	if ((*instr)->next)
+		set_acb(info, &(*instr)->next, (*instr)->next->arg);
+}
+
+static void	set_arg_type(t_prog *info, t_instr **instr, t_arg *arg)
+{
+	int	i;
+
+	i = -1;
+	while (++i < (*instr)->op.params)
 	{
 		if (arg[i].token->type == REGISTER)
 			arg[i].type = T_REG;
@@ -96,9 +97,10 @@ static void	set_arg_type(t_asm *info, t_instr **instr, t_arg *arg)
 		set_arg_type(info, &(*instr)->next, (*instr)->next->arg);
 }
 
-void		dereference_tokens(t_asm *info)
+void		dereference_tokens(t_prog *info)
 {
 	set_arg_type(info, &info->instr, info->instr->arg);
+	set_acb(info, &info->instr, info->instr->arg);
 	set_size_and_pos(info, &info->instr, 0);
 	set_arg_value(info, &info->instr, info->instr->arg);
 }
