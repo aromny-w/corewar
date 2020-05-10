@@ -73,7 +73,7 @@ char		*get_token_str(char *s)
 	i = 0;
 	if (s[i] == DIRECT_CHAR || s[i] == LABEL_CHAR)
 		i++;
-	if (s[i] == LABEL_CHAR || s[i] == '-')
+	if (s[i] == LABEL_CHAR || s[i] == '+' || s[i] == '-')
 		i++;
 	while (ft_strchr(LABEL_CHARS, s[i]) || s[i] == LABEL_CHAR)
 		if (!s[i] || s[i++] == LABEL_CHAR)

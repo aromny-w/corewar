@@ -14,7 +14,7 @@
 
 static bool		is_indirect(char *content)
 {
-	if (*content == '-')
+	if (*content == '+' || *content == '-')
 		content++;
 	while (ft_isdigit(*content++))
 		if (!*content)
