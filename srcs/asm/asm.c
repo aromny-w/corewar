@@ -23,16 +23,15 @@ void		assembler(char **input)
 {
 	t_prog	info;
 
-	init_struct(&info, input);
-	read_file(&info);
-	tokenize_data(&info);
+	get_options(&info, input);
+	get_file_contents(&info);
+	lex_corewar(&info);
 	parse_tokens(&info);
-	if (info.flag.s)
-		;
-	else if (info.flag.a)
-		print_annotation(&info);
+	parse_lines(&info);
+	if (info.option)
+		annotated_output(&info);
 	else
-		write_bytecode(&info);
+		bytecode_output(&info);
 	destroy_struct(&info);
 }
 

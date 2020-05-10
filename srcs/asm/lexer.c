@@ -12,121 +12,82 @@
 
 #include "asm.h"
 
-static t_type	get_type(char **data, char *content, size_t i, size_t j)
+static void	reverse_tokens(t_token **token)
 {
-	if (!data[j])
-		return (END);
-	if (!data[j][i])
-		return (ENDLINE);
-	if (!ft_strcmp(content, NAME_CMD_STRING))
-		return (COMMAND_NAME);
-	if (!ft_strcmp(content, COMMENT_CMD_STRING))
-		return (COMMAND_COMMENT);
-	if (*content == SEPARATOR_CHAR)
-		return (SEPARATOR);
-	if (*content == STRING_CHAR)
-		return (STRING);
-	if (*content == LABEL_CHAR)
-		return (INDIRECT_LABEL);
-	if (*content == DIRECT_CHAR)
-		return (*(content + 1) == LABEL_CHAR ? DIRECT_LABEL : DIRECT);
-	if (content[ft_strlen(content) - 1] == LABEL_CHAR)
-		return (LABEL);
-	if (ft_isdigit(*content) || *content == '-')
-		return (INDIRECT);
-	if (*content == REG_CHAR && ft_isdigit(*(content + 1)))
-		return (REGISTER);
-	return (INSTRUCTION);
-}
+	t_token *prev;
+	t_token *curr;
+	t_token *next;
 
-static char		*get_string(t_prog *info, char **data, size_t *i, size_t *j)
-{
-	char	*str;
-	size_t	len;
-
-	len = 0;
-	if (!(str = (char *)malloc(sizeof(char) * (++len + 1))))
-		terminate(info, 0, NULL);
-	str[0] = data[(*j)--][*i];
-	str[len] = '\0';
-	while (data[++(*j)])
+	prev = NULL;
+	curr = *token;
+	while (curr)
 	{
-		while (!ft_strchr(&str[1], STRING_CHAR))
-		{
-			if (!(str = (char *)ft_reallocf(str, sizeof(char) * (++len + 1))))
-				terminate(info, 0, NULL);
-			str[len] = '\0';
-			if (data[*j][*i + 1])
-				str[len - 1] = data[*j][++(*i)];
-			else if ((str[len - 1] = '\n'))
-				break ;
-		}
-		if (!data[*j + 1] || ft_strchr(&str[1], STRING_CHAR))
-			break ;
-		*i = -1;
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
 	}
-	return (str);
+	*token = prev;
 }
 
-static char		*get_content(t_prog *info, char **data, size_t *i, size_t *j)
+static int	get_token_col(char *buf, char *s)
 {
-	char	*str;
-	size_t	start;
+	int	col;
+	int	n;
+	int	i;
 
-	start = *i;
-	lexical_check(info);
-	if (data[*j][*i] == STRING_CHAR)
-		return (get_string(info, data, i, j));
-	else if (!ft_strncmp(&data[*j][*i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
-		*i += ft_strlen(NAME_CMD_STRING) - 1;
-	else if (!ft_strncmp(&data[*j][*i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-		*i += ft_strlen(COMMENT_CMD_STRING) - 1;
-	if (data[*j][*i] == DIRECT_CHAR &&
-	(data[*j][*i + 1] == LABEL_CHAR || data[*j][*i + 1] == '-'))
-		(*i)++;
-	if (data[*j][*i] != SEPARATOR_CHAR)
-		while (data[*j][*i + 1] && (ft_strchr(LABEL_CHARS, data[*j][*i + 1]) ||
-		data[*j][*i + 1] == LABEL_CHAR))
-			if (data[*j][(*i)++ + 1] == LABEL_CHAR)
-				break ;
-	if (!(str = ft_strsub(data[*j], start, *i - start + 1)))
-		terminate(info, 0, NULL); // memory error
-	return (str);
+	col = 1;
+	n = ft_strlen(buf) - ft_strlen(s);
+	i = -1;
+	while (++i < n && col++)
+		if (buf[i] == '\n')
+			col = 1;
+	return (col);
 }
 
-static void		add_new_token(t_prog *info, size_t *i, size_t *j)
+static int	get_token_row(char *buf, char *s)
+{
+	int	row;
+	int	n;
+	int	i;
+
+	row = 1;
+	n = ft_strlen(buf) - ft_strlen(s);
+	i = -1;
+	while (++i < n)
+		if (buf[i] == '\n')
+			row++;
+	return (row);
+}
+
+static void	add_new_token(t_prog *info, char *s)
 {
 	t_token	*new;
 
 	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
 		terminate(info, 0, NULL);
-	new->col = *i;
-	new->row = *j;
+	new->row = get_token_row(info->buf, s);
+	new->col = get_token_col(info->buf, s);
 	new->next = info->token;
 	info->token = new;
-	if (info->data[*j] && info->data[*j][*i])
-		new->content = get_content(info, info->data, i, j);
-	new->type = get_type(info->data, new->content, new->col, new->row);
+	lexical_check(info, s);
+	if (*s && !(new->str = get_token_str(s)))
+		terminate(info, 0, NULL);
+	new->type = get_token_type(new->str);
 }
 
-void			tokenize_data(t_prog *info)
+void		lex_corewar(t_prog *info)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
 
-	j = -1;
-	while (info->data[++j])
+	i = 0;
+	add_new_token(info, info->buf);
+	while (info->token->type != END)
 	{
-		i = -1;
-		while (info->data[j][++i])
-		{
-			if (ft_isspace(info->data[j][i]))
-				continue ;
-			add_new_token(info, &i, &j);
-		}
-		add_new_token(info, &i, &j);
+		i += ft_strlen(info->token->str);
+		add_new_token(info, &info->buf[i]);
 	}
-	add_new_token(info, &i, &j);
 	reverse_tokens(&info->token);
+	strip_tokens(info);
 	syntax_check(info);
 }

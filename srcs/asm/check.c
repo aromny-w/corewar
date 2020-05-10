@@ -20,21 +20,18 @@ static bool	is_parameter(char type)
 	return (false);
 }
 
-static void	instr_check(t_prog *info, t_token **token)
+static void	line_check(t_prog *info, t_token **token)
 {
-	int	i;
-
 	if ((*token)->type != INSTRUCTION)
-		terminate(info, 0, *token);
-	if (!is_parameter(((*token) = (*token)->next)->type))
-		terminate(info, 0, *token);
-	i = -1;
-	while (++i < MAX_ARGS_NUMBER && (*token = (*token)->next)->type != ENDLINE)
+		terminate(info, 4, *token);
+	if (!is_parameter((*token = (*token)->next)->type))
+		terminate(info, 4, *token);
+	while ((*token = (*token)->next)->type != ENDLINE)
 	{
 		if ((*token)->type != SEPARATOR)
-			terminate(info, 0, *token);
+			terminate(info, 4, *token);
 		if (!is_parameter((*token = (*token)->next)->type))
-			terminate(info, 0, *token);
+			terminate(info, 4, *token);
 	}
 }
 
@@ -45,63 +42,60 @@ static void	header_check(t_prog *info, t_token **token)
 
 	prog_name = false;
 	comment = false;
-	while (!(prog_name && comment))
+	while (!prog_name || !comment)
 	{
-		while ((*token)->type == ENDLINE)
+		if (!((*token)->type == COMMAND_NAME && (prog_name = !prog_name)) &&
+		!((*token)->type == COMMAND_COMMENT && (comment = !comment)))
+			terminate(info, 4, *token);
+		if (((*token) = (*token)->next)->type != STRING)
+			terminate(info, 4, *token);
+		if (((*token) = (*token)->next)->type != ENDLINE)
+			terminate(info, 4, *token);
+		if (!prog_name || !comment)
 			*token = (*token)->next;
-		if ((*token)->type == COMMAND_NAME && !prog_name)
-			prog_name = true;
-		else if ((*token)->type == COMMAND_COMMENT && !comment)
-			comment = true;
-		else
-			terminate(info, 0, *token);
-		if ((*token = (*token)->next)->type != STRING)
-			terminate(info, 0, *token);
-		if ((*token = (*token)->next)->type != ENDLINE)
-			terminate(info, 0, *token);
 	}
 }
 
 void		syntax_check(t_prog *info)
 {
-	t_token	*token_ptr;
+	t_token	*tptr;
 
-	token_ptr = info->token;
-	header_check(info, &token_ptr);
-	while ((token_ptr = token_ptr->next)->type != END)
+	tptr = info->token;
+	header_check(info, &tptr);
+	if (tptr->next->type == END)
+		terminate(info, 4, tptr->next);
+	while ((tptr = tptr->next)->type != END)
 	{
-		if (token_ptr->type == ENDLINE || (token_ptr->type == LABEL &&
-		(token_ptr = token_ptr->next)->type == ENDLINE))
+		if (tptr->type != ENDLINE && tptr->next->type == END)
+			terminate(info, 3, NULL);
+		if (tptr->type == LABEL || tptr->type == ENDLINE)
 			continue ;
-		instr_check(info, &token_ptr);
+		line_check(info, &tptr);
 	}
 }
 
-void		lexical_check(t_prog *info)
+void		lexical_check(t_prog *info, char *s)
 {
-	char	*str;
-
-	str = &info->data[info->token->row][info->token->col];
-	if (!ft_strncmp(str, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+	if (!ft_strncmp(s, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		return ;
-	if (!ft_strncmp(str, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+	if (!ft_strncmp(s, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 		return ;
-	if (*str == STRING_CHAR || *str == SEPARATOR_CHAR)
+	if (*s == STRING_CHAR || *s == SEPARATOR_CHAR)
 		return ;
-	if (ft_strchr(LABEL_CHARS, *str))
+	if (ft_strchr(LABEL_CHARS, *s))
 		return ;
-	if ((*str == '-' || *str == DIRECT_CHAR) && ft_isdigit(*(str + 1)))
+	if ((*s == '-' || *s == DIRECT_CHAR) && ft_isdigit(*(s + 1)))
 		return ;
-	if (*str == DIRECT_CHAR && *(str + 1) == '-' && ft_isdigit(*(str + 2)))
+	if (*s == DIRECT_CHAR && *(s + 1) == '-' && ft_isdigit(*(s + 2)))
 		return ;
-	if (*str == LABEL_CHAR && ft_strchr(LABEL_CHARS, *(str + 1)))
+	if (*s == LABEL_CHAR && ft_strchr(LABEL_CHARS, *(s + 1)))
 		return ;
-	if ((*str == DIRECT_CHAR && *(str + 1) == LABEL_CHAR &&
-	ft_strchr(LABEL_CHARS, *(str + 2))))
+	if ((*s == DIRECT_CHAR && *(s + 1) == LABEL_CHAR &&
+	ft_strchr(LABEL_CHARS, *(s + 2))))
 		return ;
-	if (*str == COMMENT_CHAR || *str == COMMENT_CHAR_2)
+	if (*s == COMMENT_CHAR || *s == COMMENT_CHAR_2)
 		return ;
-	if (ft_isspace(*str))
+	if (ft_isspace(*s))
 		return ;
-	terminate(info, 0, info->token);
+	terminate(info, 2, info->token);
 }

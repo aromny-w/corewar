@@ -12,25 +12,25 @@
 
 #include "asm.h"
 
-static void	print_ints(t_instr *instr, t_arg *arg)
+static void	print_ints(t_line *line, t_arg *arg)
 {
 	int	i;
 
 	i = -1;
-	ft_printf("%-3u ", instr->op.opcode);
-	instr->op.pcode ? ft_printf("%-3u   ", instr->acb) : ft_printf("      ");
-	while (++i < instr->op.params)
+	ft_printf("%-3u ", line->op.opcode);
+	line->op.pcode ? ft_printf("%-3u   ", line->acb) : ft_printf("      ");
+	while (++i < line->op.params)
 		ft_printf("%-18d", arg[i].value);
 }
 
-static void	print_bytecode(t_instr *instr, t_arg *arg)
+static void	print_bytecode(t_line *line, t_arg *arg)
 {
 	int i;
 
 	i = -1;
-	ft_printf("%-3u ", instr->op.opcode);
-	instr->op.pcode ? ft_printf("%-3u   ", instr->acb) : ft_printf("      ");
-	while (++i < instr->op.params)
+	ft_printf("%-3u ", line->op.opcode);
+	line->op.pcode ? ft_printf("%-3u   ", line->acb) : ft_printf("      ");
+	while (++i < line->op.params)
 	{
 		if (arg[i].size == 4)
 			ft_printf("%-3u %-3u %-3u %-3u   ", arg[i].value >> 24 & 255,
@@ -44,25 +44,25 @@ static void	print_bytecode(t_instr *instr, t_arg *arg)
 	}
 }
 
-static void	print_instr(t_instr *instr, t_arg *arg)
+static void	print_line(t_line *line, t_arg *arg)
 {
 	int	i;
 
-	if (instr->label)
-		ft_printf("%-4u       :    %s\n", instr->pos, arg[3].token->content);
-	if (instr->op.name)
+	if (line->label)
+		ft_printf("%-4u       :    %s\n", line->pos, line->label->str);
+	if (line->op.name)
 	{
-		ft_printf("%-4u (%-3u) :        %-10s", instr->pos, instr->size,
-		instr->op.name);
+		ft_printf("%-4u (%-3u) :        %-10s", line->pos, line->size,
+		line->op.name);
 		i = -1;
-		while (++i < instr->op.params)
-			ft_printf("%-18s", instr->arg[i].token->content);
+		while (++i < line->op.params)
+			ft_printf("%-18s", line->arg[i].token->str);
 		ft_printf("\n");
 		ft_printf("                    ");
-		print_bytecode(instr, arg);
+		print_bytecode(line, arg);
 		ft_printf("\n");
 		ft_printf("                    ");
-		print_ints(instr, arg);
+		print_ints(line, arg);
 		ft_printf("\n");
 		ft_printf("\n");
 	}
@@ -76,16 +76,16 @@ static void	print_header(t_header header)
 	ft_printf("\n");
 }
 
-void		print_annotation(t_prog *info)
+void		annotated_output(t_prog *info)
 {
-	t_instr *instr;
+	t_line *line;
 
-	instr = info->instr;
+	line = info->line;
 	ft_printf("Dumping annotated program on standard output\n");
 	print_header(info->header);
-	while (instr)
+	while (line)
 	{
-		print_instr(instr, instr->arg);
-		instr = instr->next;
+		print_line(line, line->arg);
+		line = line->next;
 	}
 }

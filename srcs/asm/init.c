@@ -25,25 +25,19 @@ static char	*get_filename(t_prog *info)
 	if ((s1 && (!s2 || (s1 = ft_strrchr(s2, '.')))))
 		len -= ft_strlen(s1);
 	if (!(str = ft_strnew(len + 4)))
-		terminate(info, 0, NULL); // memory error
+		terminate(info, 0, NULL);
 	ft_strncpy(str, info->path, len);
 	ft_strcat(str, ".cor");
 	return (str);
 }
 
-void		init_struct(t_prog *info, char **input)
+void		get_options(t_prog *info, char **input)
 {
 	ft_bzero(info, sizeof(*info));
 	while (*++input)
 	{
 		if (!ft_strcmp(*input, "-a"))
-			info->flag.a = true;
-		else if (!ft_strcmp(*input, "-s"))
-		{
-			info->flag.s = true;
-			if (*(input + 1))
-				info->flag.n = ft_atoi(*++input);
-		}
+			info->option = true;
 		else
 			info->path = *input;
 	}

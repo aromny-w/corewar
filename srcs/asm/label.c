@@ -12,21 +12,45 @@
 
 #include "asm.h"
 
-unsigned int	get_label_pos(t_prog *info, t_token *token)
+static bool	is_match(char *s1, char *s2)
 {
-	t_instr	*instr;
-	char	*label;
+	while (*s1 == *s2 && *s1++ && *s2++)
+		continue ;
+	if (*s1 == LABEL_CHAR && !*s2)
+		return (true);
+	return (false);
+}
 
-	instr = info->instr;
-	label = token->content + (token->type == DIRECT_LABEL ? 2 : 1);
-	while (instr)
+static void	dereference_label(t_prog *info, t_arg *arg, int pos)
+{
+	t_line	*lptr;
+
+	lptr = info->line;
+	while (lptr)
 	{
-		if (instr->label)
-			if (!ft_strcmp(label, instr->label))
+		if (lptr->label)
+			if (is_match(lptr->label->str, arg->ref))
 				break ;
-		instr = instr->next;
+		lptr = lptr->next;
 	}
-	if (!instr)
-		terminate(info, 0, token); // failed to dereference
-	return (instr->pos);
+	if (!lptr)
+		terminate(info, 8, arg->token);
+	arg->value = lptr->pos - pos;
+}
+
+void		dereference_labels(t_prog *info)
+{
+	t_line	*lptr;
+	int		i;
+
+	lptr = info->line;
+	while (lptr)
+	{
+		i = -1;
+		while (lptr->arg[++i].token)
+			if (lptr->arg[i].token->type == DIRECT_LABEL ||
+			lptr->arg[i].token->type == INDIRECT_LABEL)
+				dereference_label(info, &lptr->arg[i], lptr->pos);
+		lptr = lptr->next;
+	}
 }

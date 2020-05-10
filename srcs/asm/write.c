@@ -30,19 +30,19 @@ static void	write_number(int fd, int n, size_t size)
 		write(fd, &byte[0], 1);
 }
 
-static void	write_instr(int fd, t_instr *instr, t_arg *arg)
+static void	write_line(int fd, t_line *line, t_arg *arg)
 {
 	int	i;
 
-	if (instr->op.opcode)
-		write_number(fd, instr->op.opcode, sizeof(char));
-	if (instr->op.pcode)
-		write_number(fd, instr->acb, sizeof(char));
+	if (line->op.opcode)
+		write_number(fd, line->op.opcode, sizeof(char));
+	if (line->op.pcode)
+		write_number(fd, line->acb, sizeof(char));
 	i = -1;
-	while (++i < instr->op.params)
+	while (++i < line->op.params)
 		write_number(fd, arg[i].value, arg[i].size);
-	if (instr->next)
-		write_instr(fd, instr->next, instr->next->arg);
+	if (line->next)
+		write_line(fd, line->next, line->next->arg);
 }
 
 static void	write_header(t_header header, int fd)
@@ -55,15 +55,16 @@ static void	write_header(t_header header, int fd)
 	write_number(fd, 0, sizeof(int));
 }
 
-void		write_bytecode(t_prog *info)
+void		bytecode_output(t_prog *info)
 {
 	int		fd;
 
 	fd = open(info->filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (write(fd, NULL, 0) == -1)
-		terminate(info, 0, NULL); // write error
+		terminate(info, 0, NULL);
 	ft_printf("Writing output program to %s\n", info->filename);
 	write_header(info->header, fd);
-	write_instr(fd, info->instr, info->instr->arg);
+	if (info->line)
+		write_line(fd, info->line, info->line->arg);
 	close(fd);
 }

@@ -12,12 +12,12 @@
 
 #include "asm.h"
 
-static void	destroy_instr(t_prog *info)
+static void	destroy_lines(t_prog *info)
 {
-	t_instr	*tmp;
-	t_instr	*next;
+	t_line	*tmp;
+	t_line	*next;
 
-	tmp = info->instr;
+	tmp = info->line;
 	while (tmp)
 	{
 		next = tmp->next;
@@ -35,8 +35,8 @@ static void	destroy_tokens(t_prog *info)
 	while (tmp)
 	{
 		next = tmp->next;
-		if (tmp->content)
-			free(tmp->content);
+		if (tmp->str)
+			free(tmp->str);
 		free(tmp);
 		tmp = next;
 	}
@@ -59,5 +59,5 @@ void		destroy_struct(t_prog *info)
 	free(info->filename);
 	destroy_data(info);
 	destroy_tokens(info);
-	destroy_instr(info);
+	destroy_lines(info);
 }
