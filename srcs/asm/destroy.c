@@ -42,22 +42,10 @@ static void	destroy_tokens(t_prog *info)
 	}
 }
 
-static void	destroy_data(t_prog *info)
-{
-	size_t	i;
-
-	if (!info->data)
-		return ;
-	i = -1;
-	while (info->data[++i])
-		free(info->data[i]);
-	free(info->data);
-}
-
 void		destroy_struct(t_prog *info)
 {
 	free(info->filename);
-	destroy_data(info);
+	free(info->buf);
 	destroy_tokens(info);
 	destroy_lines(info);
 }
