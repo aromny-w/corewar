@@ -38,14 +38,14 @@ typedef enum
 	END,
 	COMMENT,
 	WHITESPACE
-}				t_type;
+}	t_type;
 
 typedef struct	s_token
 {
-	char	*str;
-	t_type	type;
-	int		row;
-	int		col;
+	char			*str;
+	t_type			type;
+	int				row;
+	int				col;
 	struct s_token	*next;
 }				t_token;
 

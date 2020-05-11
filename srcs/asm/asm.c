@@ -16,7 +16,7 @@ static void	print_usage(char *exec)
 {
 	ft_printf("Usage: %s [-a] <sourcefile.s>\n", exec);
 	ft_printf("    -a : Instead of creating a .cor file, outputs a stripped and\
-annotated version of the code to the standard output");
+annotated version of the code to the standard output\n");
 }
 
 void		assembler(char **input)
