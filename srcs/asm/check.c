@@ -22,12 +22,16 @@ static bool	is_parameter(char type)
 
 static void	line_check(t_prog *info, t_token **token)
 {
+	if ((*token)->type == LABEL && (*token = (*token)->next)->type == ENDLINE)
+		return ;
 	if ((*token)->type != INSTRUCTION)
 		terminate(info, 4, *token);
 	if (!is_parameter((*token = (*token)->next)->type))
 		terminate(info, 4, *token);
 	while ((*token = (*token)->next)->type != ENDLINE)
 	{
+		if ((*token)->type == END)
+			terminate(info, 3, NULL);
 		if ((*token)->type != SEPARATOR)
 			terminate(info, 4, *token);
 		if (!is_parameter((*token = (*token)->next)->type))
@@ -66,11 +70,9 @@ void		syntax_check(t_prog *info)
 		terminate(info, 4, tptr->next);
 	while ((tptr = tptr->next)->type != END)
 	{
-		if (tptr->type != ENDLINE && tptr->next->type == END)
-			terminate(info, 3, NULL);
-		if (tptr->type == LABEL || tptr->type == ENDLINE)
-			continue ;
 		line_check(info, &tptr);
+		if (tptr->type == END)
+			terminate(info, 4, tptr);
 	}
 }
 
