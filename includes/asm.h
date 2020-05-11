@@ -75,7 +75,6 @@ typedef struct	s_prog
 	char		*filename;
 	bool		option;
 	char		*buf;
-	char		**data;
 	t_token		*token;
 	t_header	header;
 	t_line		*line;
