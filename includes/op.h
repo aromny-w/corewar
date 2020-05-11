@@ -6,7 +6,7 @@
 /*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/02/23 23:11:38 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:57:49 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@
 # define IDX_MOD (MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE (MEM_SIZE / 6)
 
+# define COMMAND_CHAR '.'
 # define COMMENT_CHAR '#'
 # define COMMENT_CHAR_2 ';'
-# define COMMAND_CHAR '.'
+# define STRING_CHAR '"'
 # define LABEL_CHAR ':'
+# define REG_CHAR 'r'
 # define DIRECT_CHAR '%'
 # define SEPARATOR_CHAR ','
 
@@ -66,14 +68,14 @@ typedef char	t_arg_type;
 
 typedef struct		s_op
 {
-	char			*op;
-	unsigned char	args;
-	unsigned char	type[MAX_ARGS_NUMBER];
-	unsigned char	opcode;
-	unsigned short	cycle;
-	bool			carry;
-	bool			argbyte;
-	bool			index;
+	char		*name;
+	int			params;
+	t_arg_type	type[MAX_ARGS_NUMBER];
+	int			opcode;
+	int			cycle;
+	char		*desc;
+	bool		pcode;
+	bool		idx;
 }					t_op;
 
 extern t_op	g_op_tab[];
