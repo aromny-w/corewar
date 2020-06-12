@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:07:56 by aromny-w          #+#    #+#             */
 /*   Updated: 2020/04/05 00:58:41 by aromny-w         ###   ########.fr       */

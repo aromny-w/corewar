@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   write.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aromny-w <aromny-w@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/20 17:48:44 by aromny-w          #+#    #+#             */
 /*   Updated: 2020/04/20 17:48:47 by aromny-w         ###   ########.fr       */
