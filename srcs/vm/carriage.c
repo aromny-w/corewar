@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/09 23:11:43 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/14 22:42:52 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ void		read_arena_to_carriage(t_carriage *carriage, t_game_params *arena)
 	carriage->code_op = arena_read(arena->arena, carriage->cur_position);
 	if (carriage->code_op > 0 && carriage->code_op < 17)
 	{
-
-	// recalculate carriage->num_cycles_before_op
+		carriage->num_cycles_before_op = g_op_tab[carriage->code_op - 1].cycle;
 	}
-	// recalculate carriage->bytes_next_op ??
+	// recalculate carriage->bytes_next_op ?? it seems that no,
+	// it needs to be calculated after reading args types byte
+	// or while executing the op
 }
 
 void		delete_carriage(t_carriage *carriage)

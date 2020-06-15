@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/09 22:57:35 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/14 22:37:24 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,18 @@ int		get_new_coord(int raw_coord)
 
 int		arena_read(char *arena, int cur_position)
 {
-	//todo
+	char	ans;
+
+	ans = arena[cur_position];
+	return(ans);
+}
+
+long int	read_number(char *arena, int position, int size_bytes)
+{
+	// read bytes and this locations and transform into number (remember endianness!)
+}
+
+void		write_number(char *arena, int position, int size_bytes, int number)
+{
+
 }
