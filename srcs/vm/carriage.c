@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/14 22:42:52 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/17 21:01:43 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_carriage	*create_carriage(int start_position, int player_id, int id)
 
 void		move_carriage(t_carriage *carriage, int distance)
 {
-	carriage->cur_position = get_new_cood(carriage->cur_position + distance);
+	carriage->cur_position = get_new_coord(carriage->cur_position + distance);
 }
 
 void		live_carriage(t_carriage *carriage, size_t cycle)
@@ -56,6 +56,11 @@ void		read_arena_to_carriage(t_carriage *carriage, t_game_params *arena)
 	{
 		carriage->num_cycles_before_op = g_op_tab[carriage->code_op - 1].cycle;
 	}
+	else
+	{
+		carriage->bytes_next_op = 1;
+	}
+	
 	// recalculate carriage->bytes_next_op ?? it seems that no,
 	// it needs to be calculated after reading args types byte
 	// or while executing the op
@@ -65,3 +70,11 @@ void		delete_carriage(t_carriage *carriage)
 {
 	free(carriage);
 }
+
+// void		move_carriage(t_carriage *carriage)
+// {
+// 	int	resulting_position;
+
+// 	resulting_position = carriage->bytes_next_op + carriage->cur_position;
+// 	resulting_position = get_new_coord(resulting_position);
+// }
