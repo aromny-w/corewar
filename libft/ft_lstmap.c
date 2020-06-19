@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: veronika <veronika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 21:24:46 by aromny-w          #+#    #+#             */
-/*   Updated: 2018/12/12 21:24:48 by aromny-w         ###   ########.fr       */
+/*   Updated: 2020/06/18 17:47:59 by veronika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	del(void *elem, size_t size)
 {
-	size = 0;
+	ft_bzero(elem, size);
 	free(elem);
 }
 
