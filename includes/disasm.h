@@ -11,7 +11,6 @@
 
 # include "op.h"
 # include "libft.h"
-//# include "ft_dprintf.h"
 
 # define RESET_COLOR "\e[m"
 # define RED "\033[4;31m"
@@ -19,7 +18,6 @@
 typedef struct      s_instruction
 {
 	t_op					op;
-	char					*name; //hm?
 	t_arg_type				arg_type[MAX_ARGS_NUMBER];
 	int32_t					arg_val[MAX_ARGS_NUMBER];
 	struct s_instruction	*next;
@@ -35,19 +33,21 @@ typedef struct		s_bin
 	struct s_instruction	*instr;
 }					t_bin;
 
-t_bin	*init_bin(void);
+t_bin			*init_bin(void);
+t_instruction	*init_instruction(void);
+void			push_back(t_instruction **head, t_instruction *new);
 
-void	parse_bin(t_bin *bin, char *av);
+void			parse_bin(t_bin *bin, char *av);
 
-int32_t bin_to_num(uint8_t *val, size_t len);
+int32_t			bin_to_num(uint8_t *val, size_t len);
 
-void	disassemble(t_bin *bin);
+void			disassemble(t_bin *bin);
 
-void	write_asm(t_bin *bin);
+void			write_asm(t_bin *bin);
 
-void	free_bin(t_bin **bin);
-void	free_instruction(t_instruction **instr);
+void			free_bin(t_bin **bin);
+void			free_instruction(t_instruction **instr);
 
-void	error(char *str);
+void			error(char *str);
 
 #endif

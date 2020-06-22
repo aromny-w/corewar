@@ -6,7 +6,6 @@ void	free_instruction(t_instruction **instr)
 		return ;
 	if ((*instr)->next)
 		free_instruction(&(*instr)->next);
-	free((*instr)->name);
 	ft_bzero(*instr, sizeof(t_instruction));
 	free(*instr);
 	*instr = NULL;

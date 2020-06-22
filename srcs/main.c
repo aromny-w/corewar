@@ -10,7 +10,7 @@ int	main(int ac, char **av)
 	{
 		bin = init_bin();
 		parse_bin(bin, av[i]);
-		//disassemble(bin);
+		disassemble(bin);
 		write_asm(bin);
 		free_bin(&bin);
 		bin = NULL;

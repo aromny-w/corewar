@@ -3,3 +3,5 @@ objs/
 *.o
 *._*
 disasm
+*.swp
+.DS_Store
