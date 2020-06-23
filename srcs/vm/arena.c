@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/14 22:37:24 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/24 00:34:01 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@ int		arena_read(char *arena, int cur_position)
 	return(ans);
 }
 
-long int	read_number(char *arena, int position, int size_bytes)
+long	read_number(char *arena, int position, int size_bytes)
 {
+	// big endian - most significant byte is in lowest address
 	// read bytes and this locations and transform into number (remember endianness!)
 }
 
-void		write_number(char *arena, int position, int size_bytes, int number)
+void	write_number(char *arena, int position, int size_bytes, long number)
 {
 
 }

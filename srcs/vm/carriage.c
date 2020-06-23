@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/17 21:01:43 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/24 00:36:04 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,3 @@ void		delete_carriage(t_carriage *carriage)
 {
 	free(carriage);
 }
-
-// void		move_carriage(t_carriage *carriage)
-// {
-// 	int	resulting_position;
-
-// 	resulting_position = carriage->bytes_next_op + carriage->cur_position;
-// 	resulting_position = get_new_coord(resulting_position);
-// }

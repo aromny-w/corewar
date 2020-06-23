@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/17 21:38:29 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/24 00:34:01 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,28 @@ void	exec_op(t_carriage *carriage, t_game_params *params)
 		carriage->bytes_next_op = 1;
 		return;
 	}
-	// todo
+	// todo:
+	// read args byte, calculate and save carriage->bytes_next_op
+	// if args byte valid, call the necessary function
 }
 
 void	play_cycle(t_car_list_elem **carriages, t_game_params *params)
 {
-	t_car_list_elem	*carriage;
+	t_car_list_elem	*list_elem;
 
 	if (params->cycles_since_last_check > CYCLE_TO_DIE)
 		check_carriages(carriages, params);
-	carriage = *carriages;
-	while (carriage)
+	list_elem = *carriages;
+	while (list_elem)
 	{
-		if (!carriage->content->num_cycles_before_op)
-			read_arena_to_carriage(carriage->content, params);
-		carriage->content->num_cycles_before_op--;
-		if (!carriage->content->num_cycles_before_op)
+		if (!list_elem->content->num_cycles_before_op)
+			read_arena_to_carriage(list_elem->content, params);
+		list_elem->content->num_cycles_before_op--;
+		if (!list_elem->content->num_cycles_before_op)
 		{
-			exec_op(carriage->content, params); // in exec_op think that op_code might be invalid
-			move_carriage(carriage->content, carriage->content->bytes_next_op);
+			exec_op(list_elem->content, params); // in exec_op think that op_code might be invalid
+			move_carriage(list_elem->content,
+								list_elem->content->bytes_next_op);
 		}
 	}
 	params->cycles_since_last_check++;
@@ -82,4 +85,18 @@ void	play_game(t_car_list_elem **carriages, t_game_params *params)
 			play_cycle(carriages, params);
 		params->cycles_since_start++;
 	}
+}
+
+#include "libft.h"
+
+void	announce_winner(t_game_params *params)
+{
+	int			winning_player;
+	char		*winning_player_name;
+	t_player	**players;
+
+	winning_player = params->last_alive;
+	players = params->players;
+	winning_player_name = players[winning_player]->name;
+	ft_printf("Player %i (%s) won", winning_player, winning_player_name);
 }

@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/17 21:38:29 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/23 23:55:34 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ typedef struct				s_carriage
 	int						id;
 	char					carry;
 	int						code_op;
-	int						last_live;
+	size_t					last_live;
 	int						num_cycles_before_op;
 	int						cur_position;
 	int						bytes_next_op;
-	int						registries[REG_NUMBER];
+	long					registries[REG_NUMBER];
 }							t_carriage;
 
 typedef struct				s_car_list_elem
@@ -51,6 +51,7 @@ typedef struct				s_game_params
 	size_t					cycles_since_last_check;
 	char					*arena;
 	size_t					dump_idx;
+	t_player				**players;
 }							t_game_params;
 
 void						add_carriage_elem(t_car_list_elem **head,
