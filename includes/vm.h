@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/23 23:55:34 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/25 20:55:54 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct				s_carriage
 	int						num_cycles_before_op;
 	int						cur_position;
 	int						bytes_next_op;
-	long					registries[REG_NUMBER];
+	int						registries[REG_NUMBER];
 }							t_carriage;
 
 typedef struct				s_car_list_elem
