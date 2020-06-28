@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+         #
+#    By: veronika <veronika@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/02 02:41:38 by aromny-w          #+#    #+#              #
-#    Updated: 2020/02/13 15:44:12 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/06/28 22:59:50 by veronika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_putchar_fd.c ft_putwchar_fd.c ft_padchar_fd.c ft_putstr_fd.c \
 	   ft_putwcstr_fd.c ft_putnstr_fd.c ft_putnwcstr_fd.c ft_putendl_fd.c \
 	   ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
-	   ft_lstiter.c ft_lstmap.c ft_lstrev.c ft_lstsize.c
+	   ft_lstiter.c ft_lstmap.c ft_lstrev.c ft_lstsize.c ft_arrdel.c
 SRCS += $(addprefix get_next_line/, $(GNL))
 SRCS += $(addprefix ft_printf/, $(PRINTF))
 SRCS += $(addprefix ft_dprintf/, $(DPRINTF))
