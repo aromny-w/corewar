@@ -54,7 +54,7 @@ static void		check_filename(char *filename)
 	//	error("Invalid filename.");
 	if (!ft_strequ(filename_parts[1], "cor"))
 		error("Invalid extension");
-	/*ft_arrdel(&filename_parts);*/ // LIBFT!!
+	ft_arrdel(&filename_parts); // LIBFT!!
 }
 
 void			parse_bin(t_bin *bin, char *file)
