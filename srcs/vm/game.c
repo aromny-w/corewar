@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/24 00:34:01 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/28 18:03:08 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 			delete_carriage_elem(carriages, elem->content->id);
 		elem = next_elem;
 	}
-	if (!elem && !last_man_standing || elem && !elem->next && last_man_standing)
-		; // declare winner
+	if (!elem || elem && !elem->next && last_man_standing)
+		announce_winner(params);
 	if (params->live_count_in_period > NBR_LIVE
 			|| params->checks_count > MAX_CHECKS)
 	{
@@ -85,18 +85,4 @@ void	play_game(t_car_list_elem **carriages, t_game_params *params)
 			play_cycle(carriages, params);
 		params->cycles_since_start++;
 	}
-}
-
-#include "libft.h"
-
-void	announce_winner(t_game_params *params)
-{
-	int			winning_player;
-	char		*winning_player_name;
-	t_player	**players;
-
-	winning_player = params->last_alive;
-	players = params->players;
-	winning_player_name = players[winning_player]->name;
-	ft_printf("Player %i (%s) won", winning_player, winning_player_name);
 }
