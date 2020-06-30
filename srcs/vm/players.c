@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   place_players.c                                    :+:      :+:    :+:   */
+/*   players.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 00:13:23 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/24 00:33:55 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/30 21:31:12 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,17 @@ void			place_player_code(char *arena, int position, char *code,
 															int size)
 {
 	ft_memmove(arena + position, code, size);
+}
+
+void			delete_all_players(t_player **players)
+{
+	int i;
+
+	i = 0;
+	while (players[i])
+	{
+		free(players[i]);
+		i++;
+	}
+	free(players);
 }

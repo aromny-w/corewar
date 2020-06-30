@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/25 20:55:47 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/30 21:39:15 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ int		read_number(char *arena, int position, int size_bytes)
 
 void	write_number(char *arena, int position, int size_bytes, int number)
 {
-
+	// todo
 }

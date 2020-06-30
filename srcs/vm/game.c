@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/28 18:03:08 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/06/30 22:55:48 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 		elem = next_elem;
 	}
 	if (!elem || elem && !elem->next && last_man_standing)
-		announce_winner(params);
+		game_over(params, *carriages);
 	if (params->live_count_in_period > NBR_LIVE
 			|| params->checks_count > MAX_CHECKS)
 	{
@@ -67,7 +67,7 @@ void	play_cycle(t_car_list_elem **carriages, t_game_params *params)
 		list_elem->content->num_cycles_before_op--;
 		if (!list_elem->content->num_cycles_before_op)
 		{
-			exec_op(list_elem->content, params); // in exec_op think that op_code might be invalid
+			exec_op(list_elem->content, params);
 			move_carriage(list_elem->content,
 								list_elem->content->bytes_next_op);
 		}
@@ -80,7 +80,7 @@ void	play_game(t_car_list_elem **carriages, t_game_params *params)
 	while (1)
 	{
 		if (params->cycles_since_start == params->dump_idx)
-			; // print memory and quit
+			dump_mem_and_exit(params, *carriages);
 		else
 			play_cycle(carriages, params);
 		params->cycles_since_start++;
