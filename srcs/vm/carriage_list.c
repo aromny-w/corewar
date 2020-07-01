@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:35:30 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 00:08:24 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 22:11:17 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_carriage_elem(t_car_list_elem **head,
 	t_car_list_elem	*new_elem;
 
 	if (!head)
-		return;
+		return ;
 	new_carriage = create_carriage(car_position, player_id, id);
 	new_elem = (t_car_list_elem*)ft_memalloc(sizeof(t_car_list_elem));
 	if (!new_elem)
@@ -58,7 +58,7 @@ void	delete_carriage_list(t_car_list_elem *head)
 {
 	t_car_list_elem	*elem;
 	t_car_list_elem	*next;
-	
+
 	elem = head;
 	while (elem)
 	{

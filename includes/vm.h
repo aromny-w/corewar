@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 20:12:54 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 20:29:46 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct				s_game_params
 {
 	int						last_alive;
 	size_t					cycles_since_start; // longer than int and unsigned?
-	int						cycles_to_die;
+	size_t					cycles_to_die;
 	size_t					live_count_in_period;
 	size_t					checks_count;
 	size_t					cycles_since_last_check;
@@ -65,6 +65,7 @@ void						read_byte_to_carriage(t_carriage *carriage, t_game_params *arena);
 void						delete_carriage_elem(t_car_list_elem **head, int id);
 void						delete_carriage_list(t_car_list_elem *head);
 int							arena_read_byte(char *arena, int cur_position);
+int							get_new_coord(int raw_coord);
 
 void						announce_players(t_player **players);
 void						announce_winner(t_game_params *params);

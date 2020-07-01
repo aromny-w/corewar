@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 20:11:26 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 22:09:29 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "libft.h"
 #include "vm.h"
 
-void	*arena_init()
+void	*arena_init(void)
 {
-    void	*mem;
+	void	*mem;
 
-    mem = ft_memalloc(MEM_SIZE);
+	mem = ft_memalloc(MEM_SIZE);
 	if (!mem)
 		mem_error_exit();
-    return (mem);
+	return (mem);
 }
 
 int		get_new_coord(int raw_coord)
@@ -37,7 +37,7 @@ int		arena_read_byte(char *arena, int cur_position)
 	char	ans;
 
 	ans = arena[cur_position];
-	return(ans);
+	return (ans);
 }
 
 int		read_number(char *arena, int position, int size_bytes)
@@ -47,9 +47,10 @@ int		read_number(char *arena, int position, int size_bytes)
 	int				i;
 	unsigned char	*byte_code;
 
-	byte_code = (unsigned char *) arena + position;
+	byte_code = (unsigned char *)arena + position;
 	sign = byte_code[0] & 128;
 	i = 0;
+	result = 0;
 	while (size_bytes)
 	{
 		size_bytes--;

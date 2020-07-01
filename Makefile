@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: student <student@student.42.fr>            +#+  +:+       +#+         #
+#    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/03/27 23:35:32 by student          ###   ########.fr        #
+#    Updated: 2020/07/01 20:40:39 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ LIB = libft.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = corewar.c init.c destroy.c terminate.c error.c
-SRCS := $(addprefix corewar/, $(SRCS))
+SRCS_COREWAR = arena.c carriage_list.c carriage.c exit.c game.c players.c \
+printing.c
+SRCS = $(addprefix vm/, $(SRCS_COREWAR))
 SRCS += op.c
 SRCS := $(addprefix srcs/, $(SRCS))
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS_COREWAR:.c=.o)
+OBJS := $(addprefix obj/, $(OBJS))
 
 INC = includes
 LIBDIR = libft
@@ -31,7 +33,7 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC) -I $(LIBDIR)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
 $(LIB):
 	@make -C libft
 
