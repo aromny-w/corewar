@@ -29,7 +29,7 @@ static void	dereference_label(t_prog *info, t_arg *arg, int pos)
 	while (lptr)
 	{
 		if (lptr->label)
-			if (is_match(lptr->label->str, arg->ref))
+			if (is_match(lptr->label->content, arg->ref))
 				break ;
 		lptr = lptr->next;
 	}

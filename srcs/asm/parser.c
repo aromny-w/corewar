@@ -36,7 +36,7 @@ static t_op	get_operation(t_prog *info, t_token *token)
 
 	i = -1;
 	while (g_op_tab[++i].name)
-		if (!ft_strcmp(token->str, g_op_tab[i].name))
+		if (!ft_strcmp(token->content, g_op_tab[i].name))
 			break ;
 	if (!g_op_tab[i].name)
 		terminate(info, 5, token);
@@ -80,9 +80,9 @@ static void	set_header(t_prog *info, t_token **token)
 		while ((*token)->type == ENDLINE)
 			*token = (*token)->next;
 		if ((*token)->type == COMMAND_NAME)
-			s1 = (*token)->next->str + 1;
+			s1 = (*token)->next->content + 1;
 		if ((*token)->type == COMMAND_COMMENT)
-			s2 = (*token)->next->str + 1;
+			s2 = (*token)->next->content + 1;
 		*token = (*token)->next->next;
 	}
 	if ((len1 = ft_strlen(s1) - 1) > PROG_NAME_LENGTH)
@@ -95,12 +95,11 @@ static void	set_header(t_prog *info, t_token **token)
 
 void		parse_tokens(t_prog *info)
 {
-	t_token	*token_ptr;
+	t_token	*tptr;
 
-	token_ptr = info->token;
-	info->header.magic = COREWAR_EXEC_MAGIC;
-	set_header(info, &token_ptr);
-	while ((token_ptr = token_ptr->next)->type != END)
-		add_new_line(info, &token_ptr);
+	tptr = info->token;
+	set_header(info, &tptr);
+	while ((tptr = tptr->next)->type != END)
+		add_new_line(info, &tptr);
 	reverse_lines(&info->line);
 }

@@ -12,62 +12,61 @@
 
 #include "asm.h"
 
-static bool		is_indirect(char *content)
+static bool		is_indirect(char *s)
 {
-	if (*content == '+' || *content == '-')
-		content++;
-	while (ft_isdigit(*content++))
-		if (!*content)
+	if (*s == '+' || *s == '-')
+		s++;
+	while (ft_isdigit(*s++))
+		if (!*s)
 			return (true);
 	return (false);
 }
 
-static bool		is_register(char *content)
+static bool		is_register(char *s)
 {
-	if (*content++ == REG_CHAR)
-	{
-		while (ft_isdigit(*content))
-			content++;
-		if (!*content)
-			return (true);
-	}
+	if (ft_strlen(s) > 3 || *s++ != REG_CHAR || !ft_isdigit(*s++))
+		return (false);
+	while (ft_isdigit(*s))
+		s++;
+	if (!*s)
+		return (true);
 	return (false);
 }
 
-static t_type	get_command_type(char *content)
+static t_type	get_command_type(char *s)
 {
-	if (!ft_strcmp(content, NAME_CMD_STRING))
+	if (!ft_strcmp(s, NAME_CMD_STRING))
 		return (COMMAND_NAME);
-	if (!ft_strcmp(content, COMMENT_CMD_STRING))
+	if (!ft_strcmp(s, COMMENT_CMD_STRING))
 		return (COMMAND_COMMENT);
 	return (0);
 }
 
-t_type			get_token_type(char *content)
+t_type			get_token_type(char *s)
 {
-	if (!content)
+	if (!s)
 		return (END);
-	if (*content == '\n')
+	if (*s == '\n')
 		return (ENDLINE);
-	if (*content == COMMAND_CHAR)
-		return (get_command_type(content));
-	if (*content == STRING_CHAR)
+	if (*s == COMMAND_CHAR)
+		return (get_command_type(s));
+	if (*s == STRING_CHAR)
 		return (STRING);
-	if (*content == SEPARATOR_CHAR)
+	if (*s == SEPARATOR_CHAR)
 		return (SEPARATOR);
-	if (is_register(content))
+	if (is_register(s))
 		return (REGISTER);
-	if (*content == DIRECT_CHAR)
-		return (*(content + 1) == LABEL_CHAR ? DIRECT_LABEL : DIRECT);
-	if (is_indirect(content))
+	if (*s == DIRECT_CHAR)
+		return (*(s + 1) == LABEL_CHAR ? DIRECT_LABEL : DIRECT);
+	if (is_indirect(s))
 		return (INDIRECT);
-	if (*content == LABEL_CHAR)
+	if (*s == LABEL_CHAR)
 		return (INDIRECT_LABEL);
-	if (*content == COMMENT_CHAR || *content == COMMENT_CHAR_2)
+	if (*s == COMMENT_CHAR || *s == COMMENT_CHAR_2)
 		return (COMMENT);
-	if (ft_isspace(*content))
+	if (ft_isspace(*s))
 		return (WHITESPACE);
-	if (content[ft_strlen(content) - 1] == LABEL_CHAR)
+	if (s[ft_strlen(s) - 1] == LABEL_CHAR)
 		return (LABEL);
 	return (INSTRUCTION);
 }

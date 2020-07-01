@@ -20,7 +20,7 @@ static void	strip_two_endlines(t_prog *info)
 	while ((tptr = info->token)->type == ENDLINE)
 	{
 		info->token = info->token->next;
-		free(tptr->str);
+		free(tptr->content);
 		free(tptr);
 	}
 	while ((next = tptr->next) && next->next)
@@ -28,7 +28,7 @@ static void	strip_two_endlines(t_prog *info)
 		if (next->type == ENDLINE && next->next->type == ENDLINE)
 		{
 			tptr->next = next->next;
-			free(next->str);
+			free(next->content);
 			free(next);
 		}
 		else
@@ -44,7 +44,7 @@ static void	strip_whitespace(t_prog *info)
 	while ((tptr = info->token)->type == WHITESPACE)
 	{
 		info->token = info->token->next;
-		free(tptr->str);
+		free(tptr->content);
 		free(tptr);
 	}
 	while ((next = tptr->next))
@@ -52,7 +52,7 @@ static void	strip_whitespace(t_prog *info)
 		if (next->type == WHITESPACE)
 		{
 			tptr->next = next->next;
-			free(next->str);
+			free(next->content);
 			free(next);
 		}
 		else
@@ -68,7 +68,7 @@ static void	strip_comments(t_prog *info)
 	while ((tptr = info->token)->type == COMMENT)
 	{
 		info->token = info->token->next;
-		free(tptr->str);
+		free(tptr->content);
 		free(tptr);
 	}
 	while ((next = tptr->next))
@@ -76,7 +76,7 @@ static void	strip_comments(t_prog *info)
 		if (next->type == COMMENT)
 		{
 			tptr->next = next->next;
-			free(next->str);
+			free(next->content);
 			free(next);
 		}
 		else

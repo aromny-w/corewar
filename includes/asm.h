@@ -41,7 +41,7 @@ typedef enum
 
 typedef struct	s_token
 {
-	char			*str;
+	char			*content;
 	t_type			type;
 	int				row;
 	int				col;
@@ -83,8 +83,8 @@ void			assembler(char **input);
 void			get_options(t_prog *info, char **input);
 void			get_file_contents(t_prog *info);
 void			lex_corewar(t_prog *info);
-char			*get_token_str(char *s);
-t_type			get_token_type(char *content);
+char			*get_token_content(char *s);
+t_type			get_token_type(char *s);
 void			lexical_check(t_prog *info, char *s);
 void			syntax_check(t_prog *info);
 void			strip_tokens(t_prog *info);

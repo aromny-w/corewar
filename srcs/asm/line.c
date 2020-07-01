@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	set_arg_value(t_prog *info, t_line **line, t_arg *arg)
+static void	set_arg_value(t_line **line, t_arg *arg)
 {
 	int	i;
 
@@ -20,16 +20,14 @@ static void	set_arg_value(t_prog *info, t_line **line, t_arg *arg)
 	while (++i < (*line)->op.params)
 	{
 		if (arg[i].token->type == INDIRECT)
-			arg[i].value = ft_atoi(arg[i].token->str);
+			arg[i].value = ft_atoi(arg[i].token->content);
 		if (arg[i].token->type == REGISTER || arg[i].token->type == DIRECT)
-			arg[i].value = ft_atoi(arg[i].token->str + 1);
+			arg[i].value = ft_atoi(arg[i].token->content + 1);
 		if (arg[i].token->type == DIRECT_LABEL)
-			arg[i].ref = arg[i].token->str + 2;
+			arg[i].ref = arg[i].token->content + 2;
 		if (arg[i].token->type == INDIRECT_LABEL)
-			arg[i].ref = arg[i].token->str + 1;
+			arg[i].ref = arg[i].token->content + 1;
 	}
-	if ((*line)->next)
-		set_arg_value(info, &(*line)->next, (*line)->next->arg);
 }
 
 static void	set_size_and_pos(t_prog *info, t_line **line, unsigned int pos)
@@ -55,11 +53,9 @@ static void	set_size_and_pos(t_prog *info, t_line **line, unsigned int pos)
 	}
 	(*line)->pos = pos;
 	info->header.prog_size += (*line)->size;
-	if ((*line)->next)
-		set_size_and_pos(info, &(*line)->next, (*line)->pos + (*line)->size);
 }
 
-static void	set_acb(t_prog *info, t_line **line, t_arg *arg)
+static void	set_acb(t_line **line, t_arg *arg)
 {
 	int	i;
 
@@ -73,8 +69,6 @@ static void	set_acb(t_prog *info, t_line **line, t_arg *arg)
 		if (arg[i].type == T_IND)
 			(*line)->acb += IND_CODE << (8 - (i + 1) * 2);
 	}
-	if ((*line)->next)
-		set_acb(info, &(*line)->next, (*line)->next->arg);
 }
 
 static void	set_arg_type(t_prog *info, t_line **line, t_arg *arg)
@@ -96,17 +90,21 @@ static void	set_arg_type(t_prog *info, t_line **line, t_arg *arg)
 	}
 	if (i != (*line)->op.params)
 		terminate(info, 7, *line);
-	if ((*line)->next)
-		set_arg_type(info, &(*line)->next, (*line)->next->arg);
 }
 
 void		parse_lines(t_prog *info)
 {
-	if (!info->line)
+	t_line	*lptr;
+
+	if (!(lptr = info->line))
 		return ;
-	set_arg_type(info, &info->line, info->line->arg);
-	set_acb(info, &info->line, info->line->arg);
-	set_size_and_pos(info, &info->line, 0);
-	set_arg_value(info, &info->line, info->line->arg);
+	while (lptr)
+	{
+		set_arg_type(info, &lptr, lptr->arg);
+		set_acb(&lptr, lptr->arg);
+		set_size_and_pos(info, &lptr, info->header.prog_size);
+		set_arg_value(&lptr, lptr->arg);
+		lptr = lptr->next;
+	}
 	dereference_labels(info);
 }

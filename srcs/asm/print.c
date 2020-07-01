@@ -49,14 +49,14 @@ static void	print_line(t_line *line, t_arg *arg)
 	int	i;
 
 	if (line->label)
-		ft_printf("%-4u       :    %s\n", line->pos, line->label->str);
+		ft_printf("%-4u       :    %s\n", line->pos, line->label->content);
 	if (line->op.name)
 	{
 		ft_printf("%-4u (%-3u) :        %-10s", line->pos, line->size,
 		line->op.name);
 		i = -1;
 		while (++i < line->op.params)
-			ft_printf("%-18s", line->arg[i].token->str);
+			ft_printf("%-18s", line->arg[i].token->content);
 		ft_printf("\n");
 		ft_printf("                    ");
 		print_bytecode(line, arg);

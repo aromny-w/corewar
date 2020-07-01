@@ -69,12 +69,12 @@ ot to end with a newline ?)\n");
 		line->op.name);
 	else if (status == 8)
 		ft_dprintf(2, "No such label %s while attempting to dereference token ",
-		token->type == DIRECT_LABEL ? token->str + 2 : token->str + 1);
+		token->type == DIRECT_LABEL ? token->content + 2 : token->content + 1);
 	if (status == 4 || status == 5 || status == 8)
 	{
 		if (token->type != ENDLINE)
 			ft_dprintf(2, "[TOKEN][%03d:%03d] %s \"%s\"\n", token->row,
-			token->col, get_token_type_str(token->type), token->str);
+			token->col, get_token_type_str(token->type), token->content);
 		else
 			ft_dprintf(2, "[TOKEN][%03d:%03d] %s\n", token->row, token->col,
 			get_token_type_str(token->type));

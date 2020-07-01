@@ -12,14 +12,31 @@
 
 #include "asm.h"
 
-static char	*get_comment(char *s)
+static char	*get_other(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (s[++i])
-		if (s[i] == '\n')
-			break ;
+	if (ft_strchr(LABEL_CHARS, *s) || *s == LABEL_CHAR || (*s == DIRECT_CHAR &&
+	*(s + 1) == LABEL_CHAR))
+	{
+		if (*s == DIRECT_CHAR && (*(s + 1) == LABEL_CHAR))
+			i += 2;
+		else if (*s == LABEL_CHAR)
+			i += 1;
+		while (s[i] && (ft_strchr(LABEL_CHARS, s[i]) || s[i] == LABEL_CHAR))
+			if (s[i++] == LABEL_CHAR)
+				break ;
+	}
+	else
+	{
+		if (*s == DIRECT_CHAR && *(s + 1) == '-')
+			i += 2;
+		else if (*s == '-' || *s == DIRECT_CHAR)
+			i += 1;
+		while (ft_isdigit(s[i]))
+			i++;
+	}
 	return (ft_strndup(s, i));
 }
 
@@ -30,6 +47,17 @@ static char	*get_whitespace(char *s)
 	i = 0;
 	while (s[++i])
 		if (!ft_isspace(s[i]) || s[i] == '\n')
+			break ;
+	return (ft_strndup(s, i));
+}
+
+static char	*get_comment(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[++i])
+		if (s[i] == '\n')
 			break ;
 	return (ft_strndup(s, i));
 }
@@ -45,38 +73,19 @@ static char	*get_string(char *s)
 	return (ft_strndup(s, i));
 }
 
-static char	*get_command(char *s)
+char		*get_token_content(char *s)
 {
-	size_t	len;
-
-	if (!ft_strncmp(s, NAME_CMD_STRING, len = ft_strlen(NAME_CMD_STRING)))
-		return (ft_strndup(s, len));
-	if (!ft_strncmp(s, COMMENT_CMD_STRING, len = ft_strlen(COMMENT_CMD_STRING)))
-		return (ft_strndup(s, len));
-	return (NULL);
-}
-
-char		*get_token_str(char *s)
-{
-	int	i;
-
-	if (*s == COMMAND_CHAR)
-		return (get_command(s));
+	if (!ft_strncmp(s, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		return (ft_strdup(NAME_CMD_STRING));
+	if (!ft_strncmp(s, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		return (ft_strdup(COMMENT_CMD_STRING));
 	if (*s == STRING_CHAR)
 		return (get_string(s));
 	if (*s == SEPARATOR_CHAR || *s == '\n')
-		return (ft_strndup(s, 1));
+		return (ft_strndup(s, sizeof(*s)));
 	if (*s == COMMENT_CHAR || *s == COMMENT_CHAR_2)
 		return (get_comment(s));
 	if (ft_isspace(*s))
 		return (get_whitespace(s));
-	i = 0;
-	if (s[i] == DIRECT_CHAR || s[i] == LABEL_CHAR)
-		i++;
-	if (s[i] == LABEL_CHAR || s[i] == '+' || s[i] == '-')
-		i++;
-	while (ft_strchr(LABEL_CHARS, s[i]) || s[i] == LABEL_CHAR)
-		if (!s[i] || s[i++] == LABEL_CHAR)
-			break ;
-	return (ft_strndup(s, i));
+	return (get_other(s));
 }

@@ -71,9 +71,9 @@ static void	add_new_token(t_prog *info, char *s)
 	new->next = info->token;
 	info->token = new;
 	lexical_check(info, s);
-	if (*s && !(new->str = get_token_str(s)))
+	if (*s && !(new->content = get_token_content(s)))
 		terminate(info, 0, NULL);
-	new->type = get_token_type(new->str);
+	new->type = get_token_type(new->content);
 }
 
 void		lex_corewar(t_prog *info)
@@ -84,7 +84,7 @@ void		lex_corewar(t_prog *info)
 	add_new_token(info, info->buf);
 	while (info->token->type != END)
 	{
-		i += ft_strlen(info->token->str);
+		i += ft_strlen(info->token->content);
 		add_new_token(info, &info->buf[i]);
 	}
 	reverse_tokens(&info->token);

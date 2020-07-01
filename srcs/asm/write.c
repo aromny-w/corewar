@@ -41,8 +41,6 @@ static void	write_line(int fd, t_line *line, t_arg *arg)
 	i = -1;
 	while (++i < line->op.params)
 		write_number(fd, arg[i].value, arg[i].size);
-	if (line->next)
-		write_line(fd, line->next, line->next->arg);
 }
 
 static void	write_header(t_header header, int fd)
@@ -57,6 +55,7 @@ static void	write_header(t_header header, int fd)
 
 void		bytecode_output(t_prog *info)
 {
+	t_line	*lptr;
 	int		fd;
 
 	fd = open(info->filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
@@ -64,7 +63,11 @@ void		bytecode_output(t_prog *info)
 		terminate(info, 0, NULL);
 	ft_printf("Writing output program to %s\n", info->filename);
 	write_header(info->header, fd);
-	if (info->line)
-		write_line(fd, info->line, info->line->arg);
+	lptr = info->line;
+	while (lptr)
+	{
+		write_line(fd, lptr, lptr->arg);
+		lptr = lptr->next;
+	}
 	close(fd);
 }

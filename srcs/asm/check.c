@@ -86,14 +86,13 @@ void		lexical_check(t_prog *info, char *s)
 		return ;
 	if (ft_strchr(LABEL_CHARS, *s))
 		return ;
-	if ((*s == '+' || *s == '-' || *s == DIRECT_CHAR) && ft_isdigit(*(s + 1)))
+	if ((*s == '-' || *s == DIRECT_CHAR) && ft_isdigit(*(s + 1)))
 		return ;
-	if (*s == DIRECT_CHAR && (*(s + 1) == '-' || *(s + 1) == '+') &&
-	ft_isdigit(*(s + 2)))
+	if (*s == DIRECT_CHAR && *(s + 1) == '-' && ft_isdigit(*(s + 2)))
 		return ;
-	if (*s == LABEL_CHAR && ft_strchr(LABEL_CHARS, *(s + 1)))
+	if (*s == LABEL_CHAR && *(s + 1) && ft_strchr(LABEL_CHARS, *(s + 1)))
 		return ;
-	if ((*s == DIRECT_CHAR && *(s + 1) == LABEL_CHAR &&
+	if ((*s == DIRECT_CHAR && *(s + 1) == LABEL_CHAR && *(s + 2) &&
 	ft_strchr(LABEL_CHARS, *(s + 2))))
 		return ;
 	if (*s == COMMENT_CHAR || *s == COMMENT_CHAR_2)

@@ -16,7 +16,7 @@ LIB = libft.a
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = asm.c init.c destroy.c read.c lexer.c parser.c str.c type.c check.c \
+SRCS = asm.c init.c destroy.c read.c lexer.c parser.c content.c type.c check.c \
 	   strip.c line.c print.c label.c write.c terminate.c error.c
 SRCS := $(addprefix asm/, $(SRCS))
 SRCS += op.c

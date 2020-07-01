@@ -34,6 +34,7 @@ static char	*get_filename(t_prog *info)
 void		get_options(t_prog *info, char **input)
 {
 	ft_bzero(info, sizeof(*info));
+	info->header.magic = COREWAR_EXEC_MAGIC;
 	while (*++input)
 	{
 		if (!ft_strcmp(*input, "-a"))

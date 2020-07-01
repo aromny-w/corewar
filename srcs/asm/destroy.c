@@ -35,8 +35,8 @@ static void	destroy_tokens(t_prog *info)
 	while (tmp)
 	{
 		next = tmp->next;
-		if (tmp->str)
-			free(tmp->str);
+		if (tmp->content)
+			free(tmp->content);
 		free(tmp);
 		tmp = next;
 	}
