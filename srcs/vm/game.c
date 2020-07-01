@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/30 22:55:48 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 20:12:54 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	play_cycle(t_car_list_elem **carriages, t_game_params *params)
 	while (list_elem)
 	{
 		if (!list_elem->content->num_cycles_before_op)
-			read_arena_to_carriage(list_elem->content, params);
+			read_byte_to_carriage(list_elem->content, params);
 		list_elem->content->num_cycles_before_op--;
 		if (!list_elem->content->num_cycles_before_op)
 		{

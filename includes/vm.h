@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 00:09:45 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 20:12:54 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ t_carriage					*create_carriage(int start_position, int player_id,
 											int id);
 void						move_carriage(t_carriage *carriage, int distance);
 void						delete_carriage(t_carriage *carriage);
-void						read_arena_to_carriage(t_carriage *carriage, t_game_params *arena);
+void						read_byte_to_carriage(t_carriage *carriage, t_game_params *arena);
 void						delete_carriage_elem(t_car_list_elem **head, int id);
 void						delete_carriage_list(t_car_list_elem *head);
-int							arena_read(char *arena, int cur_position);
+int							arena_read_byte(char *arena, int cur_position);
 
 void						announce_players(t_player **players);
 void						announce_winner(t_game_params *params);

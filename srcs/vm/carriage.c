@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/30 22:57:03 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 20:12:39 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void		save_registry(t_carriage *carriage, int registry_num, int value)
 	carriage->registries[registry_num] = value;
 }
 
-void		read_arena_to_carriage(t_carriage *carriage, t_game_params *arena)
+void		read_byte_to_carriage(t_carriage *carriage, t_game_params *arena)
 {
-	carriage->code_op = arena_read(arena->arena, carriage->cur_position);
+	carriage->code_op = arena_read_byte(arena->arena, carriage->cur_position);
 	if (carriage->code_op > 0 && carriage->code_op < 17)
 	{
 		carriage->num_cycles_before_op = g_op_tab[carriage->code_op - 1].cycle;

@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 00:13:23 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/30 21:31:12 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 20:11:43 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void			delete_all_players(t_player **players)
 	i = 0;
 	while (players[i])
 	{
+		free(players[i]->code);
+		free(players[i]->name);
+		free(players[i]->comment);
 		free(players[i]);
 		i++;
 	}
