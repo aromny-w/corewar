@@ -24,9 +24,10 @@ static char	*get_other(char *s)
 			i += 2;
 		else if (*s == LABEL_CHAR)
 			i += 1;
-		while (s[i] && (ft_strchr(LABEL_CHARS, s[i]) || s[i] == LABEL_CHAR))
-			if (s[i++] == LABEL_CHAR)
-				break ;
+		while (s[i] && ft_strchr(LABEL_CHARS, s[i]))
+			i++;
+		if (s[i] == LABEL_CHAR)
+			i++;
 	}
 	else
 	{
