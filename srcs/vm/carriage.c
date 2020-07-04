@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 22:13:02 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/05 00:46:43 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_carriage	*create_carriage(int start_position, int player_id, int id)
 
 	elem = (t_carriage*)ft_memalloc(sizeof(t_carriage));
 	if (!elem)
-		;//error exit
+		error("Memory error, the virtual machine is stopping now.");
 	elem->cur_position = start_position;
 	elem->registries[0] = player_id * -1;
 	elem->id = id;

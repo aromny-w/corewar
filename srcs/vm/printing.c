@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 17:41:34 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 22:11:24 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/05 02:01:55 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	announce_winner(t_game_params *params)
 
 	winning_player = params->last_alive;
 	players = params->players;
-	winning_player_name = players[winning_player]->name;
+	winning_player_name = players[winning_player - 1]->name;
 	ft_printf("Player %i (%s) won !\n", winning_player, winning_player_name);
 }
 
@@ -58,9 +58,4 @@ void	dump_memory(char *arena)
 			ft_putchar('\n');
 		i++;
 	}
-}
-
-void	print_memory_error(void)
-{
-	ft_putendl("Memory error, the virtual machine is stopping now.");
 }

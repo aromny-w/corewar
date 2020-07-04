@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: veronika <veronika@student.42.fr>          +#+  +:+       +#+         #
+#    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/07/04 19:06:50 by veronika         ###   ########.fr        #
+#    Updated: 2020/07/05 02:04:06 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ INC := includes
 
 # Srcs, objs
 SRCS = main.c parse_args.c sort_players.c validate.c \
-	   init.c free.c error.c stuff.c
-# SRCS_COREWAR = arena.c carriage_list.c carriage.c exit.c game.c players.c \
-#			   printing.c
+	   init.c free.c error.c stuff.c arena.c carriage_list.c \
+	    carriage.c exit.c game.c players.c \
+			   printing.c
 SRCS := $(addprefix vm/, $(SRCS))
 SRCS += op.c
 SRCS := $(addprefix srcs/, $(SRCS))

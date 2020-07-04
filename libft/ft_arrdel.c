@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminate.c                                        :+:      :+:    :+:   */
+/*   ft_arrdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aromny-w <aromny-w@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/22 21:54:00 by aromny-w          #+#    #+#             */
-/*   Updated: 2020/04/01 20:22:07 by aromny-w         ###   ########.fr       */
+/*   Created: 2020/07/05 01:03:13 by bgilwood          #+#    #+#             */
+/*   Updated: 2020/07/05 01:07:58 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	terminate(t_prog *info, int status)
+void	ft_arrdel(char ***array)
 {
-	print_error(info, status);
-	destroy_struct(info);
-	exit(EXIT_FAILURE);
+	int i;
+
+	if (!array || !*array)
+		return ;
+	i = 0;
+	while (array [0][i])
+	{
+		free(array[0][i]);
+		i++;
+	}
+	free(*array);
+	*array = NULL;
 }

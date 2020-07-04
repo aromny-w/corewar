@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:35:30 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 22:11:17 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/05 00:47:39 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_carriage_elem(t_car_list_elem **head,
 	new_carriage = create_carriage(car_position, player_id, id);
 	new_elem = (t_car_list_elem*)ft_memalloc(sizeof(t_car_list_elem));
 	if (!new_elem)
-		mem_error_exit();
+		error("Memory error, the virtual machine is stopping now.");
 	if (*head)
 		new_elem->next = *head;
 	new_elem->content = new_carriage;

@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 22:09:29 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/05 00:47:21 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*arena_init(void)
 
 	mem = ft_memalloc(MEM_SIZE);
 	if (!mem)
-		mem_error_exit();
+		error("Memory error, the virtual machine is stopping now.");
 	return (mem);
 }
 

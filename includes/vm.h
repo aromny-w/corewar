@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veronika <veronika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/04 19:02:25 by veronika         ###   ########.fr       */
+/*   Updated: 2020/07/05 01:18:55 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct				s_game_params
 	size_t					cycles_since_last_check;
 	char					*arena;
 	size_t					dump_idx;
+	int						dump_flag_on;
 	int						players_num;
 	t_player				**players;
 }							t_game_params;
@@ -82,17 +83,20 @@ void						dump_memory(char *arena);
 void						announce_player_alive(t_player **players, int id);
 void						print_memory_error();
 
+void						*arena_init(void);
+t_car_list_elem				*place_players(t_player **players, char *arena);
 void						delete_all_players(t_player **players);
 void						dump_mem_and_exit(t_game_params *params,
 									t_car_list_elem *carriages);
 void						game_over(t_game_params *params, t_car_list_elem *carriages);
-void						mem_error_exit();
 
 t_game_params				*init_game_params(void);
 t_player					*init_player(char *filename, int num);
 void						get_args(int ac, char **av, t_game_params *params);
 void						sort_players(t_game_params *prms, t_player **lst);
 void						validate_players(char **av, t_game_params *prms);
+void						play_game(t_car_list_elem **carriages,
+										t_game_params *params);
 
 void						print_usage(char *exec);
 int32_t 					bin_to_num(uint8_t *val, size_t len);

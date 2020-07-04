@@ -25,7 +25,10 @@ static void	set_dump(int ac, char **av, int *i, t_game_params *params)
 		print_usage(av[0]);
 	num = ft_atoi(av[*i]);
 	if (ft_strequ(av[*i], ft_itoa(num)) /*&& count > 0*/) // may dump_idx be 0?
-		params->dump_idx = num;
+		{
+			params->dump_idx = num;
+			params->dump_flag_on = 1;
+		}
 	else
 		print_usage(av[0]);
 }

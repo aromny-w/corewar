@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 22:12:23 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/05 01:50:46 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 {
 	t_car_list_elem	*elem;
 	t_car_list_elem	*next_elem;
-	int				last_man_standing;
-
+	
+	if (!carriages || !*carriages)
+		error("Memory error, the virtual machine is stopping now.");
 	elem = *carriages;
-	last_man_standing = elem == NULL;
 	while (elem)
 	{
 		next_elem = elem->next;
@@ -29,7 +29,7 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 			delete_carriage_elem(carriages, elem->content->id);
 		elem = next_elem;
 	}
-	if (!elem || (elem && !elem->next && last_man_standing))
+	if (!elem)
 		game_over(params, *carriages);
 	if (params->live_count_in_period > NBR_LIVE
 			|| params->checks_count > MAX_CHECKS)
@@ -58,7 +58,9 @@ void	play_cycle(t_car_list_elem **carriages, t_game_params *params)
 {
 	t_car_list_elem	*list_elem;
 
-	if (params->cycles_since_last_check > CYCLE_TO_DIE)
+	if (!carriages)
+		error("wtf");
+	if (params->cycles_since_last_check > params->cycles_to_die)
 		check_carriages(carriages, params);
 	list_elem = *carriages;
 	while (list_elem)
@@ -72,18 +74,22 @@ void	play_cycle(t_car_list_elem **carriages, t_game_params *params)
 			move_carriage(list_elem->content,
 								list_elem->content->bytes_next_op);
 		}
+		list_elem = list_elem->next;
 	}
-	params->cycles_since_last_check++;
 }
 
 void	play_game(t_car_list_elem **carriages, t_game_params *params)
 {
+	if (!carriages || !*carriages)
+		error("Memory error, the virtual machine is stopping now.");
 	while (1)
 	{
-		if (params->cycles_since_start == params->dump_idx)
+		if (params->cycles_since_start == params->dump_idx
+									&& params->dump_flag_on)
 			dump_mem_and_exit(params, *carriages);
 		else
 			play_cycle(carriages, params);
 		params->cycles_since_start++;
+		params->cycles_since_last_check++;
 	}
 }
