@@ -3,25 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   vm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
+/*   By: veronika <veronika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/01 00:09:45 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/04 16:36:12 by veronika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 # include "op.h"
+# include "libft.h"
 # include <string.h>
+# include <errno.h>
+# include <stdint.h>
+
+# define RESET_COLOR "\e[m"
+# define RED "\033[4;31m"
 
 typedef struct				s_player
 {
 	int						id;
 	char					*name;
+	char					*filename;
 	char					*comment;
 	int						code_size;
 	char					*code;
+	struct s_player			*next;
 }							t_player;
 
 typedef struct				s_carriage
@@ -52,6 +60,7 @@ typedef struct				s_game_params
 	size_t					cycles_since_last_check;
 	char					*arena;
 	size_t					dump_idx;
+	int						players_num;
 	t_player				**players;
 }							t_game_params;
 
@@ -77,5 +86,17 @@ void						dump_mem_and_exit(t_game_params *params,
 									t_car_list_elem *carriages);
 void						game_over(t_game_params *params, t_car_list_elem *carriages);
 void						mem_error_exit();
+
+t_game_params				*init_game_params(void);
+t_player					*init_player(char *filename, int num);
+void						get_args(int ac, char **av, t_game_params *params);
+void						sort_players(t_game_params *prms, t_player **lst);
+void						validate_players(char **av, t_game_params *prms);
+
+void						print_usage(char *exec);
+int32_t 					bin_to_num(uint8_t *val, size_t len);
+void						free_params(t_game_params **params);
+void						free_players(t_player ***player);
+void						error(char *str);
 
 #endif
