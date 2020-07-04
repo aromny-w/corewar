@@ -3,29 +3,38 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
+#    By: veronika <veronika@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/07/01 20:40:39 by bgilwood         ###   ########.fr        #
+#    Updated: 2020/07/04 19:06:50 by veronika         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Project executable
 NAME = corewar
-LIB = libft.a
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+# Paths
+INC := includes
 
-SRCS_COREWAR = arena.c carriage_list.c carriage.c exit.c game.c players.c \
-printing.c
-SRCS = $(addprefix vm/, $(SRCS_COREWAR))
+# Srcs, objs
+SRCS = main.c parse_args.c sort_players.c validate.c \
+	   init.c free.c error.c stuff.c
+# SRCS_COREWAR = arena.c carriage_list.c carriage.c exit.c game.c players.c \
+#			   printing.c
+SRCS := $(addprefix vm/, $(SRCS))
 SRCS += op.c
 SRCS := $(addprefix srcs/, $(SRCS))
-OBJS = $(SRCS_COREWAR:.c=.o)
-OBJS := $(addprefix obj/, $(OBJS))
+OBJS = $(SRCS:.c=.o)
 
-INC = includes
-LIBDIR = libft
+# Libft
+LIBDIR := libft
+LIB := libft.a
+
+# Compilatiom commands and flags
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror
+
+.PHONY: all clean fclean debug
 
 all: $(NAME)
 
@@ -34,8 +43,12 @@ all: $(NAME)
 
 $(NAME): $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
+
 $(LIB):
 	@make -C libft
+
+debug:
+	$(CC) -g $(CFLAGS) $(SRCS) -I$(INC) -I$(LIBDIR) $(LIBDIR)/$(LIB) -o $(NAME)
 
 clean:
 	@make clean -C libft
