@@ -1,0 +1,8 @@
+.vscode/
+objs/
+*.o
+*._*
+disasm
+*.swp
+.DS_Store
+*.a
