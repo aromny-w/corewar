@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 17:41:34 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/30 21:38:27 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 22:11:24 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	dump_memory(char *arena)
 	}
 }
 
-void	print_memory_error()
+void	print_memory_error(void)
 {
 	ft_putendl("Memory error, the virtual machine is stopping now.");
 }

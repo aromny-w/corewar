@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 00:00:57 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/30 22:04:21 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 22:07:14 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	dump_mem_and_exit(t_game_params *params, t_car_list_elem *carriages)
 	exit(0);
 }
 
-void	mem_error_exit()
+void	mem_error_exit(void)
 {
 	print_memory_error();
 	exit(1);

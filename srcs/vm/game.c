@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/06/30 22:55:48 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/01 22:12:23 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 			delete_carriage_elem(carriages, elem->content->id);
 		elem = next_elem;
 	}
-	if (!elem || elem && !elem->next && last_man_standing)
+	if (!elem || (elem && !elem->next && last_man_standing))
 		game_over(params, *carriages);
 	if (params->live_count_in_period > NBR_LIVE
 			|| params->checks_count > MAX_CHECKS)
@@ -46,8 +46,9 @@ void	exec_op(t_carriage *carriage, t_game_params *params)
 	if (carriage->code_op > 16 || carriage->code_op < 1)
 	{
 		carriage->bytes_next_op = 1;
-		return;
+		return ;
 	}
+	(void)params;
 	// todo:
 	// read args byte, calculate and save carriage->bytes_next_op
 	// if args byte valid, call the necessary function
@@ -63,7 +64,7 @@ void	play_cycle(t_car_list_elem **carriages, t_game_params *params)
 	while (list_elem)
 	{
 		if (!list_elem->content->num_cycles_before_op)
-			read_arena_to_carriage(list_elem->content, params);
+			read_byte_to_carriage(list_elem->content, params);
 		list_elem->content->num_cycles_before_op--;
 		if (!list_elem->content->num_cycles_before_op)
 		{
