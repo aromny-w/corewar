@@ -6,3 +6,5 @@ disasm
 *.swp
 .DS_Store
 *.a
+corewar
+asm
