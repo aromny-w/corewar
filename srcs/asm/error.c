@@ -92,7 +92,7 @@ void		print_error(t_prog *info, int status, void *ptr)
 	if (status == 0)
 		ft_dprintf(2, "%s\n", strerror(errno));
 	else if (status == 1)
-		ft_dprintf(2, "Can't read source file %s.\n", info->path);
+		ft_dprintf(2, "Can't read source file %s\n", info->path);
 	else if (status == 2)
 		print_lexical_error(status, ptr);
 	else if ((status >= 3 && status <= 8) || status > 10)

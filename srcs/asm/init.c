@@ -42,5 +42,6 @@ void		get_options(t_prog *info, char **input)
 		else
 			info->path = *input;
 	}
-	info->filename = get_filename(info);
+	if (info->path)
+		info->filename = get_filename(info);
 }
