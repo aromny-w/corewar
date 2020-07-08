@@ -16,9 +16,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
-# include "op.h"
 # include "libft.h"
 # include "ft_dprintf.h"
+# include "op.h"
 
 typedef enum
 {
