@@ -68,7 +68,7 @@ typedef struct	s_line
 	struct s_line	*next;
 }				t_line;
 
-typedef struct	s_prog
+typedef struct	s_exec
 {
 	char		*path;
 	char		*filename;
@@ -77,24 +77,24 @@ typedef struct	s_prog
 	t_token		*token;
 	t_header	header;
 	t_line		*line;
-}				t_prog;
+}				t_exec;
 
 void			assembler(char **input);
-void			get_options(t_prog *info, char **input);
-void			get_file_contents(t_prog *info);
-void			lex_corewar(t_prog *info);
+void			get_options(t_exec *info, char **input);
+void			get_file_contents(t_exec *info);
+void			lex_corewar(t_exec *info);
 char			*get_token_content(char *s);
 t_type			get_token_type(char *s);
-void			lexical_check(t_prog *info, char *s);
-void			syntax_check(t_prog *info);
-void			strip_tokens(t_prog *info);
-void			parse_tokens(t_prog *info);
-void			parse_lines(t_prog *info);
-void			dereference_labels(t_prog *info);
-void			bytecode_output(t_prog *info);
-void			annotated_output(t_prog *info);
-void			destroy_struct(t_prog *info);
-void			terminate(t_prog *info, int status, void *ptr);
-void			print_error(t_prog *info, int status, void *ptr);
+void			lexical_check(t_exec *info, char *s);
+void			syntax_check(t_exec *info);
+void			strip_tokens(t_exec *info);
+void			parse_tokens(t_exec *info);
+void			parse_lines(t_exec *info);
+void			dereference_labels(t_exec *info);
+void			bytecode_output(t_exec *info);
+void			annotated_output(t_exec *info);
+void			destroy_struct(t_exec *info);
+void			terminate(t_exec *info, int status, void *ptr);
+void			print_error(t_exec *info, int status, void *ptr);
 
 #endif

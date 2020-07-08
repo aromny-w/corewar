@@ -30,7 +30,7 @@ static void	set_arg_value(t_line **line, t_arg *arg)
 	}
 }
 
-static void	set_size_and_pos(t_prog *info, t_line **line, unsigned int pos)
+static void	set_size_and_pos(t_exec *info, t_line **line, unsigned int pos)
 {
 	int	i;
 
@@ -71,7 +71,7 @@ static void	set_acb(t_line **line, t_arg *arg)
 	}
 }
 
-static void	set_arg_type(t_prog *info, t_line **line, t_arg *arg)
+static void	set_arg_type(t_exec *info, t_line **line, t_arg *arg)
 {
 	int	i;
 
@@ -92,7 +92,7 @@ static void	set_arg_type(t_prog *info, t_line **line, t_arg *arg)
 		terminate(info, 7, *line);
 }
 
-void		parse_lines(t_prog *info)
+void		parse_lines(t_exec *info)
 {
 	t_line	*lptr;
 

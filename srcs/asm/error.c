@@ -87,7 +87,7 @@ static void	print_lexical_error(int status, t_token *token)
 		ft_dprintf(2, "Lexical error at [%d:%d]\n", token->row, token->col);
 }
 
-void		print_error(t_prog *info, int status, void *ptr)
+void		print_error(t_exec *info, int status, void *ptr)
 {
 	if (status == 0)
 		ft_dprintf(2, "%s\n", strerror(errno));

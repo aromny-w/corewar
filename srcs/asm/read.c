@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static char	*get_buffer(t_prog *info, int fd)
+static char	*get_buffer(t_exec *info, int fd)
 {
 	char	*buf;
 	int		i;
@@ -27,7 +27,7 @@ static char	*get_buffer(t_prog *info, int fd)
 	return (buf);
 }
 
-void		get_file_contents(t_prog *info)
+void		get_file_contents(t_exec *info)
 {
 	int	fd;
 

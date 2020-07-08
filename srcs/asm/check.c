@@ -20,7 +20,7 @@ static bool	is_parameter(char type)
 	return (false);
 }
 
-static void	line_check(t_prog *info, t_token **token)
+static void	line_check(t_exec *info, t_token **token)
 {
 	if ((*token)->type == LABEL && (*token = (*token)->next)->type == ENDLINE)
 		return ;
@@ -39,7 +39,7 @@ static void	line_check(t_prog *info, t_token **token)
 	}
 }
 
-static void	header_check(t_prog *info, t_token **token)
+static void	header_check(t_exec *info, t_token **token)
 {
 	bool	prog_name;
 	bool	comment;
@@ -60,7 +60,7 @@ static void	header_check(t_prog *info, t_token **token)
 	}
 }
 
-void		syntax_check(t_prog *info)
+void		syntax_check(t_exec *info)
 {
 	t_token	*tptr;
 
@@ -76,7 +76,7 @@ void		syntax_check(t_prog *info)
 	}
 }
 
-void		lexical_check(t_prog *info, char *s)
+void		lexical_check(t_exec *info, char *s)
 {
 	if (!ft_strncmp(s, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		return ;

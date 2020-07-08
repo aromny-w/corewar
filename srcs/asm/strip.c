@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	strip_two_endlines(t_prog *info)
+static void	strip_two_endlines(t_exec *info)
 {
 	t_token	*tptr;
 	t_token	*next;
@@ -36,7 +36,7 @@ static void	strip_two_endlines(t_prog *info)
 	}
 }
 
-static void	strip_whitespace(t_prog *info)
+static void	strip_whitespace(t_exec *info)
 {
 	t_token	*tptr;
 	t_token	*next;
@@ -60,7 +60,7 @@ static void	strip_whitespace(t_prog *info)
 	}
 }
 
-static void	strip_comments(t_prog *info)
+static void	strip_comments(t_exec *info)
 {
 	t_token	*tptr;
 	t_token	*next;
@@ -84,7 +84,7 @@ static void	strip_comments(t_prog *info)
 	}
 }
 
-void		strip_tokens(t_prog *info)
+void		strip_tokens(t_exec *info)
 {
 	strip_comments(info);
 	strip_whitespace(info);

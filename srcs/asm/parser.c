@@ -30,7 +30,7 @@ static void	reverse_lines(t_line **line)
 	*line = prev;
 }
 
-static t_op	get_operation(t_prog *info, t_token *token)
+static t_op	get_operation(t_exec *info, t_token *token)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ static t_op	get_operation(t_prog *info, t_token *token)
 	return (g_op_tab[i]);
 }
 
-static void	add_new_line(t_prog *info, t_token **token)
+static void	add_new_line(t_exec *info, t_token **token)
 {
 	t_line	*new;
 	int		i;
@@ -66,7 +66,7 @@ static void	add_new_line(t_prog *info, t_token **token)
 	}
 }
 
-static void	set_header(t_prog *info, t_token **token)
+static void	set_header(t_exec *info, t_token **token)
 {
 	char	*s1;
 	char	*s2;
@@ -93,7 +93,7 @@ static void	set_header(t_prog *info, t_token **token)
 	ft_strncpy(info->header.comment, s2, len2);
 }
 
-void		parse_tokens(t_prog *info)
+void		parse_tokens(t_exec *info)
 {
 	t_token	*tptr;
 

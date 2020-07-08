@@ -76,7 +76,7 @@ static void	print_header(t_header header)
 	ft_printf("\n");
 }
 
-void		annotated_output(t_prog *info)
+void		annotated_output(t_exec *info)
 {
 	t_line *line;
 

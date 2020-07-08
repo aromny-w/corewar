@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static char	*get_filename(t_prog *info)
+static char	*get_filename(t_exec *info)
 {
 	char	*str;
 	char	*s1;
@@ -31,7 +31,7 @@ static char	*get_filename(t_prog *info)
 	return (str);
 }
 
-void		get_options(t_prog *info, char **input)
+void		get_options(t_exec *info, char **input)
 {
 	ft_bzero(info, sizeof(*info));
 	info->header.magic = COREWAR_EXEC_MAGIC;

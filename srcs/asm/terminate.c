@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void	terminate(t_prog *info, int status, void *ptr)
+void	terminate(t_exec *info, int status, void *ptr)
 {
 	print_error(info, status, ptr);
 	destroy_struct(info);

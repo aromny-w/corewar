@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	destroy_lines(t_prog *info)
+static void	destroy_lines(t_exec *info)
 {
 	t_line	*tmp;
 	t_line	*next;
@@ -26,7 +26,7 @@ static void	destroy_lines(t_prog *info)
 	}
 }
 
-static void	destroy_tokens(t_prog *info)
+static void	destroy_tokens(t_exec *info)
 {
 	t_token	*tmp;
 	t_token	*next;
@@ -42,7 +42,7 @@ static void	destroy_tokens(t_prog *info)
 	}
 }
 
-void		destroy_struct(t_prog *info)
+void		destroy_struct(t_exec *info)
 {
 	free(info->filename);
 	free(info->buf);

@@ -12,16 +12,16 @@
 
 #include "asm.h"
 
-static void	print_usage(char *exec)
+static void	print_usage(char *name)
 {
-	ft_printf("Usage: %s [-a] <sourcefile.s>\n", exec);
-	ft_printf("    -a : Instead of creating a .cor file, outputs a stripped and\
-annotated version of the code to the standard output\n");
+	ft_printf("Usage: %s [-a] <sourcefile.s>\n", name);
+	ft_printf("    -a : Instead of creating a .cor file, outputs a stripped and"
+	" annotated version of the code to the standard output\n");
 }
 
 void		assembler(char **input)
 {
-	t_prog	info;
+	t_exec	info;
 
 	get_options(&info, input);
 	get_file_contents(&info);

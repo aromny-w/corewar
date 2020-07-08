@@ -21,7 +21,7 @@ static bool	is_match(char *s1, char *s2)
 	return (false);
 }
 
-static void	dereference_label(t_prog *info, t_arg *arg, int pos)
+static void	dereference_label(t_exec *info, t_arg *arg, int pos)
 {
 	t_line	*lptr;
 
@@ -38,7 +38,7 @@ static void	dereference_label(t_prog *info, t_arg *arg, int pos)
 	arg->value = lptr->pos - pos;
 }
 
-void		dereference_labels(t_prog *info)
+void		dereference_labels(t_exec *info)
 {
 	t_line	*lptr;
 	int		i;

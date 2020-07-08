@@ -53,7 +53,7 @@ static void	write_header(t_header header, int fd)
 	write_number(fd, 0, sizeof(int));
 }
 
-void		bytecode_output(t_prog *info)
+void		bytecode_output(t_exec *info)
 {
 	t_line	*lptr;
 	int		fd;

@@ -60,7 +60,7 @@ static int	get_token_row(char *buf, char *s)
 	return (row);
 }
 
-static void	add_new_token(t_prog *info, char *s)
+static void	add_new_token(t_exec *info, char *s)
 {
 	t_token	*new;
 
@@ -76,7 +76,7 @@ static void	add_new_token(t_prog *info, char *s)
 	new->type = get_token_type(new->content);
 }
 
-void		lex_corewar(t_prog *info)
+void		lex_corewar(t_exec *info)
 {
 	int	i;
 
