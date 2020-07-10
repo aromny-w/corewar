@@ -64,5 +64,6 @@ void	sort_players(t_game_params *prms, t_player **lst)
 		error("Malloc failure.");
 	set_players_with_n(prms, *lst);
 	set_rest_players(prms, *lst);
+	prms->carriages_num = prms->players_num;
 	*lst = NULL;
 }

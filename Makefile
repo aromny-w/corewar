@@ -6,7 +6,7 @@
 #    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/07/05 02:04:06 by bgilwood         ###   ########.fr        #
+#    Updated: 2020/07/10 00:38:59 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,15 @@ INC := includes
 
 # Srcs, objs
 SRCS = main.c parse_args.c sort_players.c validate.c \
-	   init.c free.c error.c stuff.c arena.c carriage_list.c \
-	    carriage.c exit.c game.c players.c \
+	init.c free.c error.c stuff.c arena.c carriage_list.c \
+	create_carriage.c carriage.c exit.c game.c players.c \
 			   printing.c
 SRCS := $(addprefix vm/, $(SRCS))
 SRCS += op.c
+SRCS_OPS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c \
+live.c lld.c lldi.c or.c st.c sti.c sub.c xor.c zjmp.c
+SRCS_OPS := $(addprefix operations/, $(SRCS_OPS))
+SRCS += $(SRCS_OPS)
 SRCS := $(addprefix srcs/, $(SRCS))
 OBJS = $(SRCS:.c=.o)
 
@@ -32,7 +36,7 @@ LIB := libft.a
 
 # Compilatiom commands and flags
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 
 .PHONY: all clean fclean debug
 

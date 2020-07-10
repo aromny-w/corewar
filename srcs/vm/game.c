@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/05 01:50:46 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/10 23:55:21 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void	exec_op(t_carriage *carriage, t_game_params *params)
 		carriage->bytes_next_op = 1;
 		return ;
 	}
+	(*g_execs[carriage->code_op - 1])(carriage, params);
+	carriage->bytes_next_op = 1; // remove
+	move_carriage(carriage, carriage->bytes_next_op);
 	(void)params;
 	// todo:
 	// read args byte, calculate and save carriage->bytes_next_op

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/06 21:08:26 by bgilwood          #+#    #+#             */
+/*   Updated: 2020/07/06 21:08:28 by bgilwood         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 void	free_players(t_player ***player)
@@ -29,4 +41,9 @@ void	free_params(t_game_params **params)
 	ft_bzero(*params, sizeof(t_game_params));
 	free(*params);
 	*params = NULL;
+}
+
+void	delete_carriage(t_carriage *carriage)
+{
+	free(carriage);
 }

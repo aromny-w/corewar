@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 17:41:34 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/05 02:01:55 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/10 23:56:34 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	announce_players(t_player **players)
 void	announce_player_alive(t_player **players, int id)
 {
 	ft_printf("A process shows that player %i (%s) is alive\n",
-					id, players[id]->name);
+					id, players[id - 1]->name);
 }
 
 void	dump_memory(char *arena)

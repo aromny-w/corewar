@@ -6,25 +6,12 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/05 00:46:43 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/06 21:04:40 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "libft.h"
-
-t_carriage	*create_carriage(int start_position, int player_id, int id)
-{
-	t_carriage	*elem;
-
-	elem = (t_carriage*)ft_memalloc(sizeof(t_carriage));
-	if (!elem)
-		error("Memory error, the virtual machine is stopping now.");
-	elem->cur_position = start_position;
-	elem->registries[0] = player_id * -1;
-	elem->id = id;
-	return (elem);
-}
 
 void		move_carriage(t_carriage *carriage, int distance)
 {
@@ -40,14 +27,14 @@ int			get_registry(t_carriage *carriage, int registry_num)
 {
 	if (registry_num > REG_NUMBER)
 		return (-42);// just to mess with ppl | error?
-	return (carriage->registries[registry_num]);
+	return (carriage->registries[registry_num -1]);
 }
 
 void		save_registry(t_carriage *carriage, int registry_num, int value)
 {
 	if (registry_num > REG_NUMBER)
 		return ;// error?
-	carriage->registries[registry_num] = value;
+	carriage->registries[registry_num - 1] = value;
 }
 
 void		read_byte_to_carriage(t_carriage *carriage, t_game_params *arena)
@@ -64,9 +51,4 @@ void		read_byte_to_carriage(t_carriage *carriage, t_game_params *arena)
 	// recalculate carriage->bytes_next_op ?? it seems that no,
 	// it needs to be calculated after reading args types byte
 	// or while executing the op
-}
-
-void		delete_carriage(t_carriage *carriage)
-{
-	free(carriage);
 }
