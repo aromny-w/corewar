@@ -83,7 +83,7 @@ char		*get_token_content(char *s)
 	if (*s == STRING_CHAR)
 		return (get_string(s));
 	if (*s == SEPARATOR_CHAR || *s == '\n')
-		return (ft_strndup(s, sizeof(*s)));
+		return (ft_strndup(s, sizeof(char)));
 	if (*s == COMMENT_CHAR || *s == COMMENT_CHAR_2)
 		return (get_comment(s));
 	if (ft_isspace(*s))

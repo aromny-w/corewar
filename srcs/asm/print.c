@@ -78,7 +78,7 @@ static void	print_header(t_header header)
 
 void		annotated_output(t_exec *info)
 {
-	t_line *line;
+	t_line	*line;
 
 	line = info->line;
 	ft_printf("Dumping annotated program on standard output\n");

@@ -14,9 +14,9 @@
 
 static void	reverse_lines(t_line **line)
 {
-	t_line *prev;
-	t_line *curr;
-	t_line *next;
+	t_line	*prev;
+	t_line	*curr;
+	t_line	*next;
 
 	prev = NULL;
 	curr = *line;

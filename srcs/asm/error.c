@@ -55,8 +55,8 @@ static char	*get_param_type_str(t_arg_type type)
 static void	print_syntax_error(int status, t_token *token, t_line *line, int n)
 {
 	if (status == 3)
-		ft_dprintf(2, "Syntax error - unexpected end of input (Perhaps you forg\
-ot to end with a newline ?)\n");
+		ft_dprintf(2, "Syntax error - unexpected end of input (Perhaps you forg"
+		"ot to end with a newline ?)\n");
 	else if (status == 4)
 		ft_dprintf(2, "Syntax error at token ");
 	else if (status == 5)
