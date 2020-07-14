@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/10 23:55:21 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/14 20:06:16 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,6 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 	}
 	params->live_count_in_period = 0;
 	params->cycles_since_last_check = 0;
-}
-
-void	exec_op(t_carriage *carriage, t_game_params *params)
-{
-	if (carriage->code_op > 16 || carriage->code_op < 1)
-	{
-		carriage->bytes_next_op = 1;
-		return ;
-	}
-	(*g_execs[carriage->code_op - 1])(carriage, params);
-	carriage->bytes_next_op = 1; // remove
-	move_carriage(carriage, carriage->bytes_next_op);
-	(void)params;
-	// todo:
-	// read args byte, calculate and save carriage->bytes_next_op
-	// if args byte valid, call the necessary function
 }
 
 void	play_cycle(t_car_list_elem **carriages, t_game_params *params)

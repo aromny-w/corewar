@@ -6,7 +6,7 @@
 #    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/07/10 00:38:59 by bgilwood         ###   ########.fr        #
+#    Updated: 2020/07/14 21:24:59 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,12 @@ INC := includes
 SRCS = main.c parse_args.c sort_players.c validate.c \
 	init.c free.c error.c stuff.c arena.c carriage_list.c \
 	create_carriage.c carriage.c exit.c game.c players.c \
-			   printing.c
+	printing.c exec_op.c
 SRCS := $(addprefix vm/, $(SRCS))
 SRCS += op.c
 SRCS_OPS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c \
-live.c lld.c lldi.c or.c st.c sti.c sub.c xor.c zjmp.c
+live.c lld.c lldi.c or.c st.c sti.c sub.c xor.c zjmp.c \
+op_args.c
 SRCS_OPS := $(addprefix operations/, $(SRCS_OPS))
 SRCS += $(SRCS_OPS)
 SRCS := $(addprefix srcs/, $(SRCS))
