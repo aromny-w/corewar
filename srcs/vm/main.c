@@ -12,6 +12,7 @@ int			main(int ac, char **av)
 	validate_players(av, params);
 	params->arena = arena_init();
 	carriages = place_players(params->players, params->arena);
+	params->carriages_list = carriages;
 	announce_players(params->players);
 	play_game(&carriages, params);
 	delete_carriage_list(carriages);

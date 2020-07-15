@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/12 16:00:46 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/15 21:45:02 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void		live_carriage(t_carriage *carriage, size_t cycle)
 
 int			get_registry(t_carriage *carriage, int registry_num)
 {
-	if (registry_num > REG_NUMBER)
+	if (registry_num > REG_NUMBER || registry_num < 0)
 		return (-42);// just to mess with ppl | error?
 	return (carriage->registries[registry_num - 1]);
 }
 
 void		save_registry(t_carriage *carriage, int registry_num, int value)
 {
-	if (registry_num > REG_NUMBER)
+	if (registry_num > REG_NUMBER || registry_num < 0)
 		return ;// error?
 	carriage->registries[registry_num - 1] = value;
 }

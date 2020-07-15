@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 21:04:09 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/06 21:04:43 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/15 23:26:18 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_carriage	*duplicate_carriage(t_carriage *original, int new_id, int new_positio
 {
 	t_carriage	*copy;
 
+	new_position = get_new_coord(new_position);
 	copy = create_carriage(new_position, 0, new_id);
 	copy->carry = original->carry;
 	ft_memcpy(copy->registries, original->registries, REG_NUMBER * sizeof(int));

@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/05 00:47:21 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/15 22:14:53 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		arena_read_byte(char *arena, int cur_position)
 {
 	char	ans;
 
+	cur_position = get_new_coord(cur_position);
 	ans = arena[cur_position];
 	return (ans);
 }
@@ -47,6 +48,7 @@ int		read_number(char *arena, int position, int size_bytes)
 	int				i;
 	unsigned char	*byte_code;
 
+	position = get_new_coord(position);
 	byte_code = (unsigned char *)arena + position;
 	sign = byte_code[0] & 128;
 	i = 0;
@@ -67,6 +69,7 @@ void	write_number(char *arena, int position, int size_bytes, int number)
 {
 	char	byte[4];
 
+	position = get_new_coord(position);
 	if (size_bytes > 4)
 		size_bytes = 4;
 	byte[0] = number >> 24;

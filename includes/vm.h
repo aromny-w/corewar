@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/14 21:50:17 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/15 23:13:51 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,26 @@ typedef struct				s_game_params
 	int						players_num;
 	t_player				**players;
 	int						carriages_num;
+	t_car_list_elem			*carriages_list;
 }							t_game_params;
 
 extern void (*g_execs[])(t_carriage*, t_game_params*, int);
 
 void						add_carriage_elem(t_car_list_elem **head,
 								int car_position, int player_id, int id);
+void						insert_existing_carriage(t_car_list_elem **head,
+								t_carriage *elem);
 t_carriage					*create_carriage(int start_position, int player_id,
 								int id);
+t_carriage					*duplicate_carriage(t_carriage *original,
+								int new_id, int new_position);
 void						move_carriage(t_carriage *carriage, int distance);
 void						delete_carriage(t_carriage *carriage);
 void						read_byte_to_carriage(t_carriage *carriage,
 								t_game_params *arena);
 int							read_number(char *arena, int position, int size_bytes);
+void						write_number(char *arena, int position,
+								int size_bytes, int number);
 void						delete_carriage_elem(t_car_list_elem **head,
 								int id);
 void						delete_carriage_list(t_car_list_elem *head);
@@ -84,6 +91,8 @@ int							arena_read_byte(char *arena, int cur_position);
 int							get_new_coord(int raw_coord);
 int							get_registry(t_carriage *carriage,
 								int registry_num);
+void						save_registry(t_carriage *carriage,
+								int registry_num, int value);
 void						live_carriage(t_carriage *carriage, size_t cycle);
 
 void						announce_player_alive(t_player **players, int id);
