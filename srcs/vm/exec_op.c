@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 20:51:21 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/14 22:05:24 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 21:10:19 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		validate_argcode(t_carriage *carriage, int code)
 	i = 0;
 	while (i < MAX_ARGS_NUMBER)
 	{
-		arg_type = (code >> (MAX_ARGS_NUMBER - 1 - i)) & 0x03;
+		arg_type = (code >> (MAX_ARGS_NUMBER - 1 - i) * 2) & 0x03;
 		if (!arg_type)
 			break ;
 		if (!(g_op_tab[carriage->code_op - 1].type[i] & (1 << (arg_type - 1))))
@@ -32,7 +32,7 @@ int		validate_argcode(t_carriage *carriage, int code)
 		if (arg_type == DIR_CODE)
 			skip += (g_op_tab[carriage->code_op - 1].idx ? IND_SIZE : DIR_SIZE);
 		else
-			skip += arg_type == IND_CODE ? IND_SIZE : REG_SIZE;
+			skip += arg_type == IND_CODE ? IND_SIZE : 1;
 		i++;
 	}
 	if (!valid)
@@ -51,18 +51,12 @@ void	exec_op(t_carriage *carriage, t_game_params *params)
 	arg_code = 0;
 	if (g_op_tab[carriage->code_op - 1].pcode)
 	{
-		carriage->bytes_next_op++;
 		arg_code = arena_read_byte(params->arena, carriage->cur_position +
 					carriage->bytes_next_op);
+		carriage->bytes_next_op++;
 		argc_valid = validate_argcode(carriage, arg_code);
-		if (argc_valid)
-			carriage->bytes_next_op = 2;
-		else
+		if (!argc_valid)
 			return ;
 	}
 	(*g_execs[carriage->code_op - 1])(carriage, params, arg_code);
-	
-	// todo:
-	// read args byte, calculate and save carriage->bytes_next_op
-	// if args byte valid, call the necessary function
 }

@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/15 23:13:51 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:40:20 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,8 @@ void						exec_op(t_carriage *carriage, t_game_params *params);
 
 int							get_argument(char *arena, t_carriage *carriage,
 										int arg_type, int l_op);
-
+int							get_address_argument(char *arena,
+								t_carriage *carriage, int arg_type, int l_op);
 void						print_usage(char *exec);
 int32_t						bin_to_num(uint8_t *val, size_t len);
 void						free_params(t_game_params **params);

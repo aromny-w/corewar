@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/15 21:45:02 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 21:08:51 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void		move_carriage(t_carriage *carriage, int distance)
 {
 	carriage->cur_position = get_new_coord(carriage->cur_position + distance);
+	carriage->bytes_next_op = 0;
 }
 
 void		live_carriage(t_carriage *carriage, size_t cycle)

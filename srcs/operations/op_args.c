@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 20:03:14 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/15 22:21:59 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:39:11 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,23 @@ int		get_argument(char *arena, t_carriage *carriage, int arg_type, int l_op)
 		carriage->bytes_next_op += dir_size;
 	else
 		carriage->bytes_next_op += (arg_type == IND_CODE ? IND_SIZE : 1);
+	return (num);
+}
+
+int		get_address_argument(char *arena, t_carriage *carriage, int arg_type,
+			int l_op)
+{
+	int		num;
+	int		position;
+
+	position = carriage->cur_position + carriage->bytes_next_op;
+	if (arg_type == IND_CODE)
+	{
+		num = read_number(arena, position, IND_SIZE);
+		num = l_op ? num : num % IDX_MOD;
+	}
+	if (arg_type == REG_CODE)
+		num = arena_read_byte(arena, position);
+	carriage->bytes_next_op += (arg_type == IND_CODE ? IND_SIZE : 1);
 	return (num);
 }

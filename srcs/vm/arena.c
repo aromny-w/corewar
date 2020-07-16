@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/15 22:14:53 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 20:25:00 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int		read_number(char *arena, int position, int size_bytes)
 	{
 		size_bytes--;
 		if (sign)
-			result += byte_code[size_bytes] ^ 255 << i;
+			result += (byte_code[size_bytes] ^ 255) << (8 * i);
 		else
-			result += byte_code[size_bytes] & 255 << i;
+			result += (byte_code[size_bytes] & 255) << (8 * i);
 		i++;
 	}
 	return (sign ? ~result : result);
