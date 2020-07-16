@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 22:17:25 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/14 21:39:02 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:12:38 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_game_params	*init_game_params(void)
 	return (params);
 }
 
-void (*g_execs[])(t_carriage*, t_game_params*, int) = 
+void (*g_execs[])(t_carriage*, t_game_params*, int) =
 {
 	op_live,
 	op_ld,

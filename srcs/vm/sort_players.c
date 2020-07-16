@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_players.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/16 22:08:28 by bgilwood          #+#    #+#             */
+/*   Updated: 2020/07/16 22:10:41 by bgilwood         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 static int	players_num(t_player *players)
@@ -54,7 +66,7 @@ static void	set_rest_players(t_game_params *prms, t_player *lst)
 	}
 }
 
-void	sort_players(t_game_params *prms, t_player **lst)
+void		sort_players(t_game_params *prms, t_player **lst)
 {
 	if (!(prms->players_num = players_num(*lst)) \
 			|| prms->players_num > MAX_PLAYERS)

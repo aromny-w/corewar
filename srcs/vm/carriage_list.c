@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:35:30 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/15 23:10:40 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:11:14 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	add_carriage_elem(t_car_list_elem **head,
 					int car_position, int player_id, int id)
 {
 	t_carriage		*new_carriage;
-	
+
 	if (!head)
 		return ;
 	new_carriage = create_carriage(car_position, player_id, id);

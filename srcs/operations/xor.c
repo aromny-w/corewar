@@ -6,13 +6,13 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 22:33:00 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:54:46 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:32:59 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void op_xor(t_carriage *carriage, t_game_params *params, int arg_code)
+void	op_xor(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int		args[3];
 	int		arg_type;

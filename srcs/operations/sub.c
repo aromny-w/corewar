@@ -6,13 +6,13 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 22:30:57 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:54:28 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:32:08 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void op_sub(t_carriage *carriage, t_game_params *params, int arg_code)
+void	op_sub(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int		args[3];
 
@@ -23,4 +23,3 @@ void op_sub(t_carriage *carriage, t_game_params *params, int arg_code)
 	carriage->carry = args[0] - args[1] ? 0 : 1;
 	(void)arg_code;
 }
-

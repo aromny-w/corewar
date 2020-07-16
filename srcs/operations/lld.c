@@ -6,15 +6,14 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 23:22:25 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:52:19 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:32:34 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void op_lld(t_carriage *carriage, t_game_params *params, int arg_code)
+void	op_lld(t_carriage *carriage, t_game_params *params, int arg_code)
 {
-
 	int		args[2];
 	int		arg_type;
 

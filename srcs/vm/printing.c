@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 17:41:34 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 21:49:16 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 21:57:04 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	dump_memory(char *arena)
 	{
 		c = arena[i];
 		string = ft_strnew(3);
-		string[0] = alphabet[(((int)c) >> 4) & 15 ];
+		string[0] = alphabet[(((int)c) >> 4) & 15];
 		string[1] = alphabet[((int)c) & 15];
 		string[2] = ' ';
 		ft_putstr(string);

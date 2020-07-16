@@ -6,13 +6,13 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 23:22:30 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:47:10 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:31:33 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void op_fork(t_carriage *carriage, t_game_params *params, int arg_code)
+void	op_fork(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int			arg;
 	t_carriage	*copy;

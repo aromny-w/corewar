@@ -6,13 +6,13 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 23:22:21 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:52:59 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:33:06 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void op_lldi(t_carriage *carriage, t_game_params *params, int arg_code)
+void	op_lldi(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int		args[3];
 	int		value;

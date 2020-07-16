@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/16 22:29:36 by bgilwood          #+#    #+#             */
+/*   Updated: 2020/07/16 22:29:42 by bgilwood         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -5,7 +17,7 @@
 
 static void		check_filename(char **av, char *filename)
 {
-	char    **filename_parts;
+	char **filename_parts;
 
 	if (!(filename_parts = ft_strsplit(filename, '.')))
 		error("Malloc failure.");
@@ -62,8 +74,8 @@ static int32_t	parse_4bytes(int fd)
 
 void			validate_players(char **av, t_game_params *prms)
 {
-	int     fd;
-	int		i;
+	int fd;
+	int i;
 
 	i = -1;
 	while (prms->players[++i])

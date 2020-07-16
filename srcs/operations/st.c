@@ -6,13 +6,13 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 21:42:07 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:45:29 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:33:23 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void op_st(t_carriage *carriage, t_game_params *params, int arg_code)
+void	op_st(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int		args[2];
 	int		arg2_type;
@@ -28,4 +28,3 @@ void op_st(t_carriage *carriage, t_game_params *params, int arg_code)
 				args[0]);
 	}
 }
-

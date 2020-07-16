@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 21:08:51 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:08:20 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void		live_carriage(t_carriage *carriage, size_t cycle)
 int			get_registry(t_carriage *carriage, int registry_num)
 {
 	if (registry_num > REG_NUMBER || registry_num < 0)
-		return (-42);// just to mess with ppl | error?
+		return (-42);
 	return (carriage->registries[registry_num - 1]);
 }
 
 void		save_registry(t_carriage *carriage, int registry_num, int value)
 {
 	if (registry_num > REG_NUMBER || registry_num < 0)
-		return ;// error?
+		return ;
 	carriage->registries[registry_num - 1] = value;
 }
 
@@ -49,7 +49,4 @@ void		read_byte_to_carriage(t_carriage *carriage, t_game_params *arena)
 	{
 		carriage->bytes_next_op = 1;
 	}
-	// recalculate carriage->bytes_next_op ?? it seems that no,
-	// it needs to be calculated after reading args types byte
-	// or while executing the op
 }

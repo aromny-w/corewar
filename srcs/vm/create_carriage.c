@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 21:04:09 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:50:20 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:02:45 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ t_carriage	*create_carriage(int start_position, int player_id, int id)
 	return (elem);
 }
 
-t_carriage	*duplicate_carriage(t_carriage *original, int new_id, int new_position)
+t_carriage	*duplicate_carriage(t_carriage *original, int new_id,
+														int new_position)
 {
 	t_carriage	*copy;
 
 	new_position = get_new_coord(new_position);
 	copy = create_carriage(new_position, 0, new_id);
 	copy->carry = original->carry;
-	ft_memcpy(copy->registries, original->registries, REG_NUMBER * sizeof(int));
+	ft_memcpy(copy->registries, original->registries, sizeof(int) * REG_NUMBER);
 	copy->last_live = original->last_live;
 	return (copy);
 }

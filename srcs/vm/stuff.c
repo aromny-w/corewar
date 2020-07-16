@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stuff.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/16 22:11:21 by bgilwood          #+#    #+#             */
+/*   Updated: 2020/07/16 22:11:54 by bgilwood         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
-int32_t bin_to_num(uint8_t *val, size_t len)
+int32_t	bin_to_num(uint8_t *val, size_t len)
 {
 	int32_t	sign;
 	int32_t	res;
@@ -25,7 +37,7 @@ int32_t bin_to_num(uint8_t *val, size_t len)
 	return (sign ? -res : res);
 }
 
-void		print_usage(char *exec)
+void	print_usage(char *exec)
 {
 	ft_putstr_fd(exec, 2);
 	ft_putstr_fd(" Imagine printed usage here.\n", 1);
