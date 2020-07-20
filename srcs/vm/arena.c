@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 00:59:52 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:25:00 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/20 22:46:56 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,19 @@ int		read_number(char *arena, int position, int size_bytes)
 	unsigned char	*byte_code;
 
 	position = get_new_coord(position);
-	byte_code = (unsigned char *)arena + position;
-	sign = byte_code[0] & 128;
+	byte_code = (unsigned char *)arena;
+	sign = byte_code[position] & 128;
 	i = 0;
 	result = 0;
 	while (size_bytes)
 	{
 		size_bytes--;
 		if (sign)
-			result += (byte_code[size_bytes] ^ 255) << (8 * i);
+			result += (byte_code[get_new_coord(position + size_bytes)] ^ 255)
+																	<< (8 * i);
 		else
-			result += (byte_code[size_bytes] & 255) << (8 * i);
+			result += (byte_code[get_new_coord(position + size_bytes)] & 255)
+																	<< (8 * i);
 		i++;
 	}
 	return (sign ? ~result : result);
@@ -68,6 +70,7 @@ int		read_number(char *arena, int position, int size_bytes)
 void	write_number(char *arena, int position, int size_bytes, int number)
 {
 	char	byte[4];
+	int		i;
 
 	position = get_new_coord(position);
 	if (size_bytes > 4)
@@ -76,5 +79,11 @@ void	write_number(char *arena, int position, int size_bytes, int number)
 	byte[1] = number >> 16;
 	byte[2] = number >> 8;
 	byte[3] = number;
-	ft_memcpy(arena + position, byte + 4 - size_bytes, size_bytes);
+	i = 0;
+	while (i < size_bytes)
+	{
+		ft_memcpy(arena + get_new_coord(position + i),
+					byte + 4 - size_bytes + i, 1);
+		i++;
+	}
 }
