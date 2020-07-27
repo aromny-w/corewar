@@ -30,7 +30,7 @@ static void	reverse_lines(t_line **line)
 	*line = prev;
 }
 
-static t_op	get_operation(t_exec *info, t_token *token)
+static t_op	get_operation(t_exec *info, t_tok *token)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ static t_op	get_operation(t_exec *info, t_token *token)
 	return (g_op_tab[i]);
 }
 
-static void	add_new_line(t_exec *info, t_token **token)
+static void	add_new_line(t_exec *info, t_tok **token)
 {
 	t_line	*new;
 	int		i;
@@ -66,7 +66,7 @@ static void	add_new_line(t_exec *info, t_token **token)
 	}
 }
 
-static void	set_header(t_exec *info, t_token **token)
+static void	set_header(t_exec *info, t_tok **token)
 {
 	char	*s1;
 	char	*s2;
@@ -95,7 +95,7 @@ static void	set_header(t_exec *info, t_token **token)
 
 void		parse_tokens(t_exec *info)
 {
-	t_token	*tptr;
+	t_tok	*tptr;
 
 	tptr = info->token;
 	set_header(info, &tptr);

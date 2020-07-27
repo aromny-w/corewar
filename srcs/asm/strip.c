@@ -14,8 +14,8 @@
 
 static void	strip_two_endlines(t_exec *info)
 {
-	t_token	*tptr;
-	t_token	*next;
+	t_tok	*tptr;
+	t_tok	*next;
 
 	while ((tptr = info->token)->type == ENDLINE)
 	{
@@ -38,8 +38,8 @@ static void	strip_two_endlines(t_exec *info)
 
 static void	strip_whitespace(t_exec *info)
 {
-	t_token	*tptr;
-	t_token	*next;
+	t_tok	*tptr;
+	t_tok	*next;
 
 	while ((tptr = info->token)->type == WHITESPACE)
 	{
@@ -62,8 +62,8 @@ static void	strip_whitespace(t_exec *info)
 
 static void	strip_comments(t_exec *info)
 {
-	t_token	*tptr;
-	t_token	*next;
+	t_tok	*tptr;
+	t_tok	*next;
 
 	while ((tptr = info->token)->type == COMMENT)
 	{

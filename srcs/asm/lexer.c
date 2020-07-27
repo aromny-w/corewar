@@ -12,11 +12,11 @@
 
 #include "asm.h"
 
-static void	reverse_tokens(t_token **token)
+static void	reverse_tokens(t_tok **token)
 {
-	t_token *prev;
-	t_token *curr;
-	t_token *next;
+	t_tok	*prev;
+	t_tok	*curr;
+	t_tok	*next;
 
 	prev = NULL;
 	curr = *token;
@@ -62,9 +62,9 @@ static int	get_token_row(char *buf, char *s)
 
 static void	add_new_token(t_exec *info, char *s)
 {
-	t_token	*new;
+	t_tok	*new;
 
-	if (!(new = (t_token *)ft_memalloc(sizeof(t_token))))
+	if (!(new = (t_tok *)ft_memalloc(sizeof(t_tok))))
 		terminate(info, 0, NULL);
 	new->row = get_token_row(info->buf, s);
 	new->col = get_token_col(info->buf, s);

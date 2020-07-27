@@ -11,7 +11,6 @@
 # **************************************************************************** #
 
 NAME = asm
-LIB = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -21,20 +20,24 @@ SRCS = asm.c init.c read.c lexer.c parser.c content.c type.c check.c strip.c \
 SRCS := $(addprefix asm/, $(SRCS))
 SRCS += op.c
 SRCS := $(addprefix srcs/, $(SRCS))
+
 OBJS = $(SRCS:.c=.o)
 
-INC = includes
+LIB = libft.a
 LIBDIR = libft
+
+INC = -I includes -I $(LIBDIR)/includes
 
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC) -I $(LIBDIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
+
 $(LIB):
-	@make -C libft
+	@make -C $(LIBDIR)
 
 clean:
 	@make clean -C libft

@@ -28,8 +28,8 @@ static void	destroy_lines(t_exec *info)
 
 static void	destroy_tokens(t_exec *info)
 {
-	t_token	*tmp;
-	t_token	*next;
+	t_tok	*tmp;
+	t_tok	*next;
 
 	tmp = info->token;
 	while (tmp)

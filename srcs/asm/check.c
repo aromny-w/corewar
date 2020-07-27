@@ -20,7 +20,7 @@ static bool	is_parameter(char type)
 	return (false);
 }
 
-static void	line_check(t_exec *info, t_token **token)
+static void	line_check(t_exec *info, t_tok **token)
 {
 	if ((*token)->type == LABEL && (*token = (*token)->next)->type == ENDLINE)
 		return ;
@@ -39,7 +39,7 @@ static void	line_check(t_exec *info, t_token **token)
 	}
 }
 
-static void	header_check(t_exec *info, t_token **token)
+static void	header_check(t_exec *info, t_tok **token)
 {
 	bool	prog_name;
 	bool	comment;
@@ -62,7 +62,7 @@ static void	header_check(t_exec *info, t_token **token)
 
 void		syntax_check(t_exec *info)
 {
-	t_token	*tptr;
+	t_tok	*tptr;
 
 	tptr = info->token;
 	header_check(info, &tptr);

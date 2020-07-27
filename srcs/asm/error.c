@@ -52,55 +52,54 @@ static char	*get_param_type_str(t_arg_type type)
 	return (NULL);
 }
 
-static void	print_syntax_error(int status, t_token *token, t_line *line, int n)
+static void	print_syntax_error(int status, t_tok *token, t_line *line, int n)
 {
 	if (status == 3)
-		ft_dprintf(2, "Syntax error - unexpected end of input (Perhaps you forg"
-		"ot to end with a newline ?)\n");
+		ft_printf("Syntax error - unexpected end of input "
+		"(Perhaps you forgot to end with a newline ?)\n");
 	else if (status == 4)
-		ft_dprintf(2, "Syntax error at token ");
+		ft_printf("Syntax error at token ");
 	else if (status == 5)
-		ft_dprintf(2, "Invalid instruction at token ");
+		ft_printf("Invalid instruction at token ");
 	else if (status == 6 || status > 10)
-		ft_dprintf(2, "Invalid parameter %d type %s for instruction %s\n",
-		n, get_param_type_str(line->arg[n].type), line->op.name);
+		ft_printf("Invalid parameter %d type %s for instruction %s\n", n,
+		get_param_type_str(line->arg[n].type), line->op.name);
 	else if (status == 7)
-		ft_dprintf(2, "Invalid parameter count for instruction %s\n",
+		ft_printf("Invalid parameter count for instruction %s\n",
 		line->op.name);
 	else if (status == 8)
-		ft_dprintf(2, "No such label %s while attempting to dereference token ",
+		ft_printf("No such label %s while attempting to dereference token ",
 		token->type == DIRECT_LABEL ? token->content + 2 : token->content + 1);
 	if (status == 4 || status == 5 || status == 8)
 	{
 		if (token->type != ENDLINE)
-			ft_dprintf(2, "[TOKEN][%03d:%03d] %s \"%s\"\n", token->row,
-			token->col, get_token_type_str(token->type), token->content);
+			ft_printf("[TOKEN][%03d:%03d] %s \"%s\"\n", token->row, token->col,
+			get_token_type_str(token->type), token->content);
 		else
-			ft_dprintf(2, "[TOKEN][%03d:%03d] %s\n", token->row, token->col,
+			ft_printf("[TOKEN][%03d:%03d] %s\n", token->row, token->col,
 			get_token_type_str(token->type));
 	}
 }
 
-static void	print_lexical_error(int status, t_token *token)
+static void	print_lexical_error(int status, t_tok *token)
 {
 	if (status == 2)
-		ft_dprintf(2, "Lexical error at [%d:%d]\n", token->row, token->col);
+		ft_printf("Lexical error at [%d:%d]\n", token->row, token->col);
 }
 
 void		print_error(t_exec *info, int status, void *ptr)
 {
 	if (status == 0)
-		ft_dprintf(2, "%s\n", strerror(errno));
+		ft_printf("%s\n", strerror(errno));
 	else if (status == 1)
-		ft_dprintf(2, "Can't read source file %s\n", info->path);
+		ft_printf("Can't read source file %s\n", info->path);
 	else if (status == 2)
 		print_lexical_error(status, ptr);
 	else if ((status >= 3 && status <= 8) || status > 10)
 		print_syntax_error(status, ptr, ptr, status - 11);
 	else if (status == 9)
-		ft_dprintf(2, "Champion name too long (Max length %d)\n",
-		PROG_NAME_LENGTH);
+		ft_printf("Champion name too long (Max length %d)\n", PROG_NAME_LENGTH);
 	else if (status == 10)
-		ft_dprintf(2, "Champion comment too long (Max length %d)\n",
+		ft_printf("Champion comment too long (Max length %d)\n",
 		COMMENT_LENGTH);
 }

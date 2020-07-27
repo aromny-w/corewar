@@ -17,7 +17,6 @@
 # include <stdio.h>
 # include <errno.h>
 # include "libft.h"
-# include "ft_dprintf.h"
 # include "op.h"
 
 typedef enum
@@ -39,18 +38,18 @@ typedef enum
 	WHITESPACE
 }	t_type;
 
-typedef struct	s_token
+typedef struct	s_tok
 {
 	char			*content;
 	t_type			type;
 	int				row;
 	int				col;
-	struct s_token	*next;
-}				t_token;
+	struct s_tok	*next;
+}				t_tok;
 
 typedef struct	s_arg
 {
-	t_token		*token;
+	t_tok		*token;
 	char		*ref;
 	int			value;
 	t_arg_type	type;
@@ -59,7 +58,7 @@ typedef struct	s_arg
 
 typedef struct	s_line
 {
-	t_token			*label;
+	t_tok			*label;
 	t_op			op;
 	t_arg			arg[MAX_ARGS_NUMBER];
 	int				acb;
@@ -74,7 +73,7 @@ typedef struct	s_exec
 	char		*filename;
 	bool		option;
 	char		*buf;
-	t_token		*token;
+	t_tok		*token;
 	t_header	header;
 	t_line		*line;
 }				t_exec;
