@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 22:12:59 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 22:14:14 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/24 21:15:37 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			main(int ac, char **av)
 	carriages = place_players(params->players, params->arena);
 	params->carriages_list = carriages;
 	announce_players(params->players);
-	play_game(&carriages, params);
+	play_game(params);
 	delete_carriage_list(carriages);
 	free_params(&params);
 	return (0);
