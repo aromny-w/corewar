@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:35:30 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 22:11:14 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/27 21:57:32 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	delete_carriage_elem(t_car_list_elem **head, int id)
 		while (prev->next && prev->next->content->id != id)
 			prev = prev->next;
 		to_delete = prev->next;
-		if (prev->next->next)
+		if (prev->next)
 			prev->next = prev->next->next;
 	}
 	delete_carriage(to_delete->content);

@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 17:41:34 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 21:57:04 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/27 23:17:21 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	dump_memory(char *arena)
 	char	*alphabet;
 
 	alphabet = "0123456789abcdef";
+	ft_putchar('\n');
 	i = 0;
 	while (i < MEM_SIZE)
 	{
