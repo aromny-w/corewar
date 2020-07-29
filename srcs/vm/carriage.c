@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/12 23:16:13 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 22:08:20 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/28 22:47:23 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			get_registry(t_carriage *carriage, int registry_num)
 
 void		save_registry(t_carriage *carriage, int registry_num, int value)
 {
-	if (registry_num > REG_NUMBER || registry_num < 0)
+	if (registry_num > REG_NUMBER || registry_num < 1)
 		return ;
 	carriage->registries[registry_num - 1] = value;
 }

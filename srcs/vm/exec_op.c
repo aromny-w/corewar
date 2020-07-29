@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 20:51:21 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 21:10:19 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/29 21:41:53 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		validate_argcode(t_carriage *carriage, int code)
 	while (i < MAX_ARGS_NUMBER)
 	{
 		arg_type = (code >> (MAX_ARGS_NUMBER - 1 - i) * 2) & 0x03;
+		if (!arg_type && (g_op_tab[carriage->code_op - 1].type[i]))
+			valid = 0;
 		if (!arg_type)
 			break ;
 		if (!(g_op_tab[carriage->code_op - 1].type[i] & (1 << (arg_type - 1))))
