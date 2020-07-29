@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/12 00:06:41 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/26 14:02:15 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/07/29 23:55:45 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	play_cycle(t_game_params *params)
 	{
 		if (!list_elem->content->num_cycles_before_op)
 			read_byte_to_carriage(list_elem->content, params);
-		list_elem->content->num_cycles_before_op--;
+		if (list_elem->content->num_cycles_before_op > 0)
+			list_elem->content->num_cycles_before_op--;
 		if (!list_elem->content->num_cycles_before_op)
 		{
 			exec_op(list_elem->content, params);
