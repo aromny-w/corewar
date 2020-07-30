@@ -14,7 +14,7 @@
 NAME = corewar
 
 # Paths
-INC := includes
+INC := -I includes -I libft/includes
 
 # Srcs, objs
 SRCS = main.c parse_args.c sort_players.c validate.c \
@@ -37,14 +37,14 @@ LIB := libft.a
 
 # Compilatiom commands and flags
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -g
+CFLAGS := -Wall -Wextra -Werror $(INC) -g
 
 .PHONY: all clean fclean debug
 
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC) -I $(LIBDIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
@@ -53,7 +53,7 @@ $(LIB):
 	@make -C libft
 
 debug:
-	$(CC) -g $(CFLAGS) $(SRCS) -I$(INC) -I$(LIBDIR) $(LIBDIR)/$(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) $(INC) $(LIBDIR)/$(LIB) -o $(NAME)
 
 clean:
 	@make clean -C libft

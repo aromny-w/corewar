@@ -17,7 +17,7 @@
 
 static void		check_filename(char **av, char *filename)
 {
-	char **filename_parts;
+	char 	**filename_parts;
 
 	if (!(filename_parts = ft_strsplit(filename, '.')))
 		error("Malloc failure.");
@@ -25,7 +25,7 @@ static void		check_filename(char **av, char *filename)
 	//	error("Invalid filename.");
 	if (!ft_strequ(filename_parts[1], "cor"))
 		print_usage(av[0]);
-	ft_arrdel(&filename_parts); // LIBFT!!
+	free_parts(filename_parts); // LIBFT!!
 }
 
 static uint8_t	*parse_code(int fd, size_t len)

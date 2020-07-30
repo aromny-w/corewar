@@ -127,6 +127,7 @@ void						print_usage(char *exec);
 int32_t						bin_to_num(uint8_t *val, size_t len);
 void						free_params(t_game_params **params);
 void						free_players(t_player ***player);
+void						free_parts(char **array);
 void						error(char *str);
 
 /*
