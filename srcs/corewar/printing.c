@@ -45,7 +45,7 @@ void	announce_player_alive(t_player **players, int id)
 					id, players[id - 1]->name);
 }
 
-void	dump_memory(char *arena)
+/*void	dump_memory(char *arena)
 {
 	int		i;
 	char	c;
@@ -65,5 +65,22 @@ void	dump_memory(char *arena)
 		if (i % 32 == 31)
 			ft_putchar('\n');
 		i++;
+	}
+}*/
+
+void	dump_memory(char *arena)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (i <= MEM_SIZE)
+	{
+		if (!(i % 64))
+			ft_printf("0x%04x : ", j += 64);
+		ft_printf("%02x ", arena[i] & 0xff);
+		if (!(++i % 64))
+			ft_printf("\n");
 	}
 }
