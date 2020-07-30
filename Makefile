@@ -21,12 +21,12 @@ SRCS = main.c parse_args.c sort_players.c validate.c \
 	init.c free.c error.c stuff.c arena.c carriage_list.c \
 	create_carriage.c carriage.c exit.c game.c players.c \
 	printing.c exec_op.c
-SRCS := $(addprefix vm/, $(SRCS))
+SRCS := $(addprefix corewar/, $(SRCS))
 SRCS += op.c
 SRCS_OPS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c \
 live.c lld.c lldi.c or.c st.c sti.c sub.c xor.c zjmp.c \
 op_args.c
-SRCS_OPS := $(addprefix operations/, $(SRCS_OPS))
+SRCS_OPS := $(addprefix corewar/operations/, $(SRCS_OPS))
 SRCS += $(SRCS_OPS)
 SRCS := $(addprefix srcs/, $(SRCS))
 OBJS = $(SRCS:.c=.o)

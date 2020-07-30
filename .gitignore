@@ -1,10 +1,9 @@
 .vscode/
 objs/
-*.o
+**/*.o
+**/*.a
+**/.DS_Store
 *._*
 disasm
 *.swp
-.DS_Store
-*.a
-corewar
 asm
