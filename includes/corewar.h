@@ -12,6 +12,7 @@
 
 #ifndef PLAYER_H
 # define PLAYER_H
+
 # include <errno.h>
 # include <fcntl.h>
 # include <stdint.h>

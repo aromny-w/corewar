@@ -1,5 +1,6 @@
 .vscode/
 objs/
+vm_champs/
 **/*.o
 **/*.a
 **/.DS_Store
