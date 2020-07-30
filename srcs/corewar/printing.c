@@ -71,16 +71,14 @@ void	announce_player_alive(t_player **players, int id)
 void	dump_memory(char *arena)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	j = 0;
-	while (i <= MEM_SIZE)
+	while (i < MEM_SIZE)
 	{
 		if (!(i % 64))
-			ft_printf("0x%04x : ", j += 64);
+			ft_printf("0x%04x : ", i);
 		ft_printf("%02x ", arena[i] & 0xff);
-		if (!(++i % 64))
+		if (!(++i % 64) || i == MEM_SIZE)
 			ft_printf("\n");
 	}
 }
