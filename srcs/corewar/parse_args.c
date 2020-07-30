@@ -35,7 +35,7 @@ static void	set_dump(int ac, char **av, int *i, t_game_params *params)
 
 	if (++*i == ac)
 		print_usage(av[0]);
-	if ((num = ft_atoi(av[*i]) >= 0))
+	if ((num = ft_atoi(av[*i])) >= 0)
 	{
 		params->dump_idx = num;
 		params->dump_flag_on = 1;
