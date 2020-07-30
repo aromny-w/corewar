@@ -17,5 +17,6 @@ void	op_aff(t_carriage *carriage, t_game_params *params, int arg_code)
 	int	c;
 
 	c = get_argument(params->arena, carriage, (arg_code >> 6) & 3, 0);
-	ft_putchar((char)c);
+	if (params->a_flag_on)
+		ft_putchar(c);
 }

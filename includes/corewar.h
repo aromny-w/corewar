@@ -62,6 +62,7 @@ typedef struct				s_game_params
 	char					*arena;
 	size_t					dump_idx;
 	int						dump_flag_on;
+	int						a_flag_on;
 	int						players_num;
 	t_player				**players;
 	int						carriages_num;
