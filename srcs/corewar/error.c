@@ -14,12 +14,6 @@
 
 void	error(char *str)
 {
-    /*
-    ft_dprintf(2, "%s\nERROR: ", RED);
-    if (errno)
-		ft_dprintf(2, "%s ", strerror(errno));
-    ft_dprintf(2, "%s%s\n", str, RESET_COLOR);
-    */
 	ft_putstr_fd(RED, 2);
 	ft_putstr_fd("\nERROR: ", 2);
 	if (errno)

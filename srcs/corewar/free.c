@@ -28,7 +28,6 @@ void	free_parts(char **array)
 	array = NULL;
 }
 
-
 void	free_players(t_player ***player)
 {
 	int			i;

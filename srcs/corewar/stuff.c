@@ -37,12 +37,12 @@ int32_t	bin_to_num(uint8_t *val, size_t len)
 	return (sign ? -res : res);
 }
 
-void	print_usage(char *exec)
+void	print_usage(char *name)
 {
-	ft_putstr_fd(exec, 2);
-	ft_putstr_fd(" Imagine printed usage here.\n", 1);
-	/*ft_printf("Usage: %s [-dump N] [-n N] <champion1.cor> <...>\n", exec);
+	ft_printf("Usage: %s [-dump N] [-n N] [-a] <champion1.cor> <...>\n", name);
+	ft_printf("    -a        : Prints output from \"aff\" "
+	"(Default is to hide it)\n");
 	ft_printf("    -dump N   : Dumps memory after N cycles then exits\n");
-	ft_printf("    -n N      : Sets N number of the next player\n");*/
+	ft_printf("    -n N      : Sets N number of the next player\n");
 	exit(1);
 }

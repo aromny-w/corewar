@@ -21,8 +21,8 @@ int		validate_argcode(t_carriage *carriage, int code)
 
 	valid = 1;
 	skip = 0;
-	i = 0;
-	while (i < MAX_ARGS_NUMBER)
+	i = -1;
+	while (++i < MAX_ARGS_NUMBER)
 	{
 		arg_type = (code >> (MAX_ARGS_NUMBER - 1 - i) * 2) & 0x03;
 		if (!arg_type && (g_op_tab[carriage->code_op - 1].type[i]))
@@ -35,7 +35,6 @@ int		validate_argcode(t_carriage *carriage, int code)
 			skip += (g_op_tab[carriage->code_op - 1].idx ? IND_SIZE : DIR_SIZE);
 		else
 			skip += arg_type == IND_CODE ? IND_SIZE : 1;
-		i++;
 	}
 	if (!valid)
 		carriage->bytes_next_op += skip;
