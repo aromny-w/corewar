@@ -25,8 +25,6 @@ void		live_carriage(t_carriage *carriage, size_t cycle)
 
 int			get_registry(t_carriage *carriage, int registry_num)
 {
-	if (registry_num > REG_NUMBER || registry_num < 0)
-		return (-42);
 	return (carriage->registries[registry_num - 1]);
 }
 

@@ -58,14 +58,12 @@ static void	put_n_player(int ac, char **av, int *i, t_player **players)
 	if (++*i < ac)
 	{
 		num = ft_atoi(av[*i]);
-		if (ft_strequ(av[*i], ft_itoa(num)) && num > 0 && (++*i < ac))
+		if ((num = ft_atoi(av[*i])) >= 0 && (++*i < ac))
 		{
 			player = init_player(av[*i], num);
 			push_player(players, player);
-			return ;
 		}
 	}
-	print_usage(av[0]);
 }
 
 void		get_args(int ac, char **av, t_game_params *params)
