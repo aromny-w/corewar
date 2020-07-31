@@ -83,10 +83,8 @@ void		get_args(int ac, char **av, t_game_params *params)
 			put_n_player(ac, av, &i, &players);
 		else if (ft_strequ(av[i], "-a"))
 			params->a_flag_on = 1;
-		else if (ft_strstr(av[i], ".cor"))
+		else //if (ft_strstr(av[i], ".cor"))
 			put_player(av, &i, &players);
-		else
-			print_usage(av[0]);
 	}
 	sort_players(params, &players);
 	params->last_alive = params->players_num;

@@ -21,7 +21,8 @@ void	announce_winner(t_game_params *params)
 	winning_player = params->last_alive;
 	players = params->players;
 	winning_player_name = players[winning_player - 1]->name;
-	ft_printf("Player %i (%s) won !\n", winning_player, winning_player_name);
+	ft_printf("Contestant %d, \"%s\", has won !\n", winning_player,
+	winning_player_name);
 }
 
 void	announce_players(t_player **players)

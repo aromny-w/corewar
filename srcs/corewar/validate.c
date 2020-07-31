@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-
+/*
 static void		check_filename(char **av, char *filename)
 {
 	char 	**filename_parts;
 
 	if (!(filename_parts = ft_strsplit(filename, '.')))
 		error("Malloc failure.");
-	//if (/*rows_count(filename_parts)*/ != 2)
+	//if (rows_count(filename_parts) != 2)
 	//	error("Invalid filename.");
 	if (!ft_strequ(filename_parts[1], "cor"))
 		print_usage(av[0]);
 	free_parts(filename_parts); // LIBFT!!
-}
+}*/
 
 static uint8_t	*parse_code(int fd, size_t len)
 {
@@ -77,7 +77,8 @@ void			validate_players(char **av, t_game_params *prms)
 	i = -1;
 	while (prms->players[++i])
 	{
-		check_filename(av, prms->players[i]->filename);
+		(void)av;
+		//check_filename(av, prms->players[i]->filename);
 		if ((fd = open(prms->players[i]->filename, O_RDONLY)) == -1)
 			error("Open failure.");
 		if (parse_4bytes(fd) != COREWAR_EXEC_MAGIC)
