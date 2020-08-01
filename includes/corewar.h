@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.h                                               :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 23:55:40 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/24 21:18:47 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/08/01 22:31:23 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ void						get_args(int ac, char **av, t_game_params *params);
 void						sort_players(t_game_params *prms, t_player **lst);
 void						validate_players(char **av, t_game_params *prms);
 void						play_game(t_game_params *params);
-void						exec_op(t_carriage *carriage, t_game_params *params);
+void						exec_op(t_carriage *carriage,
+									t_game_params *params);
+int							fill_reg_arg(int *arg, char *arena,
+									t_carriage *carriage);
 
 int							get_argument(char *arena, t_carriage *carriage,
 										int arg_type, int l_op);

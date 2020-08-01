@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 20:03:14 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 20:39:11 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/08/01 22:42:18 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,13 @@ int		get_address_argument(char *arena, t_carriage *carriage, int arg_type,
 		num = arena_read_byte(arena, position);
 	carriage->bytes_next_op += (arg_type == IND_CODE ? IND_SIZE : 1);
 	return (num);
+}
+
+int		fill_reg_arg(int *arg, char *arena, t_carriage *carriage)
+{
+	*arg = get_address_argument(arena, carriage, REG_CODE, 0);
+	if (*arg < 1 || *arg > REG_NUMBER)
+		return (0);
+	*arg = get_registry(carriage, *arg);
+	return (1);
 }
