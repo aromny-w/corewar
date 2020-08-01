@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 22:30:57 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 22:32:08 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/08/01 21:35:33 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	op_sub(t_carriage *carriage, t_game_params *params, int arg_code)
 	args[0] = get_address_argument(params->arena, carriage, REG_CODE, 0);
 	args[1] = get_address_argument(params->arena, carriage, REG_CODE, 0);
 	args[2] = get_address_argument(params->arena, carriage, REG_CODE, 0);
-	if (!(args[0] > 0 && args[0] < REG_NUMBER) ||
-	!(args[1] > 0 && args[1] < REG_NUMBER) ||
-	!(args[2] > 0 && args[2] < REG_NUMBER))
+	if (!(args[0] > 0 && args[0] <= REG_NUMBER) ||
+	!(args[1] > 0 && args[1] <= REG_NUMBER) ||
+	!(args[2] > 0 && args[2] <= REG_NUMBER))
+	{
+		carriage->carry = 0;
 		return ;
+	}
 	args[0] = get_registry(carriage, args[0]);
 	args[1] = get_registry(carriage, args[1]);
 	save_registry(carriage, args[2], args[0] - args[1]);
