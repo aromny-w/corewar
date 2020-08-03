@@ -17,7 +17,7 @@ void	op_st(t_carriage *carriage, t_game_params *params, int arg_code)
 	int		args[2];
 	int		arg2_type;
 
-	arg2_type = (arg_code >> 4) & 3;
+	arg2_type = arg_code >> 4 & 3;
 	args[0] = get_address_argument(params->arena, carriage, REG_CODE, 0);
 	args[1] = get_address_argument(params->arena, carriage, arg2_type, 0);
 	if (!(args[0] > 0 && args[0] <= REG_NUMBER) || (arg2_type == REG_CODE &&

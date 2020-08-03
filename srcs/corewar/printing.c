@@ -42,8 +42,10 @@ void	announce_players(t_player **players)
 
 void	announce_player_alive(t_player **players, int id)
 {
-	ft_printf("A process shows that player %i (%s) is alive\n",
-					id, players[id - 1]->name);
+	//ft_printf("A process shows that player %i (%s) is alive\n",
+	//				id, players[id - 1]->name);
+	(void)players;
+	(void)id;
 }
 
 /*void	dump_memory(char *arena)
