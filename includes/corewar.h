@@ -38,7 +38,7 @@ typedef struct				s_carriage
 	int						id;
 	char					carry;
 	int						code_op;
-	size_t					last_live;
+	ssize_t					last_live;
 	int						num_cycles_before_op;
 	int						cur_position;
 	int						bytes_next_op;
@@ -54,13 +54,13 @@ typedef struct				s_car_list_elem
 typedef struct				s_game_params
 {
 	int						last_alive;
-	size_t					cycles_since_start; // longer than int and unsigned?
-	size_t					cycles_to_die;
+	ssize_t					cycles_since_start; // longer than int and unsigned?
+	ssize_t					cycles_to_die;
 	size_t					live_count_in_period;
 	size_t					checks_count;
-	size_t					cycles_since_last_check;
+	ssize_t					cycles_since_last_check;
 	char					*arena;
-	size_t					dump_idx;
+	ssize_t					dump_idx;
 	int						dump_flag_on;
 	int						a_flag_on;
 	int						players_num;
