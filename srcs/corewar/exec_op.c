@@ -28,7 +28,7 @@ int		validate_argcode(t_carriage *carriage, int code)
 		if (!arg_type && g_op_tab[carriage->code_op - 1].type[i])
 			valid = 0;
 		if (!arg_type)
-			break ;
+			continue ;
 		if (!(g_op_tab[carriage->code_op - 1].type[i] & (1 << (arg_type - 1))))
 			valid = 0;
 		if (arg_type == DIR_CODE)
