@@ -23,9 +23,9 @@ void	op_lldi(t_carriage *carriage, t_game_params *params, int arg_code)
 	while (i < 3)
 	{
 		if ((type[i] = arg_code >> (8 - (i + 1) * 2) & 3) == REG_CODE)
-			args[i] = get_address_argument(params->arena, carriage, type[i], 0);
+			args[i] = get_address_argument(params->arena, carriage, type[i], 1);
 		else
-			args[i] = get_argument(params->arena, carriage, type[i], 0);
+			args[i] = get_argument(params->arena, carriage, type[i], 1);
 		i++;
 	}
 	if ((type[0] == REG_CODE && !(args[0] > 0 && args[0] <= REG_NUMBER)) ||

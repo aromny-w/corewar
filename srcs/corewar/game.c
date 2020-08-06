@@ -34,7 +34,6 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 			|| params->checks_count == MAX_CHECKS)
 	{
 		params->cycles_to_die -= CYCLE_DELTA;
-		params->live_count_in_period = 0;
 		params->checks_count = 0;
 	}
 	params->checks_count++;
