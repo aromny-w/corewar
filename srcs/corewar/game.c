@@ -30,7 +30,7 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 	}
 	if (!*carriages || params->cycles_to_die < 0)
 		game_over(params, *carriages);
-	if (params->live_count_in_period > NBR_LIVE
+	if (params->live_count_in_period >= NBR_LIVE
 			|| params->checks_count == MAX_CHECKS)
 	{
 		params->cycles_to_die -= CYCLE_DELTA;
