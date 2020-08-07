@@ -26,8 +26,6 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 		if (!elem->content->last_live || params->cycles_since_start -
 		elem->content->last_live > params->cycles_to_die)
 			delete_carriage_elem(carriages, elem->content->id);
-		else
-			elem->content->last_live = 0;
 		elem = next_elem;
 	}
 	if (!*carriages || params->cycles_to_die < 0)
