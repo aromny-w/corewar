@@ -6,13 +6,24 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 23:22:21 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/16 22:33:06 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/08/07 19:16:50 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	op_lldi(t_carriage *carriage, t_game_params *params, int arg_code)
+static int	check_reg_index(int *args, int *type)
+{
+	if (!args || !type)
+		return (1);
+	if ((type[0] == REG_CODE && !(args[0] > 0 && args[0] <= REG_NUMBER)) ||
+	(type[1] == REG_CODE && !(args[1] > 0 && args[1] <= REG_NUMBER)) ||
+	(type[2] == REG_CODE && !(args[2] > 0 && args[2] <= REG_NUMBER)))
+		return (1);
+	return (0);
+}
+
+void		op_lldi(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int	args[3];
 	int	type[3];
@@ -28,9 +39,7 @@ void	op_lldi(t_carriage *carriage, t_game_params *params, int arg_code)
 			args[i] = get_argument(params->arena, carriage, type[i], 1);
 		i++;
 	}
-	if ((type[0] == REG_CODE && !(args[0] > 0 && args[0] <= REG_NUMBER)) ||
-	(type[1] == REG_CODE && !(args[1] > 0 && args[1] <= REG_NUMBER)) ||
-	(type[2] == REG_CODE && !(args[2] > 0 && args[2] <= REG_NUMBER)))
+	if (check_reg_index(args, type))
 		return ;
 	if (type[0] == REG_CODE)
 		args[0] = get_registry(carriage, args[0]);

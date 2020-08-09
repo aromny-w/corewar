@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/28 17:41:34 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/07/29 21:55:25 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/08/07 20:27:31 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,11 @@ void	announce_player_alive(t_player **players, int id)
 /*void	dump_memory(char *arena)
 {
 	int		i;
-	char	c;
-	char	*string;
-	char	*alphabet;
 
-	alphabet = "0123456789abcdef";
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		c = arena[i];
-		string = ft_strnew(3);
-		string[0] = alphabet[(((int)c) >> 4) & 15];
-		string[1] = alphabet[((int)c) & 15];
-		string[2] = ' ';
-		ft_putstr(string);
+		ft_printf("%02x ", arena[i] & 0xff);
 		if (i % 32 == 31)
 			ft_putchar('\n');
 		i++;
