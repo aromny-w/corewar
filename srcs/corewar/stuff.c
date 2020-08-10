@@ -39,10 +39,12 @@ int32_t	bin_to_num(uint8_t *val, size_t len)
 
 void	print_usage(char *name)
 {
-	ft_printf("Usage: %s [-dump N] [-n N] [-a] <champion1.cor> <...>\n", name);
-	ft_printf("    -a        : Prints output from \"aff\" "
+	ft_printf("Usage: %s [-a] [-dump nbr_cycles] [[-n number] champion1.cor] "
+	"...\n", name);
+	ft_printf("    -a               : Prints output from \"aff\" "
 	"(Default is to hide it)\n");
-	ft_printf("    -dump N   : Dumps memory after N cycles then exits\n");
-	ft_printf("    -n N      : Sets N number of the next player\n");
+	ft_printf("    -dump nbr_cycles : At the end of nbr_cycles of executions, "
+	"dump the memory on the standard output and quit the game\n");
+	ft_printf("    -n number        : Sets the number of the next player\n");
 	exit(1);
 }

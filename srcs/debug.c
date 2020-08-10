@@ -14,14 +14,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "op.h"
 
-# define PROG_NAME_LENGTH (128)
-# define COMMENT_LENGTH (2048)
-# define COREWAR_EXEC_MAGIC 0xea83f3
+char	*buff = "02 90 00 00 00 31 02 04 54 03 02 03 06 64 03 00 "
+				"00 08 00 04 09 FF F3 04 54 03 03 03 03 70 01 00 "
+				"00 03 70 01 00 00 02 D0 00 64 10 01 00 00 00 00 "
+				"09 FF FB";
 
-char	*buff = "02 90 00 00 00 31 02 04 54 03 02 03 06 64 03 00 00 08 00 04 09 FF F3 04 54 03 03 03 03 70 01 00 00 03 70 01 00 00 02 D0 00 64 10 01 00 00 00 00 09 FF FB";
-
-void	write_number(int fd, int n, size_t size)
+static void		write_number(int fd, int n, size_t size)
 {
 	char	byte[4];
 
@@ -39,23 +39,23 @@ void	write_number(int fd, int n, size_t size)
 		write(fd, &byte[0], sizeof(char));
 }
 
-void	write_code(int fd, size_t size)
+static void		write_code(int fd, size_t size)
 {
 	while (size--)
 		write_number(fd, strtol(buff, &buff, 16), sizeof(char));
 }
 
-void	write_header(int fd, char *name, int size, char *comment)
+static void		write_header(int fd, char *name, int size, char *comment)
 {
 	write_number(fd, COREWAR_EXEC_MAGIC, sizeof(int));
 	write(fd, name, PROG_NAME_LENGTH);
 	write_number(fd, 0, sizeof(int));
 	write_number(fd, size, sizeof(int));
 	write(fd, comment, COMMENT_LENGTH);
-	write_number(fd, 0, sizeof(int));;
+	write_number(fd, 0, sizeof(int));
 }
 
-size_t	count_bytes(char *str)
+static size_t	count_bytes(char *str)
 {
 	size_t	count;
 
@@ -66,7 +66,7 @@ size_t	count_bytes(char *str)
 	return (count / 2);
 }
 
-int		main(void)
+int				main(void)
 {
 	int		fd;
 	size_t	size;
