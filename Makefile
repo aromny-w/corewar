@@ -13,7 +13,7 @@
 NAME = asm
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror $(INC)
 
 SRCS = asm.c init.c read.c lexer.c parser.c content.c type.c check.c strip.c \
 	   line.c label.c write.c print.c destroy.c terminate.c error.c
@@ -31,7 +31,7 @@ INC = -I includes -I $(LIBDIR)/includes
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft

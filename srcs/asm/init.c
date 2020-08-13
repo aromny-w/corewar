@@ -12,23 +12,29 @@
 
 #include "asm.h"
 
-static char	*get_filename(t_exec *info)
+static char	*get_filename(char *path)
 {
-	char	*str;
-	char	*s1;
-	char	*s2;
-	size_t	len;
+	char	*name;
+	char	*start;
+	char	*end;
+	char	*dot;
 
-	s1 = ft_strrchr(info->path, '.');
-	s2 = ft_strrchr(info->path, '/');
-	len = ft_strlen(info->path);
-	if ((s1 && (!s2 || (s1 = ft_strrchr(s2, '.')))))
-		len -= ft_strlen(s1);
-	if (!(str = ft_strnew(len + 4)))
-		terminate(info, 0, NULL);
-	ft_strncpy(str, info->path, len);
-	ft_strcat(str, ".cor");
-	return (str);
+	if (!path || !*path)
+		return (ft_strdup(".cor"));
+	end = path + ft_strlen(path) - 1;
+	while (end > path && *end == '/')
+		end--;
+	if (end == path && *end == '/')
+		return (ft_strdup("/.cor"));
+	start = end;
+	while (start > path && *(start - 1) != '/')
+		start--;
+	if ((dot = ft_strrchr(start, '.')) && dot != start)
+		end = dot - 1;
+	if (!(name = ft_strndup(path, end - path + 1 + 4)))
+		return (NULL);
+	ft_strcpy(name + (end - path + 1), ".cor");
+	return (name);
 }
 
 void		get_options(t_exec *info, char **input)
@@ -42,6 +48,6 @@ void		get_options(t_exec *info, char **input)
 		else
 			info->path = *input;
 	}
-	if (info->path)
-		info->filename = get_filename(info);
+	if (!(info->filename = get_filename(info->path)))
+		terminate(info, 0, NULL);
 }
