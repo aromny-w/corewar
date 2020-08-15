@@ -5,3 +5,4 @@ objs/
 disasm
 *.swp
 .DS_Store
+disasm.dSYM/

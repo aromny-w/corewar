@@ -13,9 +13,9 @@
 NAME = libft.a
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror $(INC)
 
-SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
+LIB = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_memchr.c ft_memcmp.c ft_strlen.c ft_wcslen.c ft_strnlen.c \
 	   ft_wcsnlen.c ft_strdup.c ft_strndup.c ft_strcpy.c ft_strncpy.c \
 	   ft_strlcpy.c ft_strcat.c ft_strncat.c ft_strlcat.c ft_strchr.c \
@@ -33,9 +33,9 @@ SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	   ft_putwcstr_fd.c ft_putnstr_fd.c ft_putnwcstr_fd.c ft_putendl_fd.c \
 	   ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 	   ft_lstiter.c ft_lstmap.c ft_lstrev.c ft_lstsize.c ft_arrdel.c
-SRCS += $(addprefix get_next_line/, $(GNL))
-SRCS += $(addprefix ft_printf/, $(PRINTF))
-SRCS += $(addprefix ft_dprintf/, $(DPRINTF))
+
+LIB += $(addprefix get_next_line/, $(GNL))
+LIB += $(addprefix ft_printf/, $(PRINTF))
 
 GNL = get_next_line.c
 
@@ -45,18 +45,14 @@ PRINTF = ft_printf.c pf_set_flags.c pf_set_width.c pf_set_prec.c pf_set_mod.c \
 		 pf_form_character.c pf_form_string.c pf_form_pointer.c \
 		 pf_form_wcharacter.c
 
-DPRINTF = ft_dprintf.c dpf_set_flags.c dpf_set_width.c dpf_set_prec.c \
-		  dpf_set_mod.c dpf_set_spec.c dpf_form_unknown.c dpf_form_percent.c \
-		  dpf_form_integer.c dpf_form_unsigned.c dpf_form_octal.c \
-		  dpf_form_hexa.c dpf_form_float.c dpf_form_character.c \
-		  dpf_form_string.c dpf_form_pointer.c dpf_form_wcharacter.c
+SRCS = $(addprefix srcs/, $(LIB))
 
 OBJS = $(SRCS:.c=.o)
 
-INC = .
+INC = -I includes
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 

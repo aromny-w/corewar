@@ -1,52 +1,60 @@
 
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
+#    Updated: 2020/07/14 21:24:59 by malannys         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # Project executable
-NAME := disasm
+NAME = disasm
 
 # Paths
-SRCDIR := ./srcs/
-OBJDIR := ./objs/
-INCDIR := ./includes/
+INC = -I includes -I $(LIBDIR)/includes
 
 # Srcs, objs
-SRCNAMES := main.c op.c parser.c disasm.c write_asm.c \
+SRCS = main.c parser.c disasm.c write_asm.c \
 			init.c free.c error.c stuff.c
-SRC := $(addprefix $(SRCDIR), $(SRCNAMES))
-OBJ := $(addprefix $(OBJDIR), $(SRCNAMES:.c=.o))
+SRCS := $(addprefix disasm/, $(SRCS))
+SRCS += op.c
+SRCS := $(addprefix srcs/, $(SRCS))
+OBJS = $(SRCS:.c=.o)
 
 # Libft
-LIBDIR := ./libft/
-LIBINCDIR := $(LIBDIR)
-LIB := $(LIBDIR)/libft.a
+LIBDIR = libft
+LIB = libft.a
 
 # Compilatiom commands and flags
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror $(INC) -g
 
 .PHONY: all clean fclean debug
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-
-$(OBJ): $(OBJDIR)%.o: $(SRCDIR)%.c $(OBJDIR)
-	$(CC) $(CFLAGS) -I$(INCDIR) -I$(LIBINCDIR) -c $< -o $@
+$(NAME): $(LIB) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
 
 $(LIB):
-	make -C $(LIBDIR)
+	@make -C $(LIBDIR)
 
 debug:
-	$(CC) -g $(CFLAGS) $(SRC) -I$(INCDIR) -I$(LIBINCDIR) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) $(INC) $(LIBDIR)/$(LIB) -o $(NAME)
 
 clean:
-	rm -rf $(OBJDIR)
-	make -C $(LIBDIR) clean
+	@make clean -C libft
+	@/bin/rm -f $(OBJS)
 
 fclean: clean
-	rm -rf $(OBJDIR)
-	make -C $(LIBDIR) fclean
+	@make fclean -C libft
+	@/bin/rm -f $(NAME)
 
 re: fclean all
