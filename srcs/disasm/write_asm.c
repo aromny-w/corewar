@@ -71,6 +71,7 @@ void			write_asm(t_bin *bin)
 	filename = change_extension(bin->filename);
 	if ((fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 		error("Open failure.");
+	ft_printf("Writing output program to %s.\n", filename);
 	ft_putstr_fd(NAME_CMD_STRING, fd);
 	ft_putstr_fd(" \"", fd);
 	ft_putstr_fd(bin->prog_name, fd);

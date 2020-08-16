@@ -59,10 +59,12 @@ static int32_t	parse_4bytes(int fd)
 static void		check_filename(char *filename)
 {
 	char	**filename_parts;
+	int		rows;
 
 	if (!(filename_parts = ft_strsplit(filename, '.')))
 		error("Malloc failure.");
-	if (!ft_strequ(filename_parts[rows_count(filename_parts) - 1], "cor"))
+	rows = rows_count(filename_parts);
+	if (rows < 2 || !ft_strequ(filename_parts[rows - 1], "cor"))
 		error("Invalid extension.");
 	ft_arrdel(&filename_parts);
 }
