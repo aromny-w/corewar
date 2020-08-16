@@ -46,7 +46,7 @@ OBJS1 = $(SRCS1:.c=.o)
 OBJS2 = $(SRCS2:.c=.o)
 OBJS3 = $(SRCS3:.c=.o)
 
-LIB = libft.a
+LIB = libft/libft.a
 LIBDIR = libft
 
 INC = -I includes -I $(LIBDIR)/includes
@@ -58,15 +58,12 @@ all: $(NAME1) $(NAME2) $(NAME3)
 
 $(NAME1): $(LIB) $(OBJS1)
 	@$(CC) $(CFLAGS) $(OBJS1) -o $(NAME1) -L $(LIBDIR) -lft
-	@echo "$(NAME1) done!"
 
 $(NAME2): $(LIB) $(OBJS2)
 	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft
-	@echo "$(NAME2) done!"
 
 $(NAME3): $(LIB) $(OBJS3)
 	@$(CC) $(CFLAGS) $(OBJS3) -o $(NAME3) -L $(LIBDIR) -lft
-	@echo "$(NAME3) done!"
 
 $(LIB):
 	@make -C $(LIBDIR)
