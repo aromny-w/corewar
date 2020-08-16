@@ -20,8 +20,8 @@ static void	del(void *elem, size_t size)
 
 t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list		*list;
-	t_list		*list_ptr;
+	t_list	*list;
+	t_list	*list_ptr;
 
 	list = f(lst);
 	list_ptr = list;

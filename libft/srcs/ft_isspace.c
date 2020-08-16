@@ -14,7 +14,7 @@
 
 int	ft_isspace(int c)
 {
-	if (ft_isblank(c) || (c >= 10 && c <= 13))
+	if (ft_isblank(c) || (c >= '\n' && c <= '\r'))
 		return (1);
 	return (0);
 }

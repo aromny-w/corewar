@@ -15,29 +15,29 @@
 static int	convert(va_list arg, t_pf *info)
 {
 	if (info->spec == '%')
-		return (pf_form_percent(info));
+		return (form_percent(info));
 	if (info->spec == 'd' || info->spec == 'i' || info->spec == 'D')
-		return (pf_form_integer(arg, info));
+		return (form_integer(arg, info));
 	if (info->spec == 'u' || info->spec == 'U')
-		return (pf_form_unsigned(arg, info));
+		return (form_unsigned(arg, info));
 	if (info->spec == 'o' || info->spec == 'O')
-		return (pf_form_octal(arg, info));
+		return (form_octal(arg, info));
 	if (info->spec == 'x' || info->spec == 'X')
-		return (pf_form_hexa(arg, info));
+		return (form_hexa(arg, info));
 	if (info->spec == 'f' || info->spec == 'F')
-		return (pf_form_float(arg, info));
+		return (form_float(arg, info));
 	if (info->spec == 'c')
-		return (pf_form_character(arg, info));
+		return (form_character(arg, info));
 	if (info->spec == 's' || info->spec == 'S')
-		return (pf_form_string(arg, info));
+		return (form_string(arg, info));
 	if (info->spec == 'p')
-		return (pf_form_pointer(arg, info));
+		return (form_pointer(arg, info));
 	if (info->spec == 'C')
-		return (pf_form_wcharacter(arg, info));
-	return (pf_form_unknown(info));
+		return (form_wcharacter(arg, info));
+	return (form_unknown(info));
 }
 
-static int	isattribute(int c)
+static int	is_attribute(int c)
 {
 	if (c == '#' || c == '0' || c == '-' || c == ' ' || c == '+')
 		return (1);
@@ -56,14 +56,14 @@ static int	parse(const char **format, va_list arg, t_pf *info)
 	(*format)++;
 	ft_bzero(&info->flags, sizeof(*info) - sizeof(info->written));
 	info->prec = -1;
-	while (isattribute(**format))
+	while (is_attribute(**format))
 	{
-		pf_set_flags(format, &info->flags);
-		pf_set_width(format, arg, info);
-		pf_set_prec(format, arg, info);
-		pf_set_mod(format, &info->mods);
+		set_flags(format, &info->flags);
+		set_width(format, arg, info);
+		set_prec(format, arg, info);
+		set_mod(format, &info->mods);
 	}
-	pf_set_spec(format, info);
+	set_spec(format, info);
 	if (!info->spec || (len = convert(arg, info)) == -1)
 		return (-1);
 	return (info->written += len);

@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   pf_form_percent.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 16:36:37 by aromny-w          #+#    #+#             */
-/*   Updated: 2018/12/12 16:36:40 by aromny-w         ###   ########.fr       */
+/*   Created: 2019/03/10 20:37:40 by aromny-w          #+#    #+#             */
+/*   Updated: 2019/03/10 20:37:42 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr(int n)
+static int	print(t_pf *info, int len)
 {
-	if (n < 0)
-	{
-		ft_putchar('-');
-		if (n == INT_MIN)
-			return (ft_putstr("2147483648"));
-		n = -n;
-	}
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + '0');
+	if (info->width > 0 && !info->flags.minus)
+		ft_padchar(!info->flags.zero ? ' ' : '0', info->width);
+	ft_putchar('%');
+	if (info->width > 0 && info->flags.minus)
+		ft_padchar(' ', info->width);
+	return (len + (info->width > 0 ? info->width : 0));
+}
+
+int			form_percent(t_pf *info)
+{
+	int	len;
+
+	len = 1;
+	info->width--;
+	return (print(info, len));
 }

@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_iscntrl(int c)
 {
-	if (ft_isascii(c) && !ft_isprint(c))
+	if ((c >= 0 && c <= 31) || c == 127)
 		return (1);
 	return (0);
 }

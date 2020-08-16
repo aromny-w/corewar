@@ -14,7 +14,7 @@
 
 int	ft_isxdigit(int c)
 {
-	if (ft_isdigit(c) || (c >= 65 && c <= 70) || (c >= 97 && c <= 102))
+	if (ft_isdigit(c) || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))
 		return (1);
 	return (0);
 }

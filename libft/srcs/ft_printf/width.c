@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   pf_set_width.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 16:36:37 by aromny-w          #+#    #+#             */
-/*   Updated: 2018/12/12 16:36:40 by aromny-w         ###   ########.fr       */
+/*   Created: 2019/05/22 20:28:10 by aromny-w          #+#    #+#             */
+/*   Updated: 2019/05/22 20:28:11 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr(int n)
+void	set_width(const char **format, va_list arg, t_pf *info)
 {
-	if (n < 0)
+	while (ft_isdigit(**format) || **format == '*')
 	{
-		ft_putchar('-');
-		if (n == INT_MIN)
-			return (ft_putstr("2147483648"));
-		n = -n;
+		info->width = 0;
+		if (**format != '*')
+			while (ft_isdigit(**format))
+				info->width = 10 * info->width + (*(*format)++ - '0');
+		else
+		{
+			if ((info->width = va_arg(arg, int)) < 0)
+			{
+				info->width *= -1;
+				info->flags.minus = 1;
+			}
+			(*format)++;
+		}
 	}
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + '0');
 }

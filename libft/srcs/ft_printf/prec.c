@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   pf_set_prec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 16:36:37 by aromny-w          #+#    #+#             */
-/*   Updated: 2018/12/12 16:36:40 by aromny-w         ###   ########.fr       */
+/*   Created: 2019/05/24 21:09:12 by aromny-w          #+#    #+#             */
+/*   Updated: 2020/02/12 21:49:57 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_putnbr(int n)
+void	set_prec(const char **format, va_list arg, t_pf *info)
 {
-	if (n < 0)
+	if (**format == '.')
 	{
-		ft_putchar('-');
-		if (n == INT_MIN)
-			return (ft_putstr("2147483648"));
-		n = -n;
+		info->prec = 0;
+		(*format)++;
+		if (**format != '*')
+			while (ft_isdigit(**format))
+				info->prec = 10 * info->prec + (*(*format)++ - '0');
+		else
+		{
+			if ((info->prec = va_arg(arg, int)) < 0)
+				info->prec = -1;
+			(*format)++;
+		}
 	}
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + '0');
 }

@@ -14,10 +14,10 @@
 
 char	*ft_strtrim(char const *s)
 {
-	char		*str;
-	size_t		len;
-	size_t		i;
-	size_t		j;
+	char	*str;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
 	len = ft_strlen(s);
 	while ((ft_isblank(s[len - 1]) || s[len - 1] == '\n') && len)

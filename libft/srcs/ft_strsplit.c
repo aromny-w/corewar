@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static size_t	wcount(const char *s, char c)
+static size_t	get_wcount(const char *s, char c)
 {
 	size_t	count;
 
@@ -29,7 +29,7 @@ static size_t	wcount(const char *s, char c)
 	return (count);
 }
 
-static size_t	wlen(const char *s, char c)
+static size_t	get_wlen(const char *s, char c)
 {
 	size_t	len;
 
@@ -42,10 +42,9 @@ static size_t	wlen(const char *s, char c)
 static char		**del(char **tab, size_t i)
 {
 	while (i--)
-		ft_strdel(&tab[i]);
+		free(tab[i]);
 	free(tab);
-	tab = NULL;
-	return (tab);
+	return (NULL);
 }
 
 char			**ft_strsplit(char const *s, char c)
@@ -54,7 +53,7 @@ char			**ft_strsplit(char const *s, char c)
 	size_t	i;
 	size_t	j;
 
-	if (!(tab = (char **)malloc(sizeof(char *) * (wcount(s, c) + 1))))
+	if (!(tab = (char **)malloc(sizeof(char *) * (get_wcount(s, c) + 1))))
 		return (NULL);
 	i = 0;
 	while (*s)
@@ -63,7 +62,7 @@ char			**ft_strsplit(char const *s, char c)
 			s++;
 		if (*s)
 		{
-			if (!(tab[i] = (char *)malloc(sizeof(char) * (wlen(s, c) + 1))))
+			if (!(tab[i] = (char *)malloc(sizeof(char) * (get_wlen(s, c) + 1))))
 				return (del(tab, i));
 			j = 0;
 			while (*s && *s != c)

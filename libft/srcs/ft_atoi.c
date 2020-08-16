@@ -14,7 +14,7 @@
 
 int	ft_atoi(const char *str)
 {
-	int		n;
+	long	n;
 	int		sign;
 
 	while (ft_isspace(*str))
@@ -23,6 +23,12 @@ int	ft_atoi(const char *str)
 	if (*str == '+' || *str == '-')
 		if (*str++ == '-')
 			sign = -1;
-	n = ft_getnbr(str);
+	n = 0;
+	while (ft_isdigit(*str))
+	{
+		if (n != n * 10 / 10)
+			return ((int)(sign == 1 ? LONG_MAX : LONG_MIN));
+		n = 10 * n + (*str++ - '0');
+	}
 	return (n * sign);
 }

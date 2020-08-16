@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strpbrk.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aromny-w <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 16:36:37 by aromny-w          #+#    #+#             */
-/*   Updated: 2018/12/12 16:36:40 by aromny-w         ###   ########.fr       */
+/*   Created: 2019/02/10 17:07:00 by aromny-w          #+#    #+#             */
+/*   Updated: 2019/02/10 17:07:01 by aromny-w         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+char	*ft_strpbrk(const char *s1, const char *s2)
 {
-	if (n < 0)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (s1[i])
 	{
-		ft_putchar('-');
-		if (n == INT_MIN)
-			return (ft_putstr("2147483648"));
-		n = -n;
+		j = 0;
+		while (s2[j] && s1[i] != s2[j])
+			j++;
+		if (s1[i] == s2[j])
+			return ((char *)s1 + i);
+		i++;
 	}
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	ft_putchar(n % 10 + '0');
+	return (NULL);
 }

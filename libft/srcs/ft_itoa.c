@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static size_t	dcount(int n)
+static int	get_dcount(int n)
 {
-	size_t	count;
+	int	count;
 
 	count = 1;
 	while (n /= 10)
@@ -22,25 +22,25 @@ static size_t	dcount(int n)
 	return (count);
 }
 
-char			*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
 	char	*str;
 	int		sign;
-	size_t	len;
-	size_t	i;
+	int		len;
+	int		i;
 
 	if (n == INT_MIN)
 		return (ft_strdup("-2147483648"));
-	if ((sign = n < 0 ? -1 : 1) == -1)
+	if ((sign = n) < 0)
 		n = -n;
-	len = (sign == -1 ? 1 : 0) + dcount(n);
+	len = get_dcount(n) + (sign < 0 ? 1 : 0);
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	i = 0;
 	str[i++] = n % 10 + '0';
 	while (n /= 10)
 		str[i++] = n % 10 + '0';
-	if (sign == -1)
+	if (sign < 0)
 		str[i++] = '-';
 	str[i] = '\0';
 	return (ft_strrev(str));
