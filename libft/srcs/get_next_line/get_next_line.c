@@ -12,71 +12,56 @@
 
 #include "get_next_line.h"
 
-static t_list	*get_list(const int fd, t_list **lst)
+static char	*line_realloc(char *old, size_t size)
 {
-	t_list			*tmp;
+	char *new;
 
-	tmp = *lst;
-	while (tmp)
-	{
-		if (tmp->content_size == (size_t)fd)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	tmp = ft_lstnew("", 1);
-	tmp->content_size = (size_t)fd;
-	ft_lstadd(lst, tmp);
-	return (tmp);
+	if (!old)
+		return (ft_strnew(size));
+	if (!(new = ft_strnew(ft_strlen(old) + size)))
+		return (NULL);
+	ft_strcpy(new, old);
+	ft_strdel(&old);
+	return (new);
 }
 
-static int		get_line(char **line, char **content)
+static int	get_line(char **line, char *buff)
 {
-	char			*str;
-	size_t			len;
-	size_t			i;
+	char	*nl;
+	size_t	len;
 
-	if (!(len = ft_strlen(*content)))
-		return (0);
-	i = 0;
-	while ((*content)[i] && (*content)[i] != '\n')
-		i++;
-	if (!(*line = ft_strsub(*content, 0, i)))
-		return (-1);
-	if (!(*content)[i])
+	if ((nl = ft_strchr(buff, '\n')))
 	{
-		ft_strclr(*content);
-		return (1);
-	}
-	str = ft_strsub(*content, (unsigned int)(i + 1), len - i - 1);
-	ft_strdel(content);
-	*content = ft_strdup(str);
-	ft_strdel(&str);
-	return (1);
-}
-
-int				get_next_line(const int fd, char **line)
-{
-	static t_list	*lst;
-	t_list			*tmp;
-	char			*buf;
-	char			*str;
-	long			ret;
-
-	if (!line || read(fd, 0, 0) == -1 ||
-	!(buf = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1))))
-		return (-1);
-	tmp = get_list(fd, &lst);
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
-	{
-		buf[ret] = '\0';
-		if (!(str = ft_strjoin(tmp->content, buf)))
+		if (!(*line = line_realloc(*line, nl - buff)))
 			return (-1);
-		ft_strdel((char **)&tmp->content);
-		tmp->content = ft_strdup(str);
-		ft_strdel(&str);
-		if (ft_strchr(buf, '\n'))
-			break ;
+		ft_strncat(*line, buff, nl - buff);
+		ft_strncpy(buff, nl + 1, ft_strlen(nl));
 	}
-	ft_strdel(&buf);
-	return (ret != -1 ? get_line(line, (char **)&tmp->content) : -1);
+	else if ((len = ft_strlen(buff)))
+	{
+		if (!(*line = line_realloc(*line, len)))
+			return (-1);
+		ft_strncat(*line, buff, len);
+		*buff = '\0';
+	}
+	return (nl ? 1 : 0);
+}
+
+int			get_next_line(int fd, char **line)
+{
+	static char	buff[FD_SIZE][BUFF_SIZE + 1];
+	ssize_t		ret;
+
+	if (read(fd, 0, 0) == -1 || !line)
+		return (-1);
+	*line = NULL;
+	if (get_line(line, buff[fd]))
+		return (*line ? 1 : -1);
+	while ((ret = read(fd, buff[fd], BUFF_SIZE)) > 0)
+	{
+		buff[fd][ret] = '\0';
+		if (get_line(line, buff[fd]))
+			return (*line ? 1 : -1);
+	}
+	return (*line ? 1 : ret);
 }
