@@ -22,6 +22,6 @@ void	op_live(t_carriage *carriage, t_game_params *params, int arg_code)
 	if (player > params->players_num || player < 1)
 		return ;
 	params->last_alive = player;
-	announce_player_alive(params->players, player);
+	announce_player_alive(params, player);
 	(void)arg_code;
 }

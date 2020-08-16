@@ -90,15 +90,18 @@ void		get_args(int ac, char **av, t_game_params *params)
 
 	i = 0;
 	players = NULL;
-	while (++i < ac)
+	while (++i < ac && (check = av[i]))
 	{
-		check = av[i];
 		if (ft_strequ(check, "-dump"))
 			set_dump(ac, av, &i, params);
 		else if (ft_strequ(av[i], "-n"))
 			put_n_player(ac, av, &i, &players);
-		else if (ft_strequ(av[i], "-a"))
-			params->a_flag_on = 1;
+		else if (ft_strequ(av[i], "-s"))
+			params->s_flag_on = 1;
+		else if (ft_strequ(av[i], "-l"))
+			params->l_flag_on = 1;
+		else if (ft_strequ(av[i], "-C"))
+			params->c_flag_on = 1;
 		else if (ft_strstr(av[i], ".cor"))
 			put_player(av, &i, &players);
 		else

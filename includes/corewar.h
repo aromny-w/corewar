@@ -62,7 +62,9 @@ typedef struct				s_game_params
 	char					*arena;
 	ssize_t					dump_idx;
 	int						dump_flag_on;
-	int						a_flag_on;
+	int						s_flag_on;
+	int						l_flag_on;
+	int						c_flag_on;
 	int						players_num;
 	t_player				**players;
 	int						carriages_num;
@@ -98,11 +100,11 @@ void						save_registry(t_carriage *carriage,
 								int registry_num, int value);
 void						live_carriage(t_carriage *carriage, size_t cycle);
 
-void						announce_player_alive(t_player **players, int id);
+void						announce_player_alive(t_game_params *params,
+								int id);
 void						announce_players(t_player **players);
 void						announce_winner(t_game_params *params);
-void						dump_memory(char *arena);
-void						announce_player_alive(t_player **players, int id);
+void						dump_memory(t_game_params *params);
 void						print_memory_error();
 
 void						*arena_init(void);

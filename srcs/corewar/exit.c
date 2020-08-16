@@ -20,7 +20,7 @@ void	delete_all(t_game_params *params, t_car_list_elem *carriages)
 
 void	dump_mem_and_exit(t_game_params *params, t_car_list_elem *carriages)
 {
-	dump_memory(params->arena);
+	dump_memory(params);
 	delete_all(params, carriages);
 	exit(0);
 }
