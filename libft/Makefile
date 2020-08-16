@@ -37,10 +37,15 @@ LIB = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 
 LIB += $(addprefix get_next_line/, $(GNL))
 LIB += $(addprefix ft_printf/, $(PRINTF))
+LIB += $(addprefix ft_dprintf/, $(DPRINTF))
 
 GNL = get_next_line.c
 
 PRINTF = ft_printf.c flags.c width.c prec.c mod.c spec.c unknown.c percent.c \
+		 integer.c unsigned.c octal.c hexa.c float.c character.c string.c \
+		 pointer.c wcharacter.c
+
+DPRINTF = ft_dprintf.c flags.c width.c prec.c mod.c spec.c unknown.c percent.c \
 		 integer.c unsigned.c octal.c hexa.c float.c character.c string.c \
 		 pointer.c wcharacter.c
 
