@@ -1,4 +1,3 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -12,6 +11,7 @@
 # **************************************************************************** #
 
 # Project executable
+
 NAME = disasm
 
 # Paths
@@ -22,6 +22,22 @@ SRCS = main.c parser.c disasm.c write_asm.c \
 			init.c free.c error.c stuff.c
 SRCS := $(addprefix disasm/, $(SRCS))
 SRCS += op.c
+NAME = corewar
+
+# Paths
+INC := -I includes -I libft/includes
+
+# Srcs, objs
+SRCS = main.c parse_args.c sort_players.c validate.c \
+	init.c free.c error.c stuff.c arena.c carriage_list.c \
+	create_carriage.c carriage.c exit.c game.c players.c \
+	printing.c exec_op.c
+SRCS := $(addprefix corewar/, $(SRCS))
+SRCS_OPS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c \
+live.c lld.c lldi.c or.c st.c sti.c sub.c xor.c zjmp.c \
+op_args.c
+SRCS_OPS := $(addprefix corewar/operations/, $(SRCS_OPS))
+SRCS += $(SRCS_OPS)
 SRCS := $(addprefix srcs/, $(SRCS))
 OBJS = $(SRCS:.c=.o)
 
@@ -32,6 +48,12 @@ LIB = libft.a
 # Compilatiom commands and flags
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror $(INC) -g
+LIBDIR := libft
+LIB := libft.a
+
+# Compilatiom commands and flags
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror $(INC) -g
 
 .PHONY: all clean fclean debug
 

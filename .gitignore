@@ -1,8 +1,10 @@
 .vscode/
 objs/
-*.o
+vm_champs/
+**/*.o
+**/*.a
+**/.DS_Store
 *._*
 disasm
 *.swp
-.DS_Store
-disasm.dSYM/
+asm
