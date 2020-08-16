@@ -3,30 +3,43 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aromny-w <aromny-w@student.21-school.ru>   +#+  +:+       +#+         #
+#    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 22:19:12 by aromny-w          #+#    #+#              #
-#    Updated: 2020/03/27 23:35:32 by aromny-w         ###   ########.fr        #
+#    Updated: 2020/07/14 21:24:59 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = asm
+# Project executable
+NAME = corewar
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INC)
+# Paths
+INC := -I includes -I libft/includes
 
-SRCS = asm.c init.c read.c lexer.c parser.c content.c type.c check.c strip.c \
-	   line.c label.c write.c print.c destroy.c terminate.c error.c
-SRCS := $(addprefix asm/, $(SRCS))
+# Srcs, objs
+SRCS = main.c parse_args.c sort_players.c validate.c \
+	init.c free.c error.c stuff.c arena.c carriage_list.c \
+	create_carriage.c carriage.c exit.c game.c players.c \
+	printing.c exec_op.c
+SRCS := $(addprefix corewar/, $(SRCS))
 SRCS += op.c
+SRCS_OPS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c \
+live.c lld.c lldi.c or.c st.c sti.c sub.c xor.c zjmp.c \
+op_args.c
+SRCS_OPS := $(addprefix corewar/operations/, $(SRCS_OPS))
+SRCS += $(SRCS_OPS)
 SRCS := $(addprefix srcs/, $(SRCS))
-
 OBJS = $(SRCS:.c=.o)
 
-LIB = libft.a
-LIBDIR = libft
+# Libft
+LIBDIR := libft
+LIB := libft.a
 
-INC = -I includes -I $(LIBDIR)/includes
+# Compilatiom commands and flags
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror $(INC) -g
+
+.PHONY: all clean fclean debug
 
 all: $(NAME)
 
@@ -37,7 +50,10 @@ $(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
 
 $(LIB):
-	@make -C $(LIBDIR)
+	@make -C libft
+
+debug:
+	$(CC) $(CFLAGS) $(SRCS) $(INC) $(LIBDIR)/$(LIB) -o $(NAME)
 
 clean:
 	@make clean -C libft
