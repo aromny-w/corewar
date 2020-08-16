@@ -120,5 +120,6 @@ void			ft_lstrev(t_list **alst);
 size_t			ft_lstsize(t_list *lst);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void			ft_arrdel(char ***arr);
 
 #endif
