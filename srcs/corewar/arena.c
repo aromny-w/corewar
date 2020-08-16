@@ -18,7 +18,7 @@ void	*arena_init(void)
 
 	mem = ft_memalloc(MEM_SIZE);
 	if (!mem)
-		error("Memory error, the virtual machine is stopping now.");
+		error("Memory error, the virtual machine is stopping now.", NULL);
 	return (mem);
 }
 

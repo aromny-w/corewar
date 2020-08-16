@@ -21,7 +21,7 @@ int			main(int ac, char **av)
 		print_usage(av[0]);
 	params = init_game_params();
 	get_args(ac, av, params);
-	validate_players(av, params);
+	validate_players(params);
 	params->arena = arena_init();
 	carriages = place_players(params->players, params->arena);
 	params->carriages_list = carriages;

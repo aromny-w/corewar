@@ -18,7 +18,7 @@ t_carriage	*create_carriage(int start_position, int player_id, int id)
 
 	elem = (t_carriage*)ft_memalloc(sizeof(t_carriage));
 	if (!elem)
-		error("Memory error, the virtual machine is stopping now.");
+		error("Memory error, the virtual machine is stopping now.", NULL);
 	elem->cur_position = start_position;
 	elem->registries[0] = player_id * -1;
 	elem->id = id;

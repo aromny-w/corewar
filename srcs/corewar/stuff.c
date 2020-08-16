@@ -22,7 +22,7 @@ int32_t	bin_to_num(uint8_t *val, size_t len)
 	i = 0;
 	res = 0;
 	if (!(tmp = (uint8_t *)ft_memalloc(sizeof(uint8_t) * len)))
-		error("Malloc failure.");
+		error("Malloc failure.", NULL);
 	tmp = ft_memcpy(tmp, val, len);
 	sign = tmp[0] & 0x80 ? 1 : 0;
 	while (i < len)
@@ -47,4 +47,14 @@ void	print_usage(char *name)
 	"dump the memory on the standard output and quit the game\n");
 	ft_printf("    -n number        : Sets the number of the next player\n");
 	exit(1);
+}
+
+int		rows_count(char **arr)
+{
+	int		i;
+
+	i = 0;
+	while (arr && *(arr + i))
+		i++;
+	return (i);
 }

@@ -31,7 +31,7 @@ void	insert_existing_carriage(t_car_list_elem **head, t_carriage *elem)
 		return ;
 	new_elem = (t_car_list_elem*)ft_memalloc(sizeof(t_car_list_elem));
 	if (!new_elem)
-		error("Memory error, the virtual machine is stopping now.");
+		error("Memory error, the virtual machine is stopping now.", NULL);
 	if (*head)
 		new_elem->next = *head;
 	new_elem->content = elem;

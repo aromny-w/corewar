@@ -18,7 +18,7 @@ void	check_carriages(t_car_list_elem **carriages, t_game_params *params)
 	t_car_list_elem	*next_elem;
 
 	if (!carriages)
-		error("Memory error, the virtual machine is stopping now.");
+		error("Memory error, the virtual machine is stopping now.", NULL);
 	elem = *carriages;
 	while (elem)
 	{
