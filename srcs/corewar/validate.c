@@ -53,8 +53,6 @@ static char		*parse_string(int fd, size_t len, t_game_params *p, int i)
 		error("Read failure.", p->players[i]->filename);
 	if (size < (ssize_t)len)
 		error("Invalid file.", p->players[i]->filename);
-	if (!ft_strlen(buff))
-		error("Champion has no comment or/and name.", p->players[i]->filename);
 	return (buff);
 }
 
