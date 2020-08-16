@@ -5,6 +5,4 @@ vm_champs/
 **/*.a
 **/.DS_Store
 *._*
-disasm
 *.swp
-asm
