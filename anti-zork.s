@@ -7,7 +7,7 @@ init:	sti r1, %:live, %1
 reset:	ld %0, r5
 
 live:	live %1
-		ldi %:start, r5, r3
+		ldi %:reset, r5, r3
 		add r3, r6, r6
 		zjmp %312
 		add r5, r4, r5
