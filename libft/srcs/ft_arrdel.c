@@ -16,9 +16,9 @@ void	ft_arrdel(char ***arr)
 {
 	size_t	i;
 
-	i = 0;
 	if (!arr || !*arr)
 		return ;
+	i = 0;
 	while (*(*arr + i))
 	{
 		free(*(*arr + i));

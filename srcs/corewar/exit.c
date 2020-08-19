@@ -27,6 +27,8 @@ void	dump_mem_and_exit(t_game_params *params, t_car_list_elem *carriages)
 
 void	game_over(t_game_params *params, t_car_list_elem *carriages)
 {
+	if (params->v_flag_on)
+		return ;
 	announce_winner(params);
 	delete_all(params, carriages);
 	exit(0);

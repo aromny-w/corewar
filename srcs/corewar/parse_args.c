@@ -98,10 +98,8 @@ void		get_args(int ac, char **av, t_game_params *params)
 			put_n_player(ac, av, &i, &players);
 		else if (ft_strequ(av[i], "-s"))
 			params->s_flag_on = 1;
-		else if (ft_strequ(av[i], "-l"))
-			params->l_flag_on = 1;
-		else if (ft_strequ(av[i], "-C"))
-			params->c_flag_on = 1;
+		else if (ft_strequ(av[i], "-v"))
+			params->v_flag_on = 1;
 		else if (ft_strstr(av[i], ".cor"))
 			put_player(av, &i, &players);
 		else

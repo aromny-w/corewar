@@ -16,11 +16,32 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <mlx.h>
 # include "libft.h"
 # include "op.h"
 
 # define RESET_COLOR "\e[m"
 # define RED "\033[4;31m"
+
+# define GREEN_COLOR 0x008000
+# define BLUE_COLOR 0x0000ff
+# define RED_COLOR 0xff0000
+# define AQUA_COLOR 0x00ffff
+# define LIGHT_GREY_COLOR 0xd3d3d3
+
+typedef struct				s_mlx
+{
+	int		width;
+	int		height;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img_ptr;
+	int		*data;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+	int		color[MEM_SIZE];
+}							t_mlx;
 
 typedef struct				s_player
 {
@@ -36,6 +57,7 @@ typedef struct				s_player
 typedef struct				s_carriage
 {
 	int						id;
+	int						owner;
 	char					carry;
 	int						code_op;
 	ssize_t					last_live;
@@ -63,12 +85,12 @@ typedef struct				s_game_params
 	ssize_t					dump_idx;
 	int						dump_flag_on;
 	int						s_flag_on;
-	int						l_flag_on;
-	int						c_flag_on;
+	int						v_flag_on;
 	int						players_num;
 	t_player				**players;
 	int						carriages_num;
 	t_car_list_elem			*carriages_list;
+	t_mlx					*visu;
 }							t_game_params;
 
 extern void (*g_execs[])(t_carriage*, t_game_params*, int);
@@ -117,16 +139,21 @@ void						game_over(t_game_params *params,
 
 t_game_params				*init_game_params(void);
 t_player					*init_player(char *filename, int num);
+t_mlx						*init_visu(t_game_params *params);
 void						init_ops(void);
 void						get_args(int ac, char **av, t_game_params *params);
 void						sort_players(t_game_params *prms,
 											t_player **lst, char **av);
 void						validate_players(t_game_params *prms);
 void						play_game(t_game_params *params);
+void						play_cycle(t_game_params *params);
 void						exec_op(t_carriage *carriage,
 									t_game_params *params);
 int							fill_reg_arg(int *arg, char *arena,
 									t_carriage *carriage);
+void						visualise(t_game_params *params);
+int							get_color(int id);
+void						draw_arena(t_game_params *params);
 
 int							get_argument(char *arena, t_carriage *carriage,
 										int arg_type, int l_op);

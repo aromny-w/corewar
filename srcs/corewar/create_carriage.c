@@ -22,6 +22,7 @@ t_carriage	*create_carriage(int start_position, int player_id, int id)
 	elem->cur_position = start_position;
 	elem->registries[0] = player_id * -1;
 	elem->id = id;
+	elem->owner = player_id;
 	return (elem);
 }
 

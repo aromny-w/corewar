@@ -12,6 +12,48 @@
 
 #include "corewar.h"
 
+static void		set_color(int *color, t_game_params *params)
+{
+	size_t	num_players;
+	size_t	offset;
+	int		i;
+
+	ft_memset(color, 0x808080, sizeof(int) * MEM_SIZE);
+	num_players = 0;
+	while (params->players[num_players])
+		num_players++;
+	offset = MEM_SIZE / num_players;
+	if (num_players > 0 && !(i = 0))
+		while (i < params->players[0]->code_size)
+			color[i++] = get_color(params->players[0]->id);
+	if (num_players > 1 && !(i = 0))
+		while (i < params->players[1]->code_size)
+			color[offset + i++] = get_color(params->players[1]->id);
+	if (num_players > 2 && !(i = 0))
+		while (i < params->players[2]->code_size)
+			color[offset * 2 + i++] = get_color(params->players[2]->id);
+	if (num_players > 3 && !(i = 0))
+		while (i < params->players[3]->code_size)
+			color[offset * 3 + i++] = get_color(params->players[3]->id);
+}
+
+t_mlx			*init_visu(t_game_params *params)
+{
+	t_mlx	*visu;
+
+	if (!(visu = ft_memalloc(sizeof(t_mlx))))
+		error(NULL, NULL);
+	if (!(visu->mlx_ptr = mlx_init()))
+		error(NULL, NULL);
+	visu->width = 1600;
+	visu->height = 1280;
+	if (!(visu->win_ptr = mlx_new_window(visu->mlx_ptr, visu->width,
+	visu->height, "corewar")))
+		error(NULL, NULL);
+	set_color(visu->color, params);
+	return (visu);
+}
+
 t_player		*init_player(char *filename, int num)
 {
 	t_player	*player;

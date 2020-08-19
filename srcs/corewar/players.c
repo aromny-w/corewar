@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void			place_player_code(char *arena, int position, char *code,
+static void		place_player_code(char *arena, int position, char *code,
 															int size)
 {
 	ft_memmove(arena + position, code, size);

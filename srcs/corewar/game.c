@@ -67,8 +67,8 @@ void	play_game(t_game_params *params)
 {
 	while (true)
 	{
-		if (params->cycles_since_start == params->dump_idx
-									&& params->dump_flag_on)
+		if (params->dump_flag_on && params->cycles_since_start ==
+		params->dump_idx)
 			dump_mem_and_exit(params, params->carriages_list);
 		play_cycle(params);
 		params->cycles_since_start++;

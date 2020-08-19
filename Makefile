@@ -15,14 +15,15 @@ NAME2 = asm
 NAME3 = disasm
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INC)
+CFLAGS = -Wall -Wextra -Werror $(INC) -g
+FWS = -framework OpenGL -framework AppKit
 
 SRCS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c live.c lld.c lldi.c or.c \
 	   st.c sti.c sub.c xor.c zjmp.c op_args.c
 SRCS := $(addprefix operations/, $(SRCS))
 SRCS += main.c parse_args.c sort_players.c validate.c init.c free.c error.c \
 	   stuff.c arena.c carriage_list.c create_carriage.c carriage.c exit.c \
-	   game.c players.c printing.c exec_op.c
+	   game.c players.c printing.c exec_op.c visu/visu.c visu/draw.c
 SRCS := $(addprefix corewar/, $(SRCS))
 SRCS += op.c
 SRCS := $(addprefix srcs/, $(SRCS))
@@ -37,7 +38,6 @@ SRCS3 = main.c parser.c disasm.c write_asm.c init.c free.c error.c stuff.c
 SRCS3 := $(addprefix disasm/, $(SRCS3))
 SRCS3 += op.c
 SRCS3 := $(addprefix srcs/, $(SRCS3))
-
 
 OBJS = $(SRCS:.c=.o)
 OBJS2 = $(SRCS2:.c=.o)
@@ -54,7 +54,7 @@ all: $(LIB) $(NAME) $(NAME2) $(NAME3)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L $(LIBDIR) -lft -lmlx $(FWS)
 
 $(NAME2): $(LIB) $(OBJS2)
 	@$(CC) $(CFLAGS) $(OBJS2) -o $(NAME2) -L $(LIBDIR) -lft
@@ -66,13 +66,13 @@ $(LIB):
 	@make -C $(LIBDIR)
 
 clean:
-	@make clean -C libft
+	@make clean -C $(LIBDIR)
 	@/bin/rm -f $(OBJS)
 	@/bin/rm -f $(OBJS2)
 	@/bin/rm -f $(OBJS3)
 
 fclean: clean
-	@make fclean -C libft
+	@make fclean -C $(LIBDIR)
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f $(NAME2)
 	@/bin/rm -f $(NAME3)

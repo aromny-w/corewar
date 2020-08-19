@@ -25,6 +25,8 @@ int			main(int ac, char **av)
 	params->arena = arena_init();
 	carriages = place_players(params->players, params->arena);
 	params->carriages_list = carriages;
+	if (params->v_flag_on)
+		visualise(params);
 	announce_players(params->players);
 	play_game(params);
 	delete_carriage_list(carriages);

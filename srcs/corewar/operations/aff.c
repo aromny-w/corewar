@@ -20,6 +20,6 @@ void	op_aff(t_carriage *carriage, t_game_params *params, int arg_code)
 	if (!(c > 0 && c <= REG_NUMBER))
 		return ;
 	c = get_registry(carriage, c);
-	if (!params->s_flag_on)
+	if (!params->s_flag_on && !params->v_flag_on)
 		ft_putchar(c);
 }

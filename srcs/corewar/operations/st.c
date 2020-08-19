@@ -12,7 +12,16 @@
 
 #include "corewar.h"
 
-void	op_st(t_carriage *carriage, t_game_params *params, int arg_code)
+static void	write_color(int *color, int position, int size_bytes, int owner)
+{
+	int	i;
+
+	i = -1;
+	while (++i < size_bytes)
+		color[get_new_coord(position + i)] = get_color(owner);
+}
+
+void		op_st(t_carriage *carriage, t_game_params *params, int arg_code)
 {
 	int		args[2];
 	int		arg2_type;
@@ -30,5 +39,8 @@ void	op_st(t_carriage *carriage, t_game_params *params, int arg_code)
 	{
 		write_number(params->arena, carriage->cur_position + args[1], REG_SIZE,
 				args[0]);
+		if (params->v_flag_on)
+			write_color(params->visu->color, carriage->cur_position + args[1],
+			REG_SIZE, carriage->owner);
 	}
 }
