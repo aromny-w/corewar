@@ -78,22 +78,7 @@ static void	draw_bytecode(t_game_params *params)
 
 void		draw_arena(t_game_params *params)
 {
-	char	*winner;
-	int		offset;
-
 	mlx_clear_window(params->visu->mlx_ptr, params->visu->win_ptr);
-	if (params->carriages_list && params->cycles_to_die > 0)
-	{
-		draw_carriages(params);
-		draw_bytecode(params);
-	}
-	else
-	{
-		winner = params->players[params->last_alive - 1]->name;
-		offset = (ft_strlen(winner) * 10) / 2;
-		mlx_string_put(params->visu->mlx_ptr, params->visu->win_ptr, 960 -
-		offset, 640, get_color(params->last_alive), winner);
-		mlx_string_put(params->visu->mlx_ptr, params->visu->win_ptr,
-		960 + offset, 640, get_color(params->last_alive), " has won!");
-	}
+	draw_carriages(params);
+	draw_bytecode(params);
 }

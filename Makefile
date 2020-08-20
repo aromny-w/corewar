@@ -15,7 +15,7 @@ NAME2 = asm
 NAME3 = disasm
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror $(INC) -g
+CFLAGS = -Wall -Wextra -Werror $(INC)
 FWS = -framework OpenGL -framework AppKit
 
 SRCS = add.c aff.c and.c fork.c ld.c ldi.c lfork.c live.c lld.c lldi.c or.c \

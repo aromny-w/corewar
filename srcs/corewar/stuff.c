@@ -39,17 +39,14 @@ int32_t	bin_to_num(uint8_t *val, size_t len)
 
 void	print_usage(char *name)
 {
-	ft_printf("Usage: %s [-s] [[-l] [-C] -dump nbr_cycles] "
+	ft_printf("Usage: %s [-s] [-v] [[-dump nbr_cycles] "
 	"[[-n number] champion1.cor] ...\n", name);
 	ft_printf("    -s               : Silence output from \"live\" and \"aff\""
 	"\n");
 	ft_printf("    -dump nbr_cycles : At the end of nbr_cycles of executions, "
 	"dump the memory on the standard output and quit the game\n");
-	ft_printf("    -l               : Dump option, shows corresponding lines"
-	"\n");
-	ft_printf("    -C               : Dump option, shows ASCII characters"
-	"\n");
 	ft_printf("    -n number        : Sets the number of the next player\n");
+	ft_printf("    -v               : Starts visualizer\n");
 	exit(1);
 }
 

@@ -27,17 +27,16 @@ static uint8_t	*parse_code(int fd, size_t len, t_game_params *p, int i)
 {
 	ssize_t	size;
 	uint8_t	*buff;
-	int8_t	check;
 
 	if (!(buff = (uint8_t *)ft_memalloc(sizeof(int8_t) * len)))
 		error("Malloc failure.", p->players[i]->filename);
-	size = read(fd, buff, len);
+	size = read(fd, buff, len + 1);
 	if (size == 0)
 		error("champion has no code.", p->players[i]->filename);
 	if (size == -1)
 		error("Read failure.", p->players[i]->filename);
-	if (size < (ssize_t)len || (read(fd, &check, 1) == -1))
-		error("Invalid file.", p->players[i]->filename);
+	if (size != (ssize_t)len)
+		error("Header has invalid size.", p->players[i]->filename);
 	return (buff);
 }
 

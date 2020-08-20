@@ -23,10 +23,26 @@ static int	destroy(t_game_params *params)
 
 static int	visu_hook(t_game_params *params)
 {
-	draw_arena(params);
-	play_cycle(params);
-	params->cycles_since_start++;
-	params->cycles_since_last_check++;
+	char	*winner;
+	int		offset;
+
+	if (params->carriages_list && params->cycles_to_die > 0)
+	{
+		draw_arena(params);
+		play_cycle(params);
+		params->cycles_since_start++;
+		params->cycles_since_last_check++;
+	}
+	else
+	{
+		mlx_clear_window(params->visu->mlx_ptr, params->visu->win_ptr);
+		winner = params->players[params->last_alive - 1]->name;
+		offset = (ft_strlen(winner) * 10) / 2;
+		mlx_string_put(params->visu->mlx_ptr, params->visu->win_ptr, 800 -
+		offset, 640, get_color(params->last_alive), winner);
+		mlx_string_put(params->visu->mlx_ptr, params->visu->win_ptr,
+		800 + offset, 640, get_color(params->last_alive), " has won!");
+	}
 	return (0);
 }
 
